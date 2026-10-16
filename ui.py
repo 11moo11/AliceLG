@@ -1953,10 +1953,14 @@ def draw_lightfield_window_options(layout, context):
 			# Lightfield rendering mode & refresh button
 			row_preset = body.row()
 			row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
-			row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
 
-			# Patient mode: only update once the user's operator has finished
-			body.prop(context.window_manager.addon_settings, "patient_mode", toggle=True, icon='TIME')
+			# Automatic refresh: "Patient Mode" button (only update once the user's operator has finished)
+			if int(context.window_manager.addon_settings.lightfieldMode) == 0:
+				row_preset.prop(context.window_manager.addon_settings, "patient_mode", text="", toggle=True, icon='TIME')
+
+			# Manual refresh: refresh button
+			else:
+				row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
 
 			# Preview settings
 			row_output = body.row(align = True)
