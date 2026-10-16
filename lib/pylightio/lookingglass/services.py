@@ -54,6 +54,8 @@ class LookingGlassBridge(BaseServiceType):
     # DEFINE CLASS PROPERTIES AS PRIVATE MEMBERS
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     __socket = None                                             # NNG socket
+    wait_for_show_reply = False                                 # wait for the reply of Looking Glass Bridge after each "show" command (flow control)
+    __show_replies_missing = 0                                  # number of "show" commands in a row, for which no reply arrived in time
     __address = 'ipc:///tmp/holoplay-driver.ipc'                # driver url (alternative: "ws://localhost:11222/driver", "ipc:///tmp/holoplay-driver.ipc")
     __dialer = None                                             # NNG Dialer of the socket
     __devices = []                                              # list of devices supported by this service (#TODO: this needs to be implemented)
@@ -368,7 +370,27 @@ class LookingGlassBridge(BaseServiceType):
             if not ('show' in input_object['cmd'].keys()):
                 response = self.__socket.recv()
             else:
-                return#response = self.__socket.recv()
+
+                # Flow control: Wait until Looking Glass Bridge has taken the quilt, before the
+                # next one is sent. Otherwise, Bridge can accumulate large amounts of image data.
+                # NOTE: If Bridge does not answer "show" commands in time (3x in a row), we stop waiting.
+                if self.wait_for_show_reply and self.__show_replies_missing < 3:
+                    try:
+                        timeout = self.__socket.recv_timeout
+                        self.__socket.recv_timeout = 750
+                        try:
+                            self.__socket.recv()
+                            self.__show_replies_missing = 0
+                            logger.debug(" [#] Waiting for Bridge to process the quilt took %.3f ms." % ((time.time() - start) * 1000))
+                        except Exception:
+                            self.__show_replies_missing += 1
+                            logger.debug(" [#] No reply from Bridge for the 'show' command (%i in a row)." % self.__show_replies_missing)
+                        finally:
+                            self.__socket.recv_timeout = timeout
+                    except Exception:
+                        pass
+
+                return
 
             logger.debug(" [#] Waiting for response took %.3f ms." % ((time.time() - start) * 1000))
 

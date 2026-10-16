@@ -195,6 +195,13 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									update=LookingGlassAddon.update_logger_levels,
 									)
 
+	# flow control for Looking Glass Bridge
+	bridge_wait_for_reply: bpy.props.BoolProperty(
+									default=False,
+									name="Wait for Looking Glass Bridge between updates",
+									description="Wait until Looking Glass Bridge has processed each light field before sending the next one. This can limit the memory that Bridge uses, but may slow down updates",
+									)
+
 	# automatic update check
 	check_updates_on_startup: bpy.props.BoolProperty(
 									default=True,
@@ -214,6 +221,7 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		from .updater import draw_update_ui
 		layout.prop(self, "check_updates_on_startup")
 		draw_update_ui(layout)
+		layout.prop(self, "bridge_wait_for_reply")
 
 		# # render mode
 		# row_render_mode = layout.row()
