@@ -28,7 +28,7 @@ from .globals import *
 
 # ------------------- EXTERNAL MODULES -------------------
 import bpy
-import json, threading, urllib.request, urllib.parse, io, zipfile
+import json, threading, urllib.request, urllib.parse, io, zipfile, hashlib
 
 # ---------------- GLOBAL ADDON LOGGER -------------------
 import logging
@@ -43,6 +43,10 @@ TIMEOUT = 10
 
 # paths that are never touched by an update (large / user-specific data)
 PROTECTED_PREFIXES = ("lib/", "logs/", "tmp/", "__pycache__/", ".git")
+
+# NOTE: The only exception in "lib/" are the python source files of pyLightIO (which contain
+#		the communication with Looking Glass Bridge). All other files in "lib/" are large binaries.
+UPDATED_LIB_PREFIX = "lib/pylightio/"
 
 STATE_FILE = os.path.join(LookingGlassAddon.path, ".installed_commit")
 
@@ -124,10 +128,38 @@ class LookingGlassAddonUpdater:
 	@staticmethod
 	def _safe_target(rel):
 		"""Return the absolute target path or None if it is protected / outside the add-on."""
-		if rel.startswith(PROTECTED_PREFIXES): return None
+		is_pylightio_source = rel.startswith(UPDATED_LIB_PREFIX) and rel.endswith(".py")
+		if rel.startswith(PROTECTED_PREFIXES) and not is_pylightio_source: return None
 		target = os.path.normpath(os.path.join(LookingGlassAddon.path, rel))
 		if os.path.commonpath([target, LookingGlassAddon.path]) != os.path.normpath(LookingGlassAddon.path): return None
 		return target
+
+	@classmethod
+	def _sync_pylightio(cls):
+		"""Download all pyLightIO source files that differ from the latest commit (compares git blob hashes)."""
+		count = 0
+		tree = cls._get("%s/git/trees/%s?recursive=1" % (API_URL, cls.latest_sha))
+		for item in tree.get("tree", []):
+			path = item["path"]
+			if item["type"] != "blob": continue
+			target = cls._safe_target(path)
+			if not target or not (path.startswith(UPDATED_LIB_PREFIX) and path.endswith(".py")): continue
+
+			# git blob hash of the local file
+			try:
+				with open(target, "rb") as f: local = f.read()
+				local_sha = hashlib.sha1(b"blob %d\0" % len(local) + local).hexdigest()
+			except OSError:
+				local_sha = None
+
+			if local_sha != item["sha"]:
+				data = cls._get("%s/%s/%s" % (RAW_URL, cls.latest_sha, urllib.parse.quote(path)), binary = True)
+				os.makedirs(os.path.dirname(target), exist_ok = True)
+				with open(target, "wb") as f: f.write(data)
+				count += 1
+				LookingGlassAddonLogger.info("Updated pyLightIO source file: %s" % path)
+
+		return count
 
 	@classmethod
 	def _update_worker(cls):
@@ -172,6 +204,10 @@ class LookingGlassAddonUpdater:
 						os.makedirs(os.path.dirname(target), exist_ok = True)
 						with open(target, "wb") as f: f.write(z.read(name))
 						count += 1
+
+			# make sure that the pyLightIO sources are up to date (previous updates did not touch them)
+			try: count += cls._sync_pylightio()
+			except Exception as e: LookingGlassAddonLogger.warning("Could not check the pyLightIO sources: %s" % e)
 
 			with open(STATE_FILE, "w") as f: f.write(cls.latest_sha)
 			cls.update_available = False
