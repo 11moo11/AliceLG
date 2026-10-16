@@ -451,7 +451,6 @@ def register():
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_camera)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_render)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_advanced)
-		bpy.utils.register_class(LOOKINGGLASS_PT_panel_lightfield)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_overlays_shading)
         # addon header buttons: 3D viewport
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_blocks_viewport_options)
@@ -618,7 +617,6 @@ def unregister():
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_advanced"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_advanced)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_camera"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_camera)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_render"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_render)
-		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_lightfield"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_lightfield)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_overlays_shading"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_overlays_shading)
         # preferences
 		from . import updater
