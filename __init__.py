@@ -448,10 +448,12 @@ def register():
 		bpy.app.timers.register(updater.auto_check, first_interval = 3.0)
 		# addon panels
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_general)
+		# NOTE: Sub-panels are drawn in registration order. The shading panel belongs
+		#		directly below the light field window options, i.e. above the camera panel.
+		bpy.utils.register_class(LOOKINGGLASS_PT_panel_overlays_shading)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_camera)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_render)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_advanced)
-		bpy.utils.register_class(LOOKINGGLASS_PT_panel_overlays_shading)
         # addon header buttons: 3D viewport
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_blocks_viewport_options)
 		bpy.utils.register_class(LOOKINGGLASS_HT_button_viewport_blocks)
