@@ -1627,7 +1627,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 	bl_space_type = "VIEW_3D"
 	bl_region_type = "UI"
 	bl_category = "Looking Glass"
-	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
 
 
 	# define own poll method to be able to hide / show the panel on demand
