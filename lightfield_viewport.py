@@ -1699,7 +1699,10 @@ class Block:
 					self.shader.uniform_float("modelMatrix", self.view_matrix)
 					self.shader.uniform_float("viewProjectionMatrix", self.projection_matrix)
 				else:
-					self.shader.uniform_float("modelViewProjectionMatrix", self.projection_matrix @ self.view_matrix)
+					# NOTE: projection_matrix is a flat list in column-major order
+					# (as passed to the shader before), so convert it to a Matrix first
+					projection = Matrix([self.projection_matrix[i:i + 4] for i in range(0, 16, 4)]).transposed()
+					self.shader.uniform_float("modelViewProjectionMatrix", projection @ self.view_matrix)
 				#self.shader.uniform_float("aspect", self.aspect)
 				self.shader.uniform_vector_float(self.shader.uniform_from_name("dimensions"), pack("2f", self.width, self.height), 2)
 				#self.shader.uniform_float("border_width", self.border_width)
