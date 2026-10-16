@@ -448,7 +448,6 @@ def register():
 		from . import updater
 		bpy.utils.register_class(updater.LOOKINGGLASS_OT_check_update)
 		bpy.utils.register_class(updater.LOOKINGGLASS_OT_install_update)
-		bpy.utils.register_class(updater.LOOKINGGLASS_OT_restart_blender)
 		bpy.app.timers.register(updater.auto_check, first_interval = 3.0)
 		# addon panels
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_general)
@@ -623,7 +622,6 @@ def unregister():
 		if bpy.app.timers.is_registered(updater.auto_check): bpy.app.timers.unregister(updater.auto_check)
 		bpy.utils.unregister_class(updater.LOOKINGGLASS_OT_check_update)
 		bpy.utils.unregister_class(updater.LOOKINGGLASS_OT_install_update)
-		bpy.utils.unregister_class(updater.LOOKINGGLASS_OT_restart_blender)
 		bpy.utils.unregister_class(LOOKINGGLASS_PT_preferences)
 		# delete all variables
 		if hasattr(bpy.types.Scene, "addon_settings"): del bpy.types.Scene.addon_settings

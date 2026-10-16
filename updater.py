@@ -28,7 +28,7 @@ from .globals import *
 
 # ------------------- EXTERNAL MODULES -------------------
 import bpy
-import json, threading, urllib.request, urllib.parse, io, zipfile, hashlib, sys, subprocess
+import json, threading, urllib.request, urllib.parse, io, zipfile, hashlib
 
 # ---------------- GLOBAL ADDON LOGGER -------------------
 import logging
@@ -258,65 +258,6 @@ class LOOKINGGLASS_OT_install_update(bpy.types.Operator):
 		return {'FINISHED'}
 
 
-# code of a small helper process: waits until Blender has quit and starts it again
-RESTART_HELPER = '''
-import sys, os, time, subprocess
-pid = int(sys.argv[1]); cmd = sys.argv[2:]
-
-def alive():
-	if os.name == 'nt':
-		import ctypes
-		handle = ctypes.windll.kernel32.OpenProcess(0x1000, False, pid)
-		if not handle: return False
-		code = ctypes.c_ulong()
-		ctypes.windll.kernel32.GetExitCodeProcess(handle, ctypes.byref(code))
-		ctypes.windll.kernel32.CloseHandle(handle)
-		return code.value == 259
-	try: os.kill(pid, 0)
-	except OSError: return False
-	return True
-
-for _ in range(240):
-	if not alive(): break
-	time.sleep(0.5)
-time.sleep(1.0)
-subprocess.Popen(cmd)
-'''
-
-
-class LOOKINGGLASS_OT_restart_blender(bpy.types.Operator):
-	bl_idname = "lookingglass.restart_blender"
-	bl_label = "Restart Blender"
-	bl_description = "Close Blender and start it again (with the current file), to activate the installed update"
-	bl_options = {'REGISTER', 'INTERNAL'}
-
-	def invoke(self, context, event):
-
-		# warn about unsaved changes
-		if bpy.data.is_dirty:
-			try:
-				return context.window_manager.invoke_confirm(self, event, title = "Restart Blender", message = "There are unsaved changes. They will be lost if Blender is restarted now.", confirm_text = "Restart")
-			except Exception:
-				return context.window_manager.invoke_props_dialog(self)
-
-		return self.execute(context)
-
-	def execute(self, context):
-
-		# start Blender again as soon as this instance has quit
-		command = [bpy.app.binary_path] + ([bpy.data.filepath] if bpy.data.filepath else [])
-		try:
-			flags = (subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP) if sys.platform == 'win32' else 0
-			subprocess.Popen([sys.executable, "-c", RESTART_HELPER, str(os.getpid())] + command, creationflags = flags, close_fds = True)
-		except Exception as e:
-			self.report({'ERROR'}, "Could not restart Blender: %s" % e)
-			return {'CANCELLED'}
-
-		# quit this instance
-		bpy.ops.wm.quit_blender()
-		return {'FINISHED'}
-
-
 def draw_update_ui(layout):
 	"""Draws the update section; used by the add-on preferences."""
 	u = LookingGlassAddonUpdater
@@ -326,11 +267,11 @@ def draw_update_ui(layout):
 	row.enabled = not (u.checking or u.updating)
 	row.operator("lookingglass.check_update", icon = 'FILE_REFRESH')
 
-	# after a successful update: offer to restart Blender (the green square icon marks the button)
+	# after a successful update: tell the user (in red) that Blender must be restarted
 	if u.restart_needed:
 		sub = row.row()
-		sub.enabled = not u.checking
-		sub.operator("lookingglass.restart_blender", icon = 'SEQUENCE_COLOR_04', depress = True)
+		sub.alert = True
+		sub.label(text = "Restart Blender", icon = 'ERROR')
 
 	else:
 		sub = row.row()
