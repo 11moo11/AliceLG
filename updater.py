@@ -106,6 +106,11 @@ class LookingGlassAddonUpdater:
 			cls.update_available = installed != cls.latest_sha
 			if cls.update_available:
 				cls.status = "Update available: %s (%s)" % (cls.latest_message, cls.latest_sha[:7])
+
+			# even if the commit is the same: are the pyLightIO sources (Bridge communication) outdated?
+			elif cls._outdated_pylightio_files():
+				cls.update_available = True
+				cls.status = "Update available: the Looking Glass Bridge communication files are outdated (%s)." % cls.latest_sha[:7]
 			else:
 				cls.status = "Alice/LG is up to date (%s)." % cls.latest_sha[:7]
 			LookingGlassAddonLogger.info("Update check: " + cls.status)
@@ -135,9 +140,9 @@ class LookingGlassAddonUpdater:
 		return target
 
 	@classmethod
-	def _sync_pylightio(cls):
-		"""Download all pyLightIO source files that differ from the latest commit (compares git blob hashes)."""
-		count = 0
+	def _outdated_pylightio_files(cls):
+		"""List the pyLightIO source files that differ from the latest commit (compares git blob hashes)."""
+		outdated = []
 		tree = cls._get("%s/git/trees/%s?recursive=1" % (API_URL, cls.latest_sha))
 		for item in tree.get("tree", []):
 			path = item["path"]
@@ -152,12 +157,20 @@ class LookingGlassAddonUpdater:
 			except OSError:
 				local_sha = None
 
-			if local_sha != item["sha"]:
-				data = cls._get("%s/%s/%s" % (RAW_URL, cls.latest_sha, urllib.parse.quote(path)), binary = True)
-				os.makedirs(os.path.dirname(target), exist_ok = True)
-				with open(target, "wb") as f: f.write(data)
-				count += 1
-				LookingGlassAddonLogger.info("Updated pyLightIO source file: %s" % path)
+			if local_sha != item["sha"]: outdated.append((path, target))
+
+		return outdated
+
+	@classmethod
+	def _sync_pylightio(cls):
+		"""Download all pyLightIO source files that differ from the latest commit."""
+		count = 0
+		for path, target in cls._outdated_pylightio_files():
+			data = cls._get("%s/%s/%s" % (RAW_URL, cls.latest_sha, urllib.parse.quote(path)), binary = True)
+			os.makedirs(os.path.dirname(target), exist_ok = True)
+			with open(target, "wb") as f: f.write(data)
+			count += 1
+			LookingGlassAddonLogger.info("Updated pyLightIO source file: %s" % path)
 
 		return count
 
