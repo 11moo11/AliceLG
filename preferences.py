@@ -195,6 +195,13 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									update=LookingGlassAddon.update_logger_levels,
 									)
 
+	# experimental: use the quilt cache of Looking Glass Bridge
+	bridge_cache_mode: bpy.props.BoolProperty(
+									default=False,
+									name="Experimental: update Looking Glass Bridge via its quilt cache",
+									description="Send light fields as one named, replaced quilt in the cache of Looking Glass Bridge instead of as new images. This may reduce the memory that Bridge uses. If Bridge does not accept it, the add-on falls back to the normal way",
+									)
+
 	# automatic update check
 	check_updates_on_startup: bpy.props.BoolProperty(
 									default=True,
@@ -214,6 +221,7 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		from .updater import draw_update_ui
 		layout.prop(self, "check_updates_on_startup")
 		draw_update_ui(layout)
+		layout.prop(self, "bridge_cache_mode")
 
 		# # render mode
 		# row_render_mode = layout.row()

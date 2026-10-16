@@ -54,6 +54,9 @@ class LookingGlassBridge(BaseServiceType):
     # DEFINE CLASS PROPERTIES AS PRIVATE MEMBERS
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     __socket = None                                             # NNG socket
+    use_cache_mode = False                                      # experimental: send quilts with CACHE (fixed name) + SHOW CACHED instead of SHOW
+    __cache_mode_failures = 0                                   # number of failed cache mode updates in a row
+    __cache_name = 'AliceLG_live'                               # the name of the cached quilt in cache mode
     __address = 'ipc:///tmp/holoplay-driver.ipc'                # driver url (alternative: "ws://localhost:11222/driver", "ipc:///tmp/holoplay-driver.ipc")
     __dialer = None                                             # NNG Dialer of the socket
     __devices = []                                              # list of devices supported by this service (#TODO: this needs to be implemented)
@@ -231,7 +234,31 @@ class LookingGlassBridge(BaseServiceType):
 
                     # pass the quilt to the device
                     logger.info(" [#] Lightfield image with shape %s is being sent to '%s'." % (bytes.shape, self))
-                    self.__send_message(self.__show_quilt(device.configuration['index'], bytes, settings), image_shape=(lightfield.metadata['quilt_height'],lightfield.metadata['quilt_width'], 3))
+                    image_shape = (lightfield.metadata['quilt_height'],lightfield.metadata['quilt_width'], 3)
+
+                    # EXPERIMENTAL cache mode: Replace one named quilt in the cache of Looking Glass Bridge
+                    # and show it from there. The cache is documented to be managed by name, so Bridge
+                    # may free the previous image, which is not documented for the plain SHOW command.
+                    # If Bridge does not accept this (3x in a row), we fall back to the plain SHOW command.
+                    if self.use_cache_mode and self.__cache_mode_failures < 3:
+                        try:
+                            response = self.__send_message(self.__cache_quilt(device.configuration['index'], bytes, self.__cache_name, settings), image_shape=image_shape)
+                            error = response[1].get('error', -1) if response else -1
+                            logger.debug(" [#] Bridge answered the CACHE command with error code %s." % error)
+
+                            if error == 0:
+                                self.__send_message(self.__load_quilt(device.configuration['index'], self.__cache_name, settings))
+                                self.__cache_mode_failures = 0
+                                logger.info(" [#] Done in cache mode (total time: %.3f ms)." % ((time.time() - start_total) * 1000))
+                                return True
+
+                        except Exception as e:
+                            logger.debug(" [#] Cache mode failed: %s" % e)
+
+                        self.__cache_mode_failures += 1
+                        logger.warning(" [#] Looking Glass Bridge did not accept the cache mode update (%i/3). Falling back to the plain SHOW command." % self.__cache_mode_failures)
+
+                    self.__send_message(self.__show_quilt(device.configuration['index'], bytes, settings), image_shape=image_shape)
                     logger.info(" [#] Done (total time: %.3f ms)." % ((time.time() - start_total) * 1000))
 
                     return True
