@@ -26,6 +26,7 @@ from .globals import *
 
 # ------------------- EXTERNAL MODULES -------------------
 import sys, platform
+import gc
 import bpy
 import gpu
 import time, timeit
@@ -587,6 +588,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 					self.depsgraph_update_time = time.time()
 
 				LookingGlassAddonLogger.debug("UPDATE TOTAL: render_view took %.3f ms" % ((time.time() - render_start) * 1000))
+				if LookingGlassAddonLogger.isEnabledFor(logging.DEBUG): LookingGlassAddonLogger.debug("MEMORY: Blender process uses %.0f MB (python objects: %i)" % (LookingGlassAddon.process_memory_mb(), len(gc.get_objects())))
 
 				# Lightfield Viewport
 				if int(self.addon_settings_window_manager.renderMode) == 0 and self.lightfield_image:
@@ -937,8 +939,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				# free the view data of the lightfield image
 				if self.lightfield_image: self.lightfield_image.clear_views()
 
-				# delete the current LightfieldImage
-				if self.lightfield_image: self.lightfield_image = None
+				# delete the current LightfieldImage and release its memory immediately
+				if self.lightfield_image:
+					self.lightfield_image = None
+					gc.collect()
 
 				# TODO: Actually we would use "RGB" and a numpy array with 3
 				#		color channels, because that would be more efficient.
