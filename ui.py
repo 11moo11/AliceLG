@@ -1134,7 +1134,7 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 	# PANEL: OVERLAY & SHADER SETTINGS
 	viewportMode: bpy.props.EnumProperty(
 										items = [
-													('BLENDER', 'Blender ', 'Use the settings of a Blender viewport', 'BLENDER', 0),
+													('BLENDER', 'Viewport', 'Use the settings of a Blender viewport', 'BLENDER', 0),
 													('CUSTOM', 'Custom', 'Specify the settings for the Looking Glass viewport manually', 'OVERLAY', 1)
 												],
 										default='BLENDER',
