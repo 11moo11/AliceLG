@@ -916,11 +916,10 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 
 	# Lightfield Preview Resolution in Auto lightfield mode
 	lightfield_preview_mode: bpy.props.EnumProperty(
-										items = [('0', 'No Preview', 'Light field window updates are performed after (not during) user interactions.'),
-												 ('1', 'Low-resolution Preview', '1024x1024 quilt, 32 views'),
-												 ('2', 'Skipped-views Preview I', 'Skip every second view'),
-												 ('3', 'Skipped-views Preview II', 'Skip every third view'),
-												 ('4', 'Restricted Viewcone Preview', 'Render only a restricted view cone'),
+										items = [('1', 'Preview Quality: Lowest', 'Low-resolution preview during interactions (1024x1024 quilt, 32 views)'),
+												 ('3', 'Preview Quality: Low', 'Skip two out of three views during interactions'),
+												 ('2', 'Preview Quality: Medium', 'Skip every second view during interactions'),
+												 ('0', 'Preview Quality: Best', 'No reduced preview: the light field is updated at full quality after (not during) user interactions'),
 												 ],
 										default='3',
 										name="Light Field Preview Mode",
@@ -1433,7 +1432,7 @@ class LOOKINGGLASS_OT_refresh_display_list(bpy.types.Operator):
 # an operator that controls lightfield window opening and closing
 class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 	bl_idname = "lookingglass.lightfield_window"
-	bl_label = "Light Field Window"
+	bl_label = "Cast to Looking Glass"
 	bl_description = "Creates a window for the light field rendering on the current Looking Glass device"
 	bl_options = {'REGISTER', 'INTERNAL'}
 
@@ -1490,15 +1489,15 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 
 		column = layout.column()
 
+		# Cast button (large, full width)
+		row_window = column.row(align = True)
+		row_window.scale_y = 1.6
+		row_window.operator("lookingglass.lightfield_window", text="Cast to Looking Glass", icon='WINDOW', depress=context.window_manager.addon_settings.ShowLightfieldWindow)
+
 		# Device selection
 		row_device = column.row(align = True)
 		row_device.prop(context.window_manager.addon_settings, "activeDisplay", text="")
 		row_device.operator("lookingglass.refresh_display_list", text="", icon='FILE_REFRESH')
-
-		# Lightfield window button (large, full width)
-		row_window = column.row(align = True)
-		row_window.scale_y = 1.6
-		row_window.operator("lookingglass.lightfield_window", text="Light Field Window", icon='WINDOW', depress=context.window_manager.addon_settings.ShowLightfieldWindow)
 
 		# if no Looking Glass was detected AND debug mode is not activated
 		if (not pylio.DeviceManager.count() and not LookingGlassAddon.debugging_use_dummy_device):
@@ -1951,8 +1950,6 @@ def draw_lightfield_window_options(layout, context):
 		if body is not None:
 
 			# Lightfield rendering mode & refresh button
-			row_orientation = body.row()
-			row_orientation.label(text="Light Field Viewport Modes:")
 			row_preset = body.row()
 			row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
 			row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
