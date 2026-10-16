@@ -1447,15 +1447,17 @@ class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 		# if the bool property was set to True
 		if context.window_manager.addon_settings.ShowLightfieldWindow == True:
 
+			# assign the current viewport for the shading & overlay settings
+			# NOTE: This must happen before the forced redraw below, which can
+			#		change the context (no active 3D view afterwards).
+			bpy.ops.lookingglass.blender_viewport_assign('EXEC_DEFAULT')
+
 			# draw the new UI first: creating the lightfield window is slow and would
 			# otherwise block the panel from updating until it has finished
 			try:
 				for area in context.screen.areas: area.tag_redraw()
 				bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 			except Exception: pass
-
-			# assign the current viewport for the shading & overlay settings
-			bpy.ops.lookingglass.blender_viewport_assign('EXEC_DEFAULT')
 
 			# Invoke modal operator for the lightfield rendering
 			bpy.ops.render.viewport('INVOKE_DEFAULT')
@@ -1985,7 +1987,7 @@ class LOOKINGGLASS_OT_blender_viewport_assign(bpy.types.Operator):
 
 		# if the user activated the option to
 		# use the shading and overlay settings of the currently used Blender 3D viewport
-		if context.scene.addon_settings.viewportMode == 'BLENDER':
+		if context.scene.addon_settings.viewportMode == 'BLENDER' and context.space_data is not None and context.space_data.type == 'VIEW_3D':
 
 			# set the Workspace list to the current workspace
 			context.scene.addon_settings.blender_workspace = context.workspace.name
