@@ -127,6 +127,13 @@ class LookingGlassAddon:
 		# extract info
 		module_name, install_name, install_version, install_options = module
 
+		# Try importing the module to ensure it's compatible with the current python version
+		try:
+			__import__(module_name)
+		except ImportError as e:
+			if debug: LookingGlassAddonLogger.info(" [#] Could not import module '%s' (might be for different python version): %s" % (module_name, e))
+			return False
+
 		# try to find the module in the "lib" directory
 		module_spec = (importlib.machinery.PathFinder().find_spec(module_name, [cls.libpath]))
 		if module_spec:

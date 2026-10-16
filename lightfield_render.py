@@ -29,7 +29,7 @@ from .ui import LookingGlassAddonSettingsScene
 # ------------------- EXTERNAL MODULES -------------------
 import bpy
 import time
-import sys, os, platform, shutil, json
+import sys, os, platform, shutil, json, re
 import numpy as np
 from math import *
 from mathutils import *
@@ -515,6 +515,12 @@ class RenderJob:
 
 		# ASSEMBLE THE QUILT
 		# ++++++++++++++++++++++++++++++++++++++++++++
+		
+		# if only view files shall be rendered
+		if self.scene.addon_settings.render_output == '2':
+			LookingGlassAddonLogger.info("Skipping quilt assembly (Output: Only View Files).")
+			return None
+
 		# TODO: Would be good to implement the quilt assembly via pyLightIO
 		#
 		# then assemble the quilt from the views
@@ -1314,6 +1320,195 @@ class RenderSettings:
 		self.apply_to_scene(self.scene)
 
 
+
+# Operator to build a quilt from existing view files
+class LOOKINGGLASS_OT_build_quilt_from_files(bpy.types.Operator):
+	bl_idname = "lookingglass.build_quilt_from_files"
+	bl_label = "Build Quilt from Files"
+	bl_description = "Build a quilt from view images in the selected source directory"
+	bl_options = {'REGISTER', 'INTERNAL'}
+
+	def execute(self, context):
+
+		# get the source directory
+		source_path = bpy.path.abspath(context.scene.addon_settings.advanced_quilt_source_path)
+
+		if not os.path.exists(source_path):
+			self.report({'ERROR'}, "Source directory does not exist.")
+			return {'CANCELLED'}
+
+		# find all image files
+		files = []
+		for file in os.listdir(source_path):
+			if file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff')):
+				files.append(os.path.join(source_path, file))
+		
+		# sort files alphabetically
+		files.sort()
+
+		if not files:
+			self.report({'ERROR'}, "No image files found in the source directory.")
+			return {'CANCELLED'}
+
+		# get quilt settings from the currently selected preset
+		preset_index = int(context.scene.addon_settings.render_quilt_preset)
+		qs = pylio.LookingGlassQuilt.formats.get()
+		current_preset = qs[preset_index]
+
+		# Check if this is a "View Only" preset and map to the target full preset if so
+		# e.g. "Portrait (View Only), 16 Views (3x > 48)" -> Target 48
+		if "(View Only)" in current_preset['description']:
+			match = re.search(r'>\s*(\d+)', current_preset['description'])
+			if match:
+				target_views = int(match.group(1))
+				found_target = False
+				
+				# Search for the standard preset with this view count
+				# We prioritize total_views match. We do NOT enforce resolution match anymore,
+				# because some high-view-count presets (like 96 views) use different resolutions (384x512)
+				# than the standard Portrait ones (420x560).
+				# The builder logic already handles resizing input images to fit the slot, so this is safe.
+				for pid, pdata in qs.items():
+					if pdata['total_views'] == target_views and \
+					   "(View Only)" not in pdata['description']:
+						
+						LookingGlassAddonLogger.info(f"Mapped 'View Only' preset ({current_preset['total_views']} views) to Target preset ({pdata['total_views']} views).")
+						current_preset = pdata
+						found_target = True
+						break
+				
+				if not found_target:
+					LookingGlassAddonLogger.warning(f"Could not find a standard preset matching target views {target_views}. Using selected preset.")
+
+		columns = current_preset["columns"]
+		rows = current_preset["rows"]
+		total_views = current_preset["total_views"]
+		
+		# Use PRESET dimensions for the target quilt
+		# This ensures we always get the standard "perfect square" (if the preset is square)
+		quilt_width = current_preset['quilt_width']
+		quilt_height = current_preset['quilt_height']
+		
+		# Calculate view slot dimensions based on the quilt size
+		# We use integer division to ensure pixel-perfect grid alignment
+		# Any remainder pixels are effectively ignored/padding at the edge
+		target_view_width = int(quilt_width / columns)
+		target_view_height = int(quilt_height / rows)
+
+		# validate file count
+		# NOTE: If we mapped to a larger target, we expect the user to have provided more files (via interpolation)
+		# If they didn't, the padding logic below will handle it.
+		if len(files) < total_views:
+			self.report({'WARNING'}, f"Found {len(files)} images, but expected at least {total_views} for the target preset. Using padding for missing views.")
+
+		LookingGlassAddonLogger.info(f"Building quilt from {len(files)} files in {source_path}")
+		LookingGlassAddonLogger.info(f"Target Quilt: {quilt_width}x{quilt_height}")
+		LookingGlassAddonLogger.info(f"View Slot: {target_view_width}x{target_view_height} (Cols: {columns}, Rows: {rows})")
+
+		# Prepare the final quilt buffer directly with target dimensions
+		# (Height, Width, Channels)
+		full_quilt_buffer = np.zeros((quilt_height, quilt_width, 4), dtype=np.float32)
+
+		# iterate through rows and columns
+		for row in range(0, rows):
+			for column in range(0, columns):
+				
+				# calculate view index
+				view_index = row * columns + column
+				
+				# calculate pixel coordinates for this slot
+				# Note: Blender images bottom-to-top? 
+				# In assemble_quilt, row 0 was the first processed and put into vstack at index 0.
+				# vstack([A, B]) creates layout with A at top of array.
+				# Flattening A then B: [A0..Am, B0..Bm].
+				# Blender image.pixels expects [BottomRow...TopRow].
+				# So the first row processed in loop (row 0) should be the BOTTOM row of the quilt.
+				# `assemble_quilt` logic: "for row in range(0, rows): ... verticalStack.append".
+				# This implies row 0 is indeed the bottom row.
+				# In our direct numpy buffer `full_quilt_buffer`, index 0 is TOP row.
+				# Wait.
+				# If I write to `full_quilt_buffer[0:H]`, that is the TOP of the array.
+				# When flattened, that becomes the START of the 1D array.
+				# The START of Blender's 1D pixel array is the BOTTOM of the image.
+				# So `full_quilt_buffer[0:H]` corresponds to the BOTTOM row of the visual image.
+				# So Row 0 (View 0-7) should go to `full_quilt_buffer[0:H]`.
+				
+				y_start = row * target_view_height
+				y_end = y_start + target_view_height
+				x_start = column * target_view_width
+				x_end = x_start + target_view_width
+
+				# Determine which file to use
+				# Use the corresponding file, or the last available file if we run out (padding)
+				file_index = getattr(context.scene, "temp_view_index_override", view_index) # Just use valid local logic
+				
+				if view_index < len(files):
+					filepath = files[view_index]
+				else:
+					# Pad with the last file
+					filepath = files[-1]
+					# Only log this once per execution to avoid spam, or debug level
+					LookingGlassAddonLogger.debug(f"Padding view {view_index} with last frame {os.path.basename(filepath)}")
+
+				try:
+					img = bpy.data.images.load(filepath)
+					
+					# Resize image to fit the slot exactly
+					if img.size[0] != target_view_width or img.size[1] != target_view_height:
+						img.scale(target_view_width, target_view_height)
+					
+					# get pixels
+					viewPixels = np.empty(len(img.pixels), dtype=np.float32)
+					img.pixels.foreach_get(viewPixels)
+					
+					# reshape properties
+					# shape must match the slice size
+					# (Height, Width, 4)
+					try:
+						view_reshaped = viewPixels.reshape((target_view_height, target_view_width, 4))
+						
+						# Place into the full buffer
+						full_quilt_buffer[y_start:y_end, x_start:x_end] = view_reshaped
+					except ValueError as ve:
+						LookingGlassAddonLogger.warning(f"Reshape failed for {filepath}: {ve}")
+					
+					# cleanup
+					bpy.data.images.remove(img)
+					
+				except Exception as e:
+					LookingGlassAddonLogger.error(f"Failed to process image {filepath}: {e}")
+					return {'CANCELLED'}
+
+		# create output image
+		quilt_name = "Built_Quilt"
+		if bpy.data.images.find(quilt_name) != -1:
+			bpy.data.images.remove(bpy.data.images[quilt_name])
+			
+		quilt_image = bpy.data.images.new(quilt_name, width=quilt_width, height=quilt_height, alpha=True)
+		
+		# set pixels
+		# flatten the buffer
+		quilt_image.pixels.foreach_set(full_quilt_buffer.flatten())
+		
+		# Naming Scheme: Quilt Render Result_qs8x6a0.75
+		aspect_ratio = target_view_width / target_view_height
+		# Round to sensible decimals (e.g. 0.75) and strip trailing zeros? 
+		# f"{aspect_ratio:g}" does a good job.
+		
+		suffix = f"_qs{columns}x{rows}a{aspect_ratio:g}"
+		output_filename = f"Quilt Render Result{suffix}.png"
+		output_path = os.path.join(source_path, output_filename)
+		
+		# set filepath
+		quilt_image.filepath_raw = output_path
+		quilt_image.file_format = 'PNG'
+		quilt_image.save()
+		
+		self.report({'INFO'}, f"Quilt saved to {output_path}")
+		
+		return {'FINISHED'}
+
+
 # Modal operator for handling rendering of a quilt out of Blender
 class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 
@@ -1387,7 +1582,8 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 		# CLEAN-UP FILES
 		# +++++++++++++++++++++++++++++++++++++++++++
 		# if the view files shall not be kept OR (still was rendered AND no filename was specfied) OR the file keeping is forced OR the incomplete render job was discarded
-		if ((self.render_settings.addon_settings.render_output == '1' or (not ((self.render_settings.job.animation == False and not self.render_settings.job.file_use_temp) or self.animation == True))) and self.render_settings.job.file_force_keep == False) or self.discard_lockfile == True:
+		# FIX: Don't delete if render_output is '2' (Only View Files)
+		if (((self.render_settings.addon_settings.render_output == '1') and self.render_settings.job.file_force_keep == False) or self.discard_lockfile == True) and self.render_settings.addon_settings.render_output != '2':
 
 			LookingGlassAddonLogger.info("Cleaning up the disk files.")
 
@@ -1670,8 +1866,9 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 
 			# HANDLER FOR EVENT TIMER
 			# ++++++++++++++++++++++++++++++++++
-			# Create timer event that runs every 1 ms to check the rendering process
-			self._handle_event_timer = context.window_manager.event_timer_add(0.001, window=context.window)
+			# Create timer event that runs every 100 ms to check the rendering process
+			# NOTE: A view takes seconds to render, so polling more often only adds UI load
+			self._handle_event_timer = context.window_manager.event_timer_add(0.1, window=context.window)
 
 			# add the modal operator handler
 			context.window_manager.modal_handler_add(self)
@@ -1695,7 +1892,13 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 
 		# UPDATE PROGRESS BAR
 		# +++++++++++++++++++++++++++++++++++++++++++
-		self.render_settings.addon_settings.render_progress = self.render_settings.job.update_progress()
+		# NOTE: Only write the property if the value changed. Each write tags
+		#		the scene for an update, which makes the UI thread re-evaluate
+		#		the scene while the render thread may be evaluating it as well
+		#		(e.g., for Cycles motion blur). That can crash Blender.
+		progress = self.render_settings.job.update_progress()
+		if self.render_settings.addon_settings.render_progress != progress:
+			self.render_settings.addon_settings.render_progress = progress
 
 
 
@@ -1726,6 +1929,12 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 
 				# invoke the new render job
 				self.render_settings.job.invoke()
+
+				# lock the interface for the render itself. Blender reads this
+				# flag when the render operator is invoked, so it must be set
+				# before the call. Otherwise the UI keeps running while Cycles
+				# re-evaluates the scene for motion blur, which can crash Blender.
+				self.render_settings.job.scene.render.use_lock_interface = True
 
 				# start rendering
 				result = bpy.ops.render.render("INVOKE_DEFAULT", animation=False, write_still=True)

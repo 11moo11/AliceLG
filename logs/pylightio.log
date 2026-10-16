@@ -1,0 +1,50 @@
+[INFO] 10/15/2026 23:11:48 - Created socket: <pynng.nng.Req0 object at 0x000001E38CBFC830>
+[INFO] 10/15/2026 23:11:48 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 10/15/2026 23:11:48 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 0)' of type '16_gen3_p'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 2)' of type '16_gen3_l'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass Portrait (id: 3)' of type 'portrait'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 4)' of type '32_gen3_l'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 10)' of type 'large'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 10/15/2026 23:11:48 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 12)' of type '8k'.
+[INFO] 10/15/2026 23:18:22 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 10/15/2026 23:18:48 - Created socket: <pynng.nng.Req0 object at 0x000002179AC046E0>
+[INFO] 10/15/2026 23:18:48 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 10/15/2026 23:18:48 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 0)' of type '16_gen3_p'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 2)' of type '16_gen3_l'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass Portrait (id: 3)' of type 'portrait'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 4)' of type '32_gen3_l'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 10)' of type 'large'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 10/15/2026 23:18:48 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 12)' of type '8k'.
+[INFO] 10/16/2026 08:32:44 - Created socket: <pynng.nng.Req0 object at 0x000001EF0FF5C830>
+[ERROR] 10/16/2026 08:32:44 - Could not connect. Is Looking Glass Bridge running?
+[WARNING] 10/16/2026 08:32:44 - Added service 'Looking Glass Bridge' to the service manager, but service is not ready.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 0)' of type '16_gen3_l'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass Portrait (id: 2)' of type 'portrait'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 3)' of type '32_gen3_l'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 4)' of type '16_gen3_p'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 10)' of type 'large'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 10/16/2026 08:32:44 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 12)' of type '8k'.
+[INFO] 10/16/2026 12:52:24 - Removing service 'Looking Glass Bridge' ...

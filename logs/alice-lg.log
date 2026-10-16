@@ -1,0 +1,975 @@
+[INFO] 10/15/2026 23:11:48 - ----------------------------------------------
+[INFO] 10/15/2026 23:11:48 - Initializing 'Alice/LG v2.3.1' ...
+[INFO] 10/15/2026 23:11:48 -  [#] Add-on path: C:\Users\Lulianus\AppData\Roaming\Blender Foundation\Blender\5.2\scripts\addons\AliceLG
+[INFO] 10/15/2026 23:11:48 -  [#] Registered add-on operators in Blender.
+[INFO] 10/15/2026 23:11:48 -  [#] Done.
+[INFO] 10/15/2026 23:11:48 - Connecting to Looking Glass Bridge ...
+[INFO] 10/15/2026 23:11:48 -  [#] Connected to Looking Glass Bridge version: 2.6.3
+[INFO] 10/15/2026 23:11:48 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:11:53 - Camera frustum drawing handler stopped.
+[INFO] 10/15/2026 23:11:53 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:18:22 - Unregister the addon:
+[INFO] 10/15/2026 23:18:22 -  [#] Stopping frustum and block renderers.
+[INFO] 10/15/2026 23:18:22 - Camera frustum drawing handler stopped.
+[INFO] 10/15/2026 23:18:22 -  [#] Removing all registered classes.
+[INFO] 10/15/2026 23:18:22 -  [#] Unloading the python dependencies.
+[INFO] 10/15/2026 23:18:22 -  [#] Shutting down the loggers.
+[INFO] 10/15/2026 23:18:48 - ----------------------------------------------
+[INFO] 10/15/2026 23:18:48 - Initializing 'Alice/LG v2.3.1' ...
+[INFO] 10/15/2026 23:18:48 -  [#] Add-on path: C:\Users\Lulianus\AppData\Roaming\Blender Foundation\Blender\5.2\scripts\addons\AliceLG
+[INFO] 10/15/2026 23:18:48 -  [#] Registered add-on operators in Blender.
+[INFO] 10/15/2026 23:18:48 -  [#] Done.
+[INFO] 10/15/2026 23:18:48 - Connecting to Looking Glass Bridge ...
+[INFO] 10/15/2026 23:18:48 -  [#] Connected to Looking Glass Bridge version: 2.6.3
+[INFO] 10/15/2026 23:18:49 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:18:53 - Camera frustum drawing handler stopped.
+[INFO] 10/15/2026 23:18:53 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:18:59 - Camera frustum drawing handler stopped.
+[INFO] 10/15/2026 23:18:59 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:19:59 - Camera frustum drawing handler stopped.
+[INFO] 10/15/2026 23:19:59 - Camera frustum drawing handler started.
+[INFO] 10/15/2026 23:20:27 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/15/2026 23:20:27 - Rendering view is going to be prepared.
+[INFO] 10/15/2026 23:20:27 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x0000021965DADD08>
+[INFO] 10/15/2026 23:20:27 -  [#] current frame: 0
+[INFO] 10/15/2026 23:20:27 -  [#] current subframe: 0.0
+[INFO] 10/15/2026 23:20:27 -  [#] current view: 0
+[INFO] 10/15/2026 23:20:27 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/15/2026 23:20:27 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/15/2026 23:21:03 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/16/2026 08:32:43 - ----------------------------------------------
+[INFO] 10/16/2026 08:32:43 - Initializing 'Alice/LG v2.3.1' ...
+[INFO] 10/16/2026 08:32:43 -  [#] Add-on path: C:\Users\Lulianus\AppData\Roaming\Blender Foundation\Blender\5.2\scripts\addons\AliceLG
+[INFO] 10/16/2026 08:32:44 -  [#] Registered add-on operators in Blender.
+[INFO] 10/16/2026 08:32:44 -  [#] Done.
+[INFO] 10/16/2026 08:32:44 - Connecting to Looking Glass Bridge ...
+[INFO] 10/16/2026 08:32:44 -  [#] Connection failed.
+[INFO] 10/16/2026 08:32:46 - Camera frustum drawing handler started.
+[WARNING] 10/16/2026 08:32:57 - Could not set key 'adaptive_compile_description'. Instead using value 'Compile the Cycles GPU kernel with only the feature set required for the current scene'
+[WARNING] 10/16/2026 08:32:57 - Could not set key 'dicing_camera'. Instead using value '<bpy_struct, Object("Camera.001") at 0x000001EF82856B20>'
+[CRITICAL] 10/16/2026 08:32:57 - An unhandled error occured. Here is the traceback:
+Traceback (most recent call last):
+  File "C:\SteamLibrary\steamapps\common\Blender\5.2\scripts\addons_core\cycles\properties.py", line 381, in update_pause
+    context.area.tag_redraw()
+    ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'tag_redraw'
+[INFO] 10/16/2026 08:32:57 - Camera frustum drawing handler stopped.
+[INFO] 10/16/2026 08:32:57 - Camera frustum drawing handler started.
+[WARNING] 10/16/2026 08:33:14 - Could not set key 'adaptive_compile_description'. Instead using value 'Compile the Cycles GPU kernel with only the feature set required for the current scene'
+[WARNING] 10/16/2026 08:33:14 - Could not set key 'dicing_camera'. Instead using value '<bpy_struct, Object("Camera.001") at 0x000001EF82856B20>'
+[INFO] 10/16/2026 08:33:14 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:33:14 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:33:14 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:33:14 -  [#] current frame: 0
+[INFO] 10/16/2026 08:33:14 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:33:14 -  [#] current view: 0
+[INFO] 10/16/2026 08:33:14 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:33:14 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/16/2026 08:33:54 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/16/2026 08:33:54 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:33:54 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:33:54 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:33:54 -  [#] current frame: 0
+[INFO] 10/16/2026 08:33:54 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:33:54 -  [#] current view: 1
+[INFO] 10/16/2026 08:33:54 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:33:54 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v01.png
+[INFO] 10/16/2026 08:34:30 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v01.png
+[INFO] 10/16/2026 08:34:30 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:34:30 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:34:30 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:34:30 -  [#] current frame: 0
+[INFO] 10/16/2026 08:34:30 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:34:30 -  [#] current view: 2
+[INFO] 10/16/2026 08:34:30 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:34:30 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v02.png
+[INFO] 10/16/2026 08:35:05 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v02.png
+[INFO] 10/16/2026 08:35:05 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:35:05 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:35:05 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:35:05 -  [#] current frame: 0
+[INFO] 10/16/2026 08:35:05 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:35:05 -  [#] current view: 3
+[INFO] 10/16/2026 08:35:05 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:35:05 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v03.png
+[INFO] 10/16/2026 08:35:41 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v03.png
+[INFO] 10/16/2026 08:35:41 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:35:41 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:35:41 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:35:41 -  [#] current frame: 0
+[INFO] 10/16/2026 08:35:41 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:35:41 -  [#] current view: 4
+[INFO] 10/16/2026 08:35:41 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:35:41 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v04.png
+[INFO] 10/16/2026 08:36:17 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v04.png
+[INFO] 10/16/2026 08:36:17 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:36:17 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:36:17 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:36:17 -  [#] current frame: 0
+[INFO] 10/16/2026 08:36:17 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:36:17 -  [#] current view: 5
+[INFO] 10/16/2026 08:36:17 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:36:17 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v05.png
+[INFO] 10/16/2026 08:36:53 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v05.png
+[INFO] 10/16/2026 08:36:53 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:36:53 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:36:53 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:36:53 -  [#] current frame: 0
+[INFO] 10/16/2026 08:36:53 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:36:53 -  [#] current view: 6
+[INFO] 10/16/2026 08:36:53 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:36:53 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v06.png
+[INFO] 10/16/2026 08:37:29 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v06.png
+[INFO] 10/16/2026 08:37:29 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:37:29 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:37:29 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:37:29 -  [#] current frame: 0
+[INFO] 10/16/2026 08:37:29 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:37:29 -  [#] current view: 7
+[INFO] 10/16/2026 08:37:29 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:37:29 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v07.png
+[INFO] 10/16/2026 08:38:05 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v07.png
+[INFO] 10/16/2026 08:38:05 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:38:05 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:38:05 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:38:05 -  [#] current frame: 0
+[INFO] 10/16/2026 08:38:05 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:38:05 -  [#] current view: 8
+[INFO] 10/16/2026 08:38:05 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:38:05 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v08.png
+[INFO] 10/16/2026 08:38:41 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v08.png
+[INFO] 10/16/2026 08:38:41 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:38:41 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:38:41 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:38:41 -  [#] current frame: 0
+[INFO] 10/16/2026 08:38:41 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:38:41 -  [#] current view: 9
+[INFO] 10/16/2026 08:38:41 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:38:41 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v09.png
+[INFO] 10/16/2026 08:39:17 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v09.png
+[INFO] 10/16/2026 08:39:17 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:39:17 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:39:17 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:39:17 -  [#] current frame: 0
+[INFO] 10/16/2026 08:39:17 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:39:17 -  [#] current view: 10
+[INFO] 10/16/2026 08:39:17 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:39:17 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v10.png
+[INFO] 10/16/2026 08:39:53 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v10.png
+[INFO] 10/16/2026 08:39:53 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:39:53 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:39:53 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:39:53 -  [#] current frame: 0
+[INFO] 10/16/2026 08:39:53 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:39:53 -  [#] current view: 11
+[INFO] 10/16/2026 08:39:53 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:39:53 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v11.png
+[INFO] 10/16/2026 08:40:29 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v11.png
+[INFO] 10/16/2026 08:40:30 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:40:30 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:40:30 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:40:30 -  [#] current frame: 0
+[INFO] 10/16/2026 08:40:30 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:40:30 -  [#] current view: 12
+[INFO] 10/16/2026 08:40:30 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:40:30 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v12.png
+[INFO] 10/16/2026 08:41:05 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v12.png
+[INFO] 10/16/2026 08:41:06 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:41:06 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:41:06 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:41:06 -  [#] current frame: 0
+[INFO] 10/16/2026 08:41:06 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:41:06 -  [#] current view: 13
+[INFO] 10/16/2026 08:41:06 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:41:06 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v13.png
+[INFO] 10/16/2026 08:41:42 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v13.png
+[INFO] 10/16/2026 08:41:42 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:41:42 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:41:42 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:41:42 -  [#] current frame: 0
+[INFO] 10/16/2026 08:41:42 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:41:42 -  [#] current view: 14
+[INFO] 10/16/2026 08:41:42 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:41:42 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v14.png
+[INFO] 10/16/2026 08:42:18 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v14.png
+[INFO] 10/16/2026 08:42:18 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:42:18 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:42:18 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:42:18 -  [#] current frame: 0
+[INFO] 10/16/2026 08:42:18 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:42:18 -  [#] current view: 15
+[INFO] 10/16/2026 08:42:18 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:42:18 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v15.png
+[INFO] 10/16/2026 08:42:54 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v15.png
+[INFO] 10/16/2026 08:42:54 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:42:54 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:42:54 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:42:54 -  [#] current frame: 0
+[INFO] 10/16/2026 08:42:54 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:42:54 -  [#] current view: 16
+[INFO] 10/16/2026 08:42:54 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:42:54 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v16.png
+[INFO] 10/16/2026 08:43:31 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v16.png
+[INFO] 10/16/2026 08:43:31 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:43:31 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:43:31 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:43:31 -  [#] current frame: 0
+[INFO] 10/16/2026 08:43:31 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:43:31 -  [#] current view: 17
+[INFO] 10/16/2026 08:43:31 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:43:31 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v17.png
+[INFO] 10/16/2026 08:44:07 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v17.png
+[INFO] 10/16/2026 08:44:07 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:44:07 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:44:07 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:44:07 -  [#] current frame: 0
+[INFO] 10/16/2026 08:44:07 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:44:07 -  [#] current view: 18
+[INFO] 10/16/2026 08:44:07 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:44:07 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v18.png
+[INFO] 10/16/2026 08:44:43 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v18.png
+[INFO] 10/16/2026 08:44:43 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:44:43 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:44:43 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:44:43 -  [#] current frame: 0
+[INFO] 10/16/2026 08:44:43 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:44:43 -  [#] current view: 19
+[INFO] 10/16/2026 08:44:43 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:44:43 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v19.png
+[INFO] 10/16/2026 08:45:19 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v19.png
+[INFO] 10/16/2026 08:45:19 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:45:19 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:45:19 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:45:19 -  [#] current frame: 0
+[INFO] 10/16/2026 08:45:19 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:45:19 -  [#] current view: 20
+[INFO] 10/16/2026 08:45:19 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:45:19 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v20.png
+[INFO] 10/16/2026 08:45:55 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v20.png
+[INFO] 10/16/2026 08:45:55 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:45:55 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:45:55 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:45:55 -  [#] current frame: 0
+[INFO] 10/16/2026 08:45:55 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:45:55 -  [#] current view: 21
+[INFO] 10/16/2026 08:45:55 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:45:55 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v21.png
+[INFO] 10/16/2026 08:46:31 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v21.png
+[INFO] 10/16/2026 08:46:32 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:46:32 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:46:32 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:46:32 -  [#] current frame: 0
+[INFO] 10/16/2026 08:46:32 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:46:32 -  [#] current view: 22
+[INFO] 10/16/2026 08:46:32 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:46:32 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v22.png
+[INFO] 10/16/2026 08:47:07 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v22.png
+[INFO] 10/16/2026 08:47:08 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:47:08 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:47:08 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:47:08 -  [#] current frame: 0
+[INFO] 10/16/2026 08:47:08 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:47:08 -  [#] current view: 23
+[INFO] 10/16/2026 08:47:08 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:47:08 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v23.png
+[INFO] 10/16/2026 08:47:44 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v23.png
+[INFO] 10/16/2026 08:47:44 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:47:44 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:47:44 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:47:44 -  [#] current frame: 0
+[INFO] 10/16/2026 08:47:44 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:47:44 -  [#] current view: 24
+[INFO] 10/16/2026 08:47:44 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:47:44 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v24.png
+[INFO] 10/16/2026 08:48:20 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v24.png
+[INFO] 10/16/2026 08:48:20 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:48:20 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:48:20 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:48:20 -  [#] current frame: 0
+[INFO] 10/16/2026 08:48:20 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:48:20 -  [#] current view: 25
+[INFO] 10/16/2026 08:48:20 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:48:20 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v25.png
+[INFO] 10/16/2026 08:48:56 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v25.png
+[INFO] 10/16/2026 08:48:56 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:48:56 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:48:56 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:48:56 -  [#] current frame: 0
+[INFO] 10/16/2026 08:48:56 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:48:56 -  [#] current view: 26
+[INFO] 10/16/2026 08:48:56 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:48:56 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v26.png
+[INFO] 10/16/2026 08:49:32 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v26.png
+[INFO] 10/16/2026 08:49:32 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:49:32 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:49:32 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:49:32 -  [#] current frame: 0
+[INFO] 10/16/2026 08:49:32 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:49:32 -  [#] current view: 27
+[INFO] 10/16/2026 08:49:32 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:49:32 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v27.png
+[INFO] 10/16/2026 08:50:08 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v27.png
+[INFO] 10/16/2026 08:50:08 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:50:08 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:50:08 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:50:08 -  [#] current frame: 0
+[INFO] 10/16/2026 08:50:08 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:50:08 -  [#] current view: 28
+[INFO] 10/16/2026 08:50:08 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:50:08 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v28.png
+[INFO] 10/16/2026 08:50:44 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v28.png
+[INFO] 10/16/2026 08:50:44 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:50:44 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:50:44 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:50:44 -  [#] current frame: 0
+[INFO] 10/16/2026 08:50:44 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:50:44 -  [#] current view: 29
+[INFO] 10/16/2026 08:50:44 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:50:44 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v29.png
+[INFO] 10/16/2026 08:51:20 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v29.png
+[INFO] 10/16/2026 08:51:21 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:51:21 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:51:21 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:51:21 -  [#] current frame: 0
+[INFO] 10/16/2026 08:51:21 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:51:21 -  [#] current view: 30
+[INFO] 10/16/2026 08:51:21 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:51:21 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v30.png
+[INFO] 10/16/2026 08:51:57 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v30.png
+[INFO] 10/16/2026 08:51:57 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:51:57 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:51:57 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:51:57 -  [#] current frame: 0
+[INFO] 10/16/2026 08:51:57 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:51:57 -  [#] current view: 31
+[INFO] 10/16/2026 08:51:57 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:51:57 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v31.png
+[INFO] 10/16/2026 08:52:34 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v31.png
+[INFO] 10/16/2026 08:52:34 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:52:34 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:52:34 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:52:34 -  [#] current frame: 0
+[INFO] 10/16/2026 08:52:34 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:52:34 -  [#] current view: 32
+[INFO] 10/16/2026 08:52:34 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:52:34 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v32.png
+[INFO] 10/16/2026 08:53:10 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v32.png
+[INFO] 10/16/2026 08:53:10 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:53:10 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:53:10 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:53:10 -  [#] current frame: 0
+[INFO] 10/16/2026 08:53:10 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:53:10 -  [#] current view: 33
+[INFO] 10/16/2026 08:53:10 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:53:10 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v33.png
+[INFO] 10/16/2026 08:53:47 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v33.png
+[INFO] 10/16/2026 08:53:47 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:53:47 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:53:47 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:53:47 -  [#] current frame: 0
+[INFO] 10/16/2026 08:53:47 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:53:47 -  [#] current view: 34
+[INFO] 10/16/2026 08:53:47 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:53:47 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v34.png
+[INFO] 10/16/2026 08:54:23 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v34.png
+[INFO] 10/16/2026 08:54:23 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:54:23 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:54:23 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:54:23 -  [#] current frame: 0
+[INFO] 10/16/2026 08:54:23 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:54:23 -  [#] current view: 35
+[INFO] 10/16/2026 08:54:23 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:54:23 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v35.png
+[INFO] 10/16/2026 08:54:59 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v35.png
+[INFO] 10/16/2026 08:54:59 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:54:59 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:54:59 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:54:59 -  [#] current frame: 0
+[INFO] 10/16/2026 08:54:59 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:54:59 -  [#] current view: 36
+[INFO] 10/16/2026 08:54:59 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:54:59 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v36.png
+[INFO] 10/16/2026 08:55:35 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v36.png
+[INFO] 10/16/2026 08:55:35 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:55:35 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:55:35 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:55:35 -  [#] current frame: 0
+[INFO] 10/16/2026 08:55:35 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:55:35 -  [#] current view: 37
+[INFO] 10/16/2026 08:55:35 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:55:35 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v37.png
+[INFO] 10/16/2026 08:56:12 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v37.png
+[INFO] 10/16/2026 08:56:12 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:56:12 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:56:12 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:56:12 -  [#] current frame: 0
+[INFO] 10/16/2026 08:56:12 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:56:12 -  [#] current view: 38
+[INFO] 10/16/2026 08:56:12 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:56:12 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v38.png
+[INFO] 10/16/2026 08:56:47 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v38.png
+[INFO] 10/16/2026 08:56:48 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:56:48 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:56:48 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:56:48 -  [#] current frame: 0
+[INFO] 10/16/2026 08:56:48 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:56:48 -  [#] current view: 39
+[INFO] 10/16/2026 08:56:48 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:56:48 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v39.png
+[INFO] 10/16/2026 08:57:24 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v39.png
+[INFO] 10/16/2026 08:57:24 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:57:24 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:57:24 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:57:24 -  [#] current frame: 0
+[INFO] 10/16/2026 08:57:24 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:57:24 -  [#] current view: 40
+[INFO] 10/16/2026 08:57:24 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:57:24 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v40.png
+[INFO] 10/16/2026 08:58:00 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v40.png
+[INFO] 10/16/2026 08:58:00 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:58:00 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:58:00 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:58:00 -  [#] current frame: 0
+[INFO] 10/16/2026 08:58:00 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:58:00 -  [#] current view: 41
+[INFO] 10/16/2026 08:58:00 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:58:00 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v41.png
+[INFO] 10/16/2026 08:58:36 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v41.png
+[INFO] 10/16/2026 08:58:36 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:58:36 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:58:36 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:58:36 -  [#] current frame: 0
+[INFO] 10/16/2026 08:58:36 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:58:36 -  [#] current view: 42
+[INFO] 10/16/2026 08:58:36 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:58:36 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v42.png
+[INFO] 10/16/2026 08:59:12 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v42.png
+[INFO] 10/16/2026 08:59:12 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:59:12 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:59:12 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:59:12 -  [#] current frame: 0
+[INFO] 10/16/2026 08:59:12 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:59:12 -  [#] current view: 43
+[INFO] 10/16/2026 08:59:12 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:59:12 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v43.png
+[INFO] 10/16/2026 08:59:48 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v43.png
+[INFO] 10/16/2026 08:59:48 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 08:59:48 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 08:59:48 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 08:59:48 -  [#] current frame: 0
+[INFO] 10/16/2026 08:59:48 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 08:59:48 -  [#] current view: 44
+[INFO] 10/16/2026 08:59:48 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 08:59:48 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v44.png
+[INFO] 10/16/2026 09:00:24 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v44.png
+[INFO] 10/16/2026 09:00:24 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 09:00:24 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 09:00:24 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 09:00:24 -  [#] current frame: 0
+[INFO] 10/16/2026 09:00:24 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 09:00:24 -  [#] current view: 45
+[INFO] 10/16/2026 09:00:24 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 09:00:24 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v45.png
+[INFO] 10/16/2026 09:01:00 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v45.png
+[INFO] 10/16/2026 09:01:00 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 09:01:00 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 09:01:00 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 09:01:00 -  [#] current frame: 0
+[INFO] 10/16/2026 09:01:00 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 09:01:00 -  [#] current view: 46
+[INFO] 10/16/2026 09:01:00 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 09:01:00 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v46.png
+[INFO] 10/16/2026 09:01:36 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v46.png
+[INFO] 10/16/2026 09:01:36 - Rendering job initialized. (lockfile: True, init: False)
+[INFO] 10/16/2026 09:01:36 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 09:01:36 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 09:01:36 -  [#] current frame: 0
+[INFO] 10/16/2026 09:01:36 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 09:01:36 -  [#] current view: 47
+[INFO] 10/16/2026 09:01:36 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 09:01:36 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v47.png
+[INFO] 10/16/2026 09:02:12 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v47.png
+[INFO] 10/16/2026 09:02:12 - Assembling the quilt from the rendered views:
+[INFO] 10/16/2026 09:02:13 -  [#] Loaded all views into memory.
+[INFO] 10/16/2026 09:02:13 -  [#] Assembled quilt in memory.
+[INFO] 10/16/2026 09:02:13 -  [#] Saved quilt file to: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 09:02:13 -  [#] Reading quilt pixel data into the image data block.
+[INFO] 10/16/2026 09:02:14 -  [#] Done.
+[INFO] 10/16/2026 09:02:14 - Removing application handlers.
+[INFO] 10/16/2026 09:02:14 - Cleaning up the disk files.
+[INFO] 10/16/2026 09:02:14 - Cleaning up camera setup.
+[INFO] 10/16/2026 09:02:14 -  [#] Delete temporary camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001EF2CF29608>
+[INFO] 10/16/2026 09:02:14 -  [#] Setting scene camera to the original camera: <bpy_struct, Object("Camera.001") at 0x000001EF82856B20>
+[WARNING] 10/16/2026 09:02:14 - Could not set key 'adaptive_compile_description'. Instead using value 'Compile the Cycles GPU kernel with only the feature set required for the current scene'
+[WARNING] 10/16/2026 09:02:14 - Could not set key 'dicing_camera'. Instead using value '<bpy_struct, Object("Camera.001") at 0x000001EF82856B20>'
+[INFO] 10/16/2026 09:15:26 - Hologram preview started.
+[INFO] 10/16/2026 09:15:30 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:30 - Hologram preview started.
+[INFO] 10/16/2026 09:15:31 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:35 - Hologram preview started.
+[INFO] 10/16/2026 09:15:36 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:37 - Hologram preview started.
+[INFO] 10/16/2026 09:15:38 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:38 - Hologram preview started.
+[INFO] 10/16/2026 09:15:39 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:40 - Hologram preview started.
+[INFO] 10/16/2026 09:15:42 - Hologram preview stopped.
+[INFO] 10/16/2026 09:15:43 - Hologram preview started.
+[INFO] 10/16/2026 09:15:46 - Hologram preview stopped.
+[INFO] 10/16/2026 09:27:16 - Camera frustum drawing handler stopped.
+[INFO] 10/16/2026 09:27:16 - Camera frustum drawing handler started.
+[INFO] 10/16/2026 09:59:15 - Camera frustum drawing handler stopped.
+[INFO] 10/16/2026 09:59:15 - Camera frustum drawing handler started.
+[INFO] 10/16/2026 11:34:23 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:34:23 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:34:23 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:34:23 -  [#] current frame: 0
+[INFO] 10/16/2026 11:34:23 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:34:23 -  [#] current view: 0
+[INFO] 10/16/2026 11:34:23 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:34:23 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/16/2026 11:35:11 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v00.png
+[INFO] 10/16/2026 11:35:11 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:35:11 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:35:11 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:35:11 -  [#] current frame: 0
+[INFO] 10/16/2026 11:35:11 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:35:11 -  [#] current view: 1
+[INFO] 10/16/2026 11:35:11 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:35:11 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v01.png
+[INFO] 10/16/2026 11:35:55 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v01.png
+[INFO] 10/16/2026 11:35:55 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:35:55 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:35:55 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:35:55 -  [#] current frame: 0
+[INFO] 10/16/2026 11:35:55 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:35:55 -  [#] current view: 2
+[INFO] 10/16/2026 11:35:55 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:35:55 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v02.png
+[INFO] 10/16/2026 11:36:40 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v02.png
+[INFO] 10/16/2026 11:36:40 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:36:40 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:36:40 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:36:40 -  [#] current frame: 0
+[INFO] 10/16/2026 11:36:40 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:36:40 -  [#] current view: 3
+[INFO] 10/16/2026 11:36:40 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:36:40 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v03.png
+[INFO] 10/16/2026 11:37:25 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v03.png
+[INFO] 10/16/2026 11:37:25 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:37:25 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:37:25 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:37:25 -  [#] current frame: 0
+[INFO] 10/16/2026 11:37:25 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:37:25 -  [#] current view: 4
+[INFO] 10/16/2026 11:37:25 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:37:25 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v04.png
+[INFO] 10/16/2026 11:38:05 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v04.png
+[INFO] 10/16/2026 11:38:05 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:38:05 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:38:05 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:38:05 -  [#] current frame: 0
+[INFO] 10/16/2026 11:38:05 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:38:05 -  [#] current view: 5
+[INFO] 10/16/2026 11:38:05 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:38:05 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v05.png
+[INFO] 10/16/2026 11:38:53 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v05.png
+[INFO] 10/16/2026 11:38:53 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:38:53 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:38:53 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:38:53 -  [#] current frame: 0
+[INFO] 10/16/2026 11:38:53 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:38:53 -  [#] current view: 6
+[INFO] 10/16/2026 11:38:53 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:38:53 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v06.png
+[INFO] 10/16/2026 11:39:51 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v06.png
+[INFO] 10/16/2026 11:39:51 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:39:51 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:39:51 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:39:51 -  [#] current frame: 0
+[INFO] 10/16/2026 11:39:51 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:39:51 -  [#] current view: 7
+[INFO] 10/16/2026 11:39:51 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:39:51 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v07.png
+[INFO] 10/16/2026 11:40:54 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v07.png
+[INFO] 10/16/2026 11:40:54 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:40:54 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:40:54 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:40:54 -  [#] current frame: 0
+[INFO] 10/16/2026 11:40:54 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:40:54 -  [#] current view: 8
+[INFO] 10/16/2026 11:40:54 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:40:54 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v08.png
+[INFO] 10/16/2026 11:41:58 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v08.png
+[INFO] 10/16/2026 11:41:59 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:41:59 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:41:59 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:41:59 -  [#] current frame: 0
+[INFO] 10/16/2026 11:41:59 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:41:59 -  [#] current view: 9
+[INFO] 10/16/2026 11:41:59 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:41:59 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v09.png
+[INFO] 10/16/2026 11:42:40 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v09.png
+[INFO] 10/16/2026 11:42:40 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:42:40 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:42:40 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:42:40 -  [#] current frame: 0
+[INFO] 10/16/2026 11:42:40 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:42:40 -  [#] current view: 10
+[INFO] 10/16/2026 11:42:40 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:42:40 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v10.png
+[INFO] 10/16/2026 11:43:25 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v10.png
+[INFO] 10/16/2026 11:43:26 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:43:26 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:43:26 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:43:26 -  [#] current frame: 0
+[INFO] 10/16/2026 11:43:26 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:43:26 -  [#] current view: 11
+[INFO] 10/16/2026 11:43:26 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:43:26 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v11.png
+[INFO] 10/16/2026 11:44:18 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v11.png
+[INFO] 10/16/2026 11:44:18 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:44:18 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:44:18 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:44:18 -  [#] current frame: 0
+[INFO] 10/16/2026 11:44:18 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:44:18 -  [#] current view: 12
+[INFO] 10/16/2026 11:44:18 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:44:18 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v12.png
+[INFO] 10/16/2026 11:45:08 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v12.png
+[INFO] 10/16/2026 11:45:08 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:45:08 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:45:08 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:45:08 -  [#] current frame: 0
+[INFO] 10/16/2026 11:45:08 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:45:08 -  [#] current view: 13
+[INFO] 10/16/2026 11:45:08 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:45:08 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v13.png
+[INFO] 10/16/2026 11:45:54 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v13.png
+[INFO] 10/16/2026 11:45:54 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:45:54 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:45:54 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:45:54 -  [#] current frame: 0
+[INFO] 10/16/2026 11:45:54 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:45:54 -  [#] current view: 14
+[INFO] 10/16/2026 11:45:54 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:45:54 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v14.png
+[INFO] 10/16/2026 11:46:50 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v14.png
+[INFO] 10/16/2026 11:46:50 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:46:50 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:46:50 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:46:50 -  [#] current frame: 0
+[INFO] 10/16/2026 11:46:50 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:46:50 -  [#] current view: 15
+[INFO] 10/16/2026 11:46:50 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:46:50 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v15.png
+[INFO] 10/16/2026 11:47:43 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v15.png
+[INFO] 10/16/2026 11:47:43 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:47:43 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:47:43 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:47:43 -  [#] current frame: 0
+[INFO] 10/16/2026 11:47:43 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:47:43 -  [#] current view: 16
+[INFO] 10/16/2026 11:47:43 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:47:43 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v16.png
+[INFO] 10/16/2026 11:48:37 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v16.png
+[INFO] 10/16/2026 11:48:37 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:48:37 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:48:37 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:48:37 -  [#] current frame: 0
+[INFO] 10/16/2026 11:48:37 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:48:37 -  [#] current view: 17
+[INFO] 10/16/2026 11:48:37 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:48:37 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v17.png
+[INFO] 10/16/2026 11:49:27 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v17.png
+[INFO] 10/16/2026 11:49:27 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:49:27 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:49:27 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:49:27 -  [#] current frame: 0
+[INFO] 10/16/2026 11:49:27 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:49:27 -  [#] current view: 18
+[INFO] 10/16/2026 11:49:27 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:49:27 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v18.png
+[INFO] 10/16/2026 11:50:20 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v18.png
+[INFO] 10/16/2026 11:50:20 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:50:20 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:50:20 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:50:20 -  [#] current frame: 0
+[INFO] 10/16/2026 11:50:20 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:50:20 -  [#] current view: 19
+[INFO] 10/16/2026 11:50:20 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:50:20 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v19.png
+[INFO] 10/16/2026 11:51:03 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v19.png
+[INFO] 10/16/2026 11:51:04 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:51:04 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:51:04 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:51:04 -  [#] current frame: 0
+[INFO] 10/16/2026 11:51:04 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:51:04 -  [#] current view: 20
+[INFO] 10/16/2026 11:51:04 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:51:04 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v20.png
+[INFO] 10/16/2026 11:51:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v20.png
+[INFO] 10/16/2026 11:51:50 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:51:50 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:51:50 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:51:50 -  [#] current frame: 0
+[INFO] 10/16/2026 11:51:50 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:51:50 -  [#] current view: 21
+[INFO] 10/16/2026 11:51:50 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:51:50 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v21.png
+[INFO] 10/16/2026 11:52:27 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v21.png
+[INFO] 10/16/2026 11:52:28 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:52:28 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:52:28 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:52:28 -  [#] current frame: 0
+[INFO] 10/16/2026 11:52:28 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:52:28 -  [#] current view: 22
+[INFO] 10/16/2026 11:52:28 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:52:28 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v22.png
+[INFO] 10/16/2026 11:53:08 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v22.png
+[INFO] 10/16/2026 11:53:08 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:53:08 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:53:08 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:53:08 -  [#] current frame: 0
+[INFO] 10/16/2026 11:53:08 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:53:08 -  [#] current view: 23
+[INFO] 10/16/2026 11:53:08 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:53:08 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v23.png
+[INFO] 10/16/2026 11:53:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v23.png
+[INFO] 10/16/2026 11:53:49 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:53:49 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:53:49 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:53:49 -  [#] current frame: 0
+[INFO] 10/16/2026 11:53:49 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:53:49 -  [#] current view: 24
+[INFO] 10/16/2026 11:53:49 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:53:49 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v24.png
+[INFO] 10/16/2026 11:54:31 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v24.png
+[INFO] 10/16/2026 11:54:31 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:54:31 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:54:31 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:54:31 -  [#] current frame: 0
+[INFO] 10/16/2026 11:54:31 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:54:31 -  [#] current view: 25
+[INFO] 10/16/2026 11:54:31 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:54:31 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v25.png
+[INFO] 10/16/2026 11:55:30 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v25.png
+[INFO] 10/16/2026 11:55:30 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:55:30 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:55:30 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:55:30 -  [#] current frame: 0
+[INFO] 10/16/2026 11:55:30 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:55:30 -  [#] current view: 26
+[INFO] 10/16/2026 11:55:30 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:55:30 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v26.png
+[INFO] 10/16/2026 11:56:17 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v26.png
+[INFO] 10/16/2026 11:56:17 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:56:17 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:56:17 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:56:17 -  [#] current frame: 0
+[INFO] 10/16/2026 11:56:17 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:56:17 -  [#] current view: 27
+[INFO] 10/16/2026 11:56:17 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:56:17 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v27.png
+[INFO] 10/16/2026 11:56:58 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v27.png
+[INFO] 10/16/2026 11:56:58 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:56:58 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:56:58 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:56:58 -  [#] current frame: 0
+[INFO] 10/16/2026 11:56:58 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:56:58 -  [#] current view: 28
+[INFO] 10/16/2026 11:56:58 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:56:58 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v28.png
+[INFO] 10/16/2026 11:57:59 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v28.png
+[INFO] 10/16/2026 11:57:59 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:57:59 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:57:59 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:57:59 -  [#] current frame: 0
+[INFO] 10/16/2026 11:57:59 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:57:59 -  [#] current view: 29
+[INFO] 10/16/2026 11:57:59 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:57:59 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v29.png
+[INFO] 10/16/2026 11:58:42 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v29.png
+[INFO] 10/16/2026 11:58:42 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 11:58:42 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 11:58:42 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 11:58:42 -  [#] current frame: 0
+[INFO] 10/16/2026 11:58:42 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 11:58:42 -  [#] current view: 30
+[INFO] 10/16/2026 11:58:42 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 11:58:42 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v30.png
+[INFO] 10/16/2026 12:00:12 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v30.png
+[INFO] 10/16/2026 12:00:12 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:00:12 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:00:12 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:00:12 -  [#] current frame: 0
+[INFO] 10/16/2026 12:00:12 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:00:12 -  [#] current view: 31
+[INFO] 10/16/2026 12:00:12 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:00:12 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v31.png
+[INFO] 10/16/2026 12:00:58 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v31.png
+[INFO] 10/16/2026 12:00:58 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:00:58 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:00:58 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:00:58 -  [#] current frame: 0
+[INFO] 10/16/2026 12:00:58 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:00:58 -  [#] current view: 32
+[INFO] 10/16/2026 12:00:58 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:00:58 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v32.png
+[INFO] 10/16/2026 12:02:12 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v32.png
+[INFO] 10/16/2026 12:02:12 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:02:12 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:02:12 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:02:12 -  [#] current frame: 0
+[INFO] 10/16/2026 12:02:12 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:02:12 -  [#] current view: 33
+[INFO] 10/16/2026 12:02:12 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:02:12 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v33.png
+[INFO] 10/16/2026 12:03:27 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v33.png
+[INFO] 10/16/2026 12:03:27 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:03:27 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:03:27 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:03:27 -  [#] current frame: 0
+[INFO] 10/16/2026 12:03:27 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:03:27 -  [#] current view: 34
+[INFO] 10/16/2026 12:03:27 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:03:27 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v34.png
+[INFO] 10/16/2026 12:04:13 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v34.png
+[INFO] 10/16/2026 12:04:13 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:04:13 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:04:13 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:04:13 -  [#] current frame: 0
+[INFO] 10/16/2026 12:04:13 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:04:13 -  [#] current view: 35
+[INFO] 10/16/2026 12:04:13 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:04:13 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v35.png
+[INFO] 10/16/2026 12:05:08 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v35.png
+[INFO] 10/16/2026 12:05:08 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:05:08 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:05:08 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:05:08 -  [#] current frame: 0
+[INFO] 10/16/2026 12:05:08 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:05:08 -  [#] current view: 36
+[INFO] 10/16/2026 12:05:08 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:05:08 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v36.png
+[INFO] 10/16/2026 12:06:00 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v36.png
+[INFO] 10/16/2026 12:06:01 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:06:01 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:06:01 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:06:01 -  [#] current frame: 0
+[INFO] 10/16/2026 12:06:01 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:06:01 -  [#] current view: 37
+[INFO] 10/16/2026 12:06:01 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:06:01 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v37.png
+[INFO] 10/16/2026 12:06:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v37.png
+[INFO] 10/16/2026 12:06:49 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:06:49 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:06:49 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:06:49 -  [#] current frame: 0
+[INFO] 10/16/2026 12:06:49 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:06:49 -  [#] current view: 38
+[INFO] 10/16/2026 12:06:49 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:06:49 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v38.png
+[INFO] 10/16/2026 12:07:54 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v38.png
+[INFO] 10/16/2026 12:07:54 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:07:54 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:07:54 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:07:54 -  [#] current frame: 0
+[INFO] 10/16/2026 12:07:54 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:07:54 -  [#] current view: 39
+[INFO] 10/16/2026 12:07:54 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:07:54 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v39.png
+[INFO] 10/16/2026 12:08:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v39.png
+[INFO] 10/16/2026 12:08:49 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:08:49 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:08:49 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:08:49 -  [#] current frame: 0
+[INFO] 10/16/2026 12:08:49 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:08:49 -  [#] current view: 40
+[INFO] 10/16/2026 12:08:49 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:08:49 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v40.png
+[INFO] 10/16/2026 12:10:02 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v40.png
+[INFO] 10/16/2026 12:10:02 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:10:02 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:10:02 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:10:02 -  [#] current frame: 0
+[INFO] 10/16/2026 12:10:02 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:10:02 -  [#] current view: 41
+[INFO] 10/16/2026 12:10:02 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:10:02 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v41.png
+[INFO] 10/16/2026 12:11:05 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v41.png
+[INFO] 10/16/2026 12:11:05 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:11:05 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:11:05 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:11:05 -  [#] current frame: 0
+[INFO] 10/16/2026 12:11:05 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:11:05 -  [#] current view: 42
+[INFO] 10/16/2026 12:11:05 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:11:05 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v42.png
+[INFO] 10/16/2026 12:12:07 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v42.png
+[INFO] 10/16/2026 12:12:07 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:12:07 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:12:07 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:12:07 -  [#] current frame: 0
+[INFO] 10/16/2026 12:12:07 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:12:07 -  [#] current view: 43
+[INFO] 10/16/2026 12:12:07 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:12:07 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v43.png
+[INFO] 10/16/2026 12:12:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v43.png
+[INFO] 10/16/2026 12:12:49 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:12:49 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:12:49 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:12:49 -  [#] current frame: 0
+[INFO] 10/16/2026 12:12:49 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:12:49 -  [#] current view: 44
+[INFO] 10/16/2026 12:12:49 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:12:49 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v44.png
+[INFO] 10/16/2026 12:13:49 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v44.png
+[INFO] 10/16/2026 12:13:50 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:13:50 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:13:50 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:13:50 -  [#] current frame: 0
+[INFO] 10/16/2026 12:13:50 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:13:50 -  [#] current view: 45
+[INFO] 10/16/2026 12:13:50 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:13:50 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v45.png
+[INFO] 10/16/2026 12:14:39 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v45.png
+[INFO] 10/16/2026 12:14:39 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:14:39 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:14:39 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:14:39 -  [#] current frame: 0
+[INFO] 10/16/2026 12:14:39 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:14:39 -  [#] current view: 46
+[INFO] 10/16/2026 12:14:39 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:14:39 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v46.png
+[INFO] 10/16/2026 12:15:25 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v46.png
+[INFO] 10/16/2026 12:15:26 - Rendering job initialized. (lockfile: False, init: False)
+[INFO] 10/16/2026 12:15:26 - Rendering view is going to be prepared.
+[INFO] 10/16/2026 12:15:26 -  [#] active camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:15:26 -  [#] current frame: 0
+[INFO] 10/16/2026 12:15:26 -  [#] current subframe: 0.0
+[INFO] 10/16/2026 12:15:26 -  [#] current view: 47
+[INFO] 10/16/2026 12:15:26 -  [#] current quilt file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:15:26 -  [#] current view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v47.png
+[INFO] 10/16/2026 12:16:15 - Saving view file: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75_v47.png
+[INFO] 10/16/2026 12:16:15 - Assembling the quilt from the rendered views:
+[INFO] 10/16/2026 12:16:15 -  [#] Loaded all views into memory.
+[INFO] 10/16/2026 12:16:15 -  [#] Assembled quilt in memory.
+[INFO] 10/16/2026 12:16:15 -  [#] Saved quilt file to: D:\Art Assets\Blender\Character Models\2B\render\Quilt Render Result_qs8x6a0.75.png
+[INFO] 10/16/2026 12:16:15 -  [#] Reading quilt pixel data into the image data block.
+[INFO] 10/16/2026 12:16:16 -  [#] Done.
+[INFO] 10/16/2026 12:16:17 - Removing application handlers.
+[INFO] 10/16/2026 12:16:17 - Cleaning up the disk files.
+[INFO] 10/16/2026 12:16:17 - Cleaning up camera setup.
+[INFO] 10/16/2026 12:16:17 -  [#] Delete temporary camera: <bpy_struct, Object("_quilt_render_cam") at 0x000001F0B32E2B08>
+[INFO] 10/16/2026 12:16:17 -  [#] Setting scene camera to the original camera: <bpy_struct, Object("Camera.001") at 0x000001F0AC3BEB20>
+[WARNING] 10/16/2026 12:16:17 - Could not set key 'adaptive_compile_description'. Instead using value 'Compile the Cycles GPU kernel with only the feature set required for the current scene'
+[WARNING] 10/16/2026 12:16:17 - Could not set key 'dicing_camera'. Instead using value '<bpy_struct, Object("Camera.001") at 0x000001F0AC3BEB20>'
+[INFO] 10/16/2026 12:52:18 - Hologram preview started.
+[INFO] 10/16/2026 12:52:21 - Hologram preview stopped.
+[INFO] 10/16/2026 12:52:24 - Unregister the addon:
+[INFO] 10/16/2026 12:52:24 -  [#] Stopping frustum and block renderers.
+[INFO] 10/16/2026 12:52:24 - Camera frustum drawing handler stopped.
+[INFO] 10/16/2026 12:52:24 -  [#] Removing all registered classes.
+[INFO] 10/16/2026 12:52:24 -  [#] Unloading the python dependencies.
+[INFO] 10/16/2026 12:52:24 -  [#] Shutting down the loggers.

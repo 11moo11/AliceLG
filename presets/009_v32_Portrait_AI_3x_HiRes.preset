@@ -1,0 +1,11 @@
+{
+  "description": "Portrait (View Only), 32 Views (3x > 96)",
+  "view_width": 420,
+  "view_height": 560,
+  "quilt_width": 3360,
+  "quilt_height": 2240,
+  "columns": 8,
+  "rows": 4,
+  "total_views": 32,
+  "hidden": false
+}

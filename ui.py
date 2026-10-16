@@ -815,6 +815,67 @@ class LookingGlassAddonUI:
 			# reset the variables
 			LookingGlassAddon.quiltPixels = None
 
+	@staticmethod
+	def update_preview_view(self, context):
+		"""Update camera position when preview slider changes while preview is active"""
+		if not context.scene.addon_settings.preview_active:
+			return
+		
+		import pylightio as pylio
+		from math import tan, radians
+		from mathutils import Matrix
+		
+		addon_settings = context.scene.addon_settings
+		camera = addon_settings.lookingglassCamera
+		
+		if camera is None:
+			return
+		
+		# GET QUILT PRESET DATA
+		if addon_settings.render_use_device:
+			device = pylio.DeviceManager.get_active()
+			if device:
+				total_views = device.default_quilt_columns * device.default_quilt_rows
+				view_cone = device.view_cone
+			else:
+				return
+		else:
+			preset = pylio.LookingGlassQuilt.formats.get(int(addon_settings.render_quilt_preset))
+			total_views = int(preset['total_views'])
+			view_cone = 40.0
+		
+		# Get view index and ensure it's within bounds
+		view_index = addon_settings.preview_view_index
+		if view_index >= total_views:
+			view_index = total_views - 1
+			addon_settings.preview_view_index = view_index
+		
+		# Restore original matrix
+		matrix_list = list(addon_settings.preview_original_matrix)
+		original_matrix = Matrix((
+			matrix_list[0:4],
+			matrix_list[4:8],
+			matrix_list[8:12],
+			matrix_list[12:16]
+		))
+		
+		# Calculate new preview position from original
+		view_matrix = original_matrix.copy()
+		view_matrix = view_matrix @ Matrix.Scale(1/camera.scale.x, 4, (1, 0, 0))
+		view_matrix = view_matrix @ Matrix.Scale(1/camera.scale.y, 4, (0, 1, 0))
+		view_matrix = view_matrix @ Matrix.Scale(1/camera.scale.z, 4, (0, 0, 1))
+		view_matrix_inv = view_matrix.inverted_safe()
+		
+		fov = camera.data.angle
+		cameraDistance = addon_settings.focalPlane
+		cameraSize = cameraDistance * tan(fov / 2)
+		offsetAngle = (0.5 - view_index / (total_views - 1)) * radians(view_cone)
+		offset = cameraDistance * tan(offsetAngle)
+		
+		# Update camera position
+		camera.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (view_matrix_inv @ original_matrix.copy()))
+		camera.data.shift_x = addon_settings.preview_original_shift + 0.5 * offset / cameraSize
+
 
 # Properties in the preferences pane for this addon - Global values
 class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
@@ -1022,7 +1083,8 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 	# File handling
 	render_output: bpy.props.EnumProperty(
 									items = [('0', 'View and Quilt Files', 'Each view is rendered to a separate file in the output directory in addition to the quilt.'),
-											 ('1', 'Only Quilt File', 'Each view is rendered to a temporary file in the output directory. These files are deleted after the quilt is complete.')],
+											 ('1', 'Only Quilt File', 'Each view is rendered to a temporary file in the output directory. These files are deleted after the quilt is complete.'),
+											 ('2', 'Only View Files', 'Render only the view files. Quilt generation is skipped.')],
 									default='1',
 									name="Output",
 									)
@@ -1045,6 +1107,14 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 										description="Press this button or the 'ESC' key to stop the quilt rendering.",
 										default = False,
 										)
+
+	# PANEL: ADVANCED SETTINGS
+	advanced_quilt_source_path: bpy.props.StringProperty(
+		name = "Source Directory",
+		default = "//",
+		description = "Select the directory containing the view images",
+		subtype = 'DIR_PATH'
+		)
 
 
 
@@ -1254,6 +1324,37 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 									update = LookingGlassAddonUI.update_imageeditor_block_settings,
 									)
 
+	# PANEL: RENDER PREVIEW
+	preview_view_index: bpy.props.IntProperty(
+										name = "View Index",
+										default = 0,
+										min = 0,
+										description = "Index of the view to preview (0 to total views - 1)",
+										update = LookingGlassAddonUI.update_preview_view,
+										)
+
+	preview_active: bpy.props.BoolProperty(
+										name = "Preview Active",
+										default = False,
+										options = {'HIDDEN'},
+										description = "Whether preview mode is currently active",
+										)
+
+	preview_original_matrix: bpy.props.FloatVectorProperty(
+										name = "Original Camera Matrix",
+										size = 16,
+										default = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+										options = {'HIDDEN'},
+										description = "Original camera matrix before preview",
+										)
+
+	preview_original_shift: bpy.props.FloatProperty(
+										name = "Original Camera Shift",
+										default = 0.0,
+										options = {'HIDDEN'},
+										description = "Original camera shift_x before preview",
+										)
+
 
 # ----------------- PANEL FOR GENERAL SETTINGS --------------------
 # an operator that refreshes the list of connected Looking Glasses
@@ -1401,6 +1502,40 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 			row_orientationa.enabled = False
 			row_orientationb.enabled = False
 
+
+
+# ------------- The Advanced Settings Panel ----------------
+class LOOKINGGLASS_PT_panel_advanced(bpy.types.Panel):
+	bl_idname = "LOOKINGGLASS_PT_panel_advanced" # unique identifier for buttons and menu items to reference.
+	bl_label = "Advanced" # display name in the interface.
+	bl_space_type = "VIEW_3D"
+	bl_region_type = "UI"
+	bl_category = "Looking Glass"
+	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
+	bl_options = {'DEFAULT_CLOSED'}
+
+
+	# define own poll method to be able to hide / show the panel on demand
+	@classmethod
+	def poll(self, context):
+
+		# the panel should always be drawn
+		return True
+
+	# draw the UI for the configuration options
+	def draw(self, context):
+		layout = self.layout
+
+		# Quilt Generation from Files
+		layout.label(text="Build Quilt from Files:")
+		
+		# Directory selection
+		row = layout.row(align=True)
+		row.prop(context.scene.addon_settings, "advanced_quilt_source_path", text="")
+
+		# Build button
+		row = layout.row(align=True)
+		row.operator("lookingglass.build_quilt_from_files", text="Build Quilt", icon='RENDER_STILL')
 
 
 # ------------- The Camera Settings Panel ----------------
@@ -1655,6 +1790,139 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 			# deactivate the checkbox
 			row_use_device.enabled = False
 
+		# Render Preview Section
+		layout.separator()
+		column = layout.column(align=True)
+		column.label(text="Render Preview:")
+		row = column.row(align=True)
+		row.prop(context.scene.addon_settings, "preview_view_index", text="View")
+		row.operator("lookingglass.preview_camera", text="Preview", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
+
+
+# an operator that positions the camera for a specific view
+class LOOKINGGLASS_OT_preview_camera(bpy.types.Operator):
+	bl_idname = "lookingglass.preview_camera"
+	bl_label = "Render Preview"
+	bl_description = "Toggle camera preview for the selected view index"
+	bl_options = {'REGISTER', 'UNDO'}
+
+	def execute(self, context):
+		import pylightio as pylio
+		from math import tan, radians
+		from mathutils import Matrix
+
+		scene = context.scene
+		addon_settings = scene.addon_settings
+		camera_original = addon_settings.lookingglassCamera
+
+		if camera_original is None:
+			self.report({'ERROR'}, "No Looking Glass camera selected!")
+			return {'CANCELLED'}
+
+		# If preview is currently active, restore original position
+		if addon_settings.preview_active:
+			# Restore original matrix
+			matrix_list = list(addon_settings.preview_original_matrix)
+			matrix = Matrix((
+				matrix_list[0:4],
+				matrix_list[4:8],
+				matrix_list[8:12],
+				matrix_list[12:16]
+			))
+			camera_original.matrix_world = matrix
+			camera_original.data.shift_x = addon_settings.preview_original_shift
+			addon_settings.preview_active = False
+			return {'FINISHED'}
+
+		# Store original camera state before applying preview
+		original_matrix = camera_original.matrix_world.copy()
+		matrix_flat = []
+		for row in original_matrix:
+			for val in row:
+				matrix_flat.append(val)
+		addon_settings.preview_original_matrix = matrix_flat
+		addon_settings.preview_original_shift = camera_original.data.shift_x
+
+		# GET QUILT PRESET DATA
+		# ++++++++++++++++++++++++++++++++++++++++++++
+		# if the device settings shall be used
+		if addon_settings.render_use_device:
+
+			# get active device
+			device = pylio.DeviceManager.get_active()
+
+			# if a device is connected
+			if device:
+
+				# get the default quilt settings from the device
+				columns = device.default_quilt_columns
+				rows = device.default_quilt_rows
+				total_views = device.default_quilt_columns * device.default_quilt_rows
+				view_cone = device.view_cone
+
+			# if no device is connected
+			else:
+				self.report({'ERROR'}, "No Looking Glass device connected!")
+				return {'CANCELLED'}
+
+		# if a preset shall be used
+		else:
+
+			# get the preset
+			preset = pylio.LookingGlassQuilt.formats.get(int(addon_settings.render_quilt_preset))
+
+			# get the quilt settings from the preset
+			columns = int(preset['columns'])
+			rows = int(preset['rows'])
+			total_views = int(preset['total_views'])
+			view_cone = 40.0  # Default view cone in degrees
+
+		# Ensure view index is within bounds
+		view_index = addon_settings.preview_view_index
+		if view_index >= total_views:
+			view_index = total_views - 1
+			addon_settings.preview_view_index = view_index
+
+		# CAMERA POSITIONING MATH (from lightfield_render.py)
+		# +++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		# get camera's modelview matrix
+		view_matrix = camera_original.matrix_world.copy()
+
+		# correct for the camera scaling
+		view_matrix = view_matrix @ Matrix.Scale(1/camera_original.scale.x, 4, (1, 0, 0))
+		view_matrix = view_matrix @ Matrix.Scale(1/camera_original.scale.y, 4, (0, 1, 0))
+		view_matrix = view_matrix @ Matrix.Scale(1/camera_original.scale.z, 4, (0, 0, 1))
+
+		# calculate the inverted view matrix
+		view_matrix_inv = view_matrix.inverted_safe()
+
+		# The field of view set by the camera
+		fov = camera_original.data.angle
+
+		# calculate cameraSize from its distance to the focal plane and the FOV
+		cameraDistance = addon_settings.focalPlane
+		cameraSize = cameraDistance * tan(fov / 2)
+
+		# start at view_cone * 0.5 and go up to -view_cone * 0.5
+		offsetAngle = (0.5 - view_index / (total_views - 1)) * radians(view_cone)
+
+		# calculate the offset that the camera should move
+		offset = cameraDistance * tan(offsetAngle)
+
+		# translate the camera by the calculated offset in x-direction
+		# NOTE: the matrix multiplications first transform the camera location into camera coordinates,
+		#		then we apply the offset and transform back to world coordinates
+		camera_original.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (view_matrix_inv @ original_matrix.copy()))
+
+		# modify the projection matrix, relative to the camera size
+		camera_original.data.shift_x = addon_settings.preview_original_shift + 0.5 * offset / cameraSize
+
+		# Mark preview as active
+		addon_settings.preview_active = True
+
+		return {'FINISHED'}
+
 
 # ------------- The Lightfield Settings Panel ----------------
 # Operator for manual redrawing of the Looking Glass (for manual Live View Mode)
@@ -1682,6 +1950,9 @@ class LOOKINGGLASS_PT_panel_lightfield(bpy.types.Panel):
 	# define own poll method to be able to hide / show the panel on demand
 	@classmethod
 	def poll(self, context):
+
+		if not hasattr(context.window_manager, "addon_settings"):
+			return False
 
 		# if no Looking Glass is selected OR no lightfield window exists
 		if int(context.window_manager.addon_settings.activeDisplay) == -1 or context.window_manager.addon_settings.ShowLightfieldWindow == False:
@@ -1780,6 +2051,9 @@ class LOOKINGGLASS_PT_panel_overlays_shading(bpy.types.Panel):
 	# define own poll method to be able to hide / show the panel on demand
 	@classmethod
 	def poll(self, context):
+
+		if not hasattr(context.window_manager, "addon_settings"):
+			return False
 
 		# if no Looking Glass is selected OR no lightfield window exists
 		if int(context.window_manager.addon_settings.activeDisplay) == -1 or context.window_manager.addon_settings.ShowLightfieldWindow == False:

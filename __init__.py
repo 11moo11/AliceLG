@@ -39,7 +39,7 @@ bl_info = {
 # Load System Modules
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import importlib
-import sys, platform
+import sys, os, platform
 
 
 # Load Globals
@@ -88,13 +88,17 @@ sys.excepthook = log_exhook
 # this function is by @ranrande from stackoverflow:
 # https://stackoverflow.com/a/67213458
 def logfile_namer(default_name):
-	if len(default_name.split(".")) == 2:
-		base_filename, ext = default_name.split(".")
-		return f"{base_filename}.{ext}"
+	# NOTE: Only split the file name, since the directory path can contain
+	#		dots as well (e.g., ".../Blender/5.2/scripts/...")
+	directory, filename = os.path.split(default_name)
 
-	elif len(default_name.split(".")) == 3:
-		base_filename, ext, date = default_name.split(".")
-		return f"{base_filename}.{date}.{ext}"
+	# rename "alice-lg.log.2026-01-09" to "alice-lg.2026-01-09.log"
+	if len(filename.split(".")) == 3:
+		base_filename, ext, date = filename.split(".")
+		return os.path.join(directory, f"{base_filename}.{date}.{ext}")
+
+	# otherwise keep the default name
+	return default_name
 
 # logger for pyLightIO
 # +++++++++++++++++++++++++++++++++++++++++++++
@@ -413,9 +417,11 @@ def register():
 		bpy.utils.register_class(LOOKINGGLASS_OT_refresh_lightfield)
 		bpy.utils.register_class(LOOKINGGLASS_OT_blender_viewport_assign)
 		bpy.utils.register_class(LOOKINGGLASS_OT_add_camera)
+		bpy.utils.register_class(LOOKINGGLASS_OT_preview_camera)
 
 		# Looking Glass quilt rendering
 		bpy.utils.register_class(LOOKINGGLASS_OT_render_quilt)
+		bpy.utils.register_class(LOOKINGGLASS_OT_build_quilt_from_files)
 
 		# Looking Glass viewport
 		bpy.utils.register_class(LOOKINGGLASS_OT_render_viewport)
@@ -439,6 +445,7 @@ def register():
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_general)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_camera)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_render)
+		bpy.utils.register_class(LOOKINGGLASS_PT_panel_advanced)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_lightfield)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_overlays_shading)
         # addon header buttons: 3D viewport
@@ -575,6 +582,7 @@ def unregister():
 
 		# Looking Glass quilt rendering
 		bpy.utils.unregister_class(LOOKINGGLASS_OT_render_quilt)
+		bpy.utils.unregister_class(LOOKINGGLASS_OT_build_quilt_from_files)
 
 		# remove the keymap
 		keyconfigs_addon = bpy.context.window_manager.keyconfigs.addon
@@ -602,6 +610,7 @@ def unregister():
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_blocks_imageeditor_options"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_blocks_imageeditor_options)
         # addon panels
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_general"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_general)
+		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_advanced"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_advanced)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_camera"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_camera)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_render"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_render)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_lightfield"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_lightfield)

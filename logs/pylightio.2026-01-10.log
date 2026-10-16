@@ -1,0 +1,639 @@
+[INFO] 01/07/2026 08:38:39 - Created socket: <pynng.nng.Req0 object at 0x000001B4DECF9250>
+[INFO] 01/07/2026 08:38:39 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/07/2026 08:38:39 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 0)' of type '16_gen3_p'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 2)' of type '16_gen3_l'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass Portrait (id: 3)' of type 'portrait'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 4)' of type '32_gen3_l'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 10)' of type 'large'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/07/2026 08:38:39 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 12)' of type '8k'.
+[INFO] 01/07/2026 08:38:39 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/07/2026 11:13:29 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/07/2026 12:31:14 - Created socket: <pynng.nng.Req0 object at 0x0000025FAF59DAD0>
+[INFO] 01/07/2026 12:31:14 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/07/2026 12:31:14 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/07/2026 12:31:14 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/07/2026 12:31:14 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/07/2026 15:34:13 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/07/2026 15:35:18 - Created socket: <pynng.nng.Req0 object at 0x00000227EB487A10>
+[INFO] 01/07/2026 15:35:18 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/07/2026 15:35:18 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/07/2026 15:35:18 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/07/2026 15:35:18 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 00:31:08 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 00:31:16 - Created socket: <pynng.nng.Req0 object at 0x0000023466165AD0>
+[INFO] 01/08/2026 00:31:16 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 00:31:16 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 00:31:16 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 00:31:16 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 00:51:59 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 00:52:08 - Created socket: <pynng.nng.Req0 object at 0x00000228437D5AD0>
+[INFO] 01/08/2026 00:52:08 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 00:52:08 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 00:52:08 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 00:52:08 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 01:00:11 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 01:01:19 - Created socket: <pynng.nng.Req0 object at 0x00000203C6B45AD0>
+[INFO] 01/08/2026 01:01:19 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 01:01:19 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 01:01:19 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 01:01:19 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 01:37:26 - Created socket: <pynng.nng.Req0 object at 0x0000019ABFDBDAD0>
+[INFO] 01/08/2026 01:37:26 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 01:37:26 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 01:37:26 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 01:37:26 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 01:48:42 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 01:48:50 - Created socket: <pynng.nng.Req0 object at 0x0000029811A2DAD0>
+[INFO] 01/08/2026 01:48:50 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 01:48:50 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 01:48:50 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 01:48:50 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 02:03:22 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 08:36:45 - Created socket: <pynng.nng.Req0 object at 0x000001EBFEBEDAD0>
+[ERROR] 01/08/2026 08:36:45 - Could not connect. Is Looking Glass Bridge running?
+[WARNING] 01/08/2026 08:36:45 - Added service 'Looking Glass Bridge' to the service manager, but service is not ready.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 08:36:45 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 09:47:38 - Removing service 'Looking Glass Bridge' ...
+[INFO] 01/08/2026 09:48:15 - Created socket: <pynng.nng.Req0 object at 0x000001E7484ADAD0>
+[INFO] 01/08/2026 09:48:15 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 09:48:15 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 09:48:15 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 09:48:15 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 11:16:11 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 11:16:19 - Created socket: <pynng.nng.Req0 object at 0x0000022FCCCEC4D0>
+[INFO] 01/08/2026 11:16:19 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 11:16:19 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 11:16:19 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 11:16:19 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 12:34:49 - Created socket: <pynng.nng.Req0 object at 0x000001DC62E8DAD0>
+[INFO] 01/08/2026 12:34:49 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 12:34:49 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 12:34:49 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 12:34:49 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:32:25 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 14:36:25 - Created socket: <pynng.nng.Req0 object at 0x000002D42D4B5AD0>
+[INFO] 01/08/2026 14:36:25 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:36:25 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:36:25 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:36:25 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:36:28 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 14:44:26 - Created socket: <pynng.nng.Req0 object at 0x0000025A459FB990>
+[INFO] 01/08/2026 14:44:26 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:44:26 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:44:26 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:44:26 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:45:00 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 14:46:34 - Created socket: <pynng.nng.Req0 object at 0x0000022D66C306D0>
+[INFO] 01/08/2026 14:46:34 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:46:34 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:46:34 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:46:34 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:47:02 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 14:48:01 - Created socket: <pynng.nng.Req0 object at 0x000001BDFBC7B710>
+[INFO] 01/08/2026 14:48:01 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:48:01 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:48:01 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:48:01 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:51:57 - Created socket: <pynng.nng.Req0 object at 0x000001A9501C5790>
+[INFO] 01/08/2026 14:51:57 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:51:57 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:51:57 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:51:57 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:52:56 - Created socket: <pynng.nng.Req0 object at 0x000001353B0DD490>
+[INFO] 01/08/2026 14:52:56 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:52:56 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:52:56 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:52:56 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 14:53:46 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 14:56:20 - Created socket: <pynng.nng.Req0 object at 0x000001C9757C2890>
+[INFO] 01/08/2026 14:56:20 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 14:56:20 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 14:56:20 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 14:56:20 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 15:00:02 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 15:04:08 - Created socket: <pynng.nng.Req0 object at 0x0000023563D64A90>
+[INFO] 01/08/2026 15:04:08 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 15:04:08 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 15:04:08 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 15:04:08 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 15:09:20 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:09:20 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x0000023573D11490>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:09:20 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/08/2026 15:09:20 -  [#] Done (total time: 41.168 ms).
+[INFO] 01/08/2026 15:17:05 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:05 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x0000023573D11490>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:05 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/08/2026 15:17:05 -  [#] Done (total time: 25.692 ms).
+[INFO] 01/08/2026 15:17:33 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:33 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x0000023573D11490>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:33 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/08/2026 15:17:33 -  [#] Done (total time: 24.706 ms).
+[INFO] 01/08/2026 15:17:46 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:46 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x0000023573D11490>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/08/2026 15:17:46 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/08/2026 15:17:46 -  [#] Done (total time: 23.477 ms).
+[INFO] 01/08/2026 15:19:16 - Created socket: <pynng.nng.Req0 object at 0x0000022B629EF0D0>
+[INFO] 01/08/2026 15:19:16 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 15:19:16 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 15:19:16 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 15:19:16 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 15:59:06 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 16:01:11 - Created socket: <pynng.nng.Req0 object at 0x0000019D6319A050>
+[INFO] 01/08/2026 16:01:11 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 16:01:11 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 16:01:11 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 16:01:11 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 18:19:14 - Created socket: <pynng.nng.Req0 object at 0x000001AE67D31C50>
+[INFO] 01/08/2026 18:19:14 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/08/2026 18:19:14 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/08/2026 18:19:14 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/08/2026 18:19:14 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/08/2026 18:20:52 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/08/2026 19:55:07 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 00:33:22 - Created socket: <pynng.nng.Req0 object at 0x000001EDE301C4D0>
+[INFO] 01/09/2026 00:33:22 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 00:33:22 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 00:33:22 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 00:33:22 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 01:01:15 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 01:17:28 - Created socket: <pynng.nng.Req0 object at 0x00000259D2EC38D0>
+[INFO] 01/09/2026 01:17:28 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 01:17:28 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 01:17:28 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 01:17:28 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 01:39:32 - Created socket: <pynng.nng.Req0 object at 0x00000232EBEB1250>
+[INFO] 01/09/2026 01:39:32 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 01:39:32 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 01:39:32 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 01:39:32 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 01:40:50 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:40:50 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000002328BAB2650>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:40:50 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 01:40:50 -  [#] Done (total time: 52.779 ms).
+[INFO] 01/09/2026 01:41:35 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:41:35 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000002328BAB2650>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:41:35 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 01:41:36 -  [#] Done (total time: 27.323 ms).
+[INFO] 01/09/2026 01:42:04 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:04 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000002328BAB2650>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:04 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 01:42:04 -  [#] Done (total time: 29.623 ms).
+[INFO] 01/09/2026 01:42:15 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:15 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000002328BAB2650>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:15 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 01:42:15 -  [#] Done (total time: 24.523 ms).
+[INFO] 01/09/2026 01:42:25 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:25 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000002328BAB2650>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 01:42:25 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 01:42:25 -  [#] Done (total time: 25.535 ms).
+[INFO] 01/09/2026 01:46:49 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 01:46:58 - Created socket: <pynng.nng.Req0 object at 0x0000015861E88350>
+[INFO] 01/09/2026 01:46:58 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 01:46:58 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 01:46:58 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 01:46:58 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 01:56:31 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 16:55:06 - Created socket: <pynng.nng.Req0 object at 0x0000026B30194C50>
+[ERROR] 01/09/2026 16:55:06 - Could not connect. Is Looking Glass Bridge running?
+[WARNING] 01/09/2026 16:55:06 - Added service 'Looking Glass Bridge' to the service manager, but service is not ready.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 16:55:06 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 17:22:18 - Created socket: <pynng.nng.Req0 object at 0x000001CE686FC4D0>
+[ERROR] 01/09/2026 17:22:18 - Could not connect. Is Looking Glass Bridge running?
+[WARNING] 01/09/2026 17:22:18 - Added service 'Looking Glass Bridge' to the service manager, but service is not ready.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 17:22:18 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 17:29:48 - Removing service 'Looking Glass Bridge' ...
+[INFO] 01/09/2026 17:30:25 - Created socket: <pynng.nng.Req0 object at 0x000001EE794760D0>
+[INFO] 01/09/2026 17:30:25 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 17:30:25 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 17:30:25 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 17:30:25 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 17:30:43 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:30:43 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000001EED0D11410>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:30:43 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 17:30:43 -  [#] Done (total time: 53.604 ms).
+[INFO] 01/09/2026 17:31:51 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:31:51 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000001EED0D11410>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:31:51 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 17:31:51 -  [#] Done (total time: 29.667 ms).
+[INFO] 01/09/2026 17:33:01 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:33:01 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000001EED0D11410>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:33:01 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 17:33:01 -  [#] Done (total time: 30.067 ms).
+[INFO] 01/09/2026 17:33:18 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:33:18 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000001EED0D11410>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:33:18 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 17:33:18 -  [#] Done (total time: 29.593 ms).
+[INFO] 01/09/2026 17:35:04 - Created socket: <pynng.nng.Req0 object at 0x00000137CC7F14D0>
+[INFO] 01/09/2026 17:35:04 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 17:35:04 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 17:35:04 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 17:35:04 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 17:35:22 - Requesting 'Looking Glass Bridge v2.6.3' to display the lightfield on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:35:22 - Preparing lightfield image '<pylightio.lookingglass.lightfields.LookingGlassQuilt object at 0x000001380EFDAB10>' for display on 'Looking Glass Portrait (id: 13)' ...
+[INFO] 01/09/2026 17:35:22 -  [#] Lightfield image with shape (3360, 3360, 3) is being sent to 'Looking Glass Bridge v2.6.3'.
+[INFO] 01/09/2026 17:35:22 -  [#] Done (total time: 51.563 ms).
+[INFO] 01/09/2026 18:29:57 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 22:46:10 - Created socket: <pynng.nng.Req0 object at 0x00000228E3E43FD0>
+[INFO] 01/09/2026 22:46:10 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 22:46:10 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 22:46:10 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 22:46:10 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 23:02:32 - Removing service 'Looking Glass Bridge v2.6.3' ...
+[INFO] 01/09/2026 23:02:38 - Created socket: <pynng.nng.Req0 object at 0x000001D9DA2432D0>
+[INFO] 01/09/2026 23:02:38 - Connected to Looking Glass Bridge v2.6.3.
+[INFO] 01/09/2026 23:02:38 - Added service 'Looking Glass Bridge v2.6.3' to the service manager. Service is ready.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass Portrait (id: 0)' of type 'portrait'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass Go (id: 1)' of type 'go_p'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 32'' Landscape (Gen3) (id: 2)' of type '32_gen3_l'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 16'' Portrait (Gen3) (id: 3)' of type '16_gen3_p'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 16'' Landscape (Gen3) (id: 4)' of type '16_gen3_l'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 32'' Portrait (Gen3) (id: 5)' of type '32_gen3_p'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 65'' (Gen2) (id: 6)' of type '65_gen2'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 16'' (Gen2) (id: 7)' of type '4k_gen2'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 32'' (Gen2) (id: 8)' of type '8k_gen2'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] 8.9'' Looking Glass (Gen1) (id: 9)' of type 'standard'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] Looking Glass 8k (Gen1) (id: 10)' of type '8k'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] 15.6'' Pro Looking Glass (Gen1) (id: 11)' of type 'pro'.
+[INFO] 01/09/2026 23:02:38 - Emulating device '[Emulated] 15.6'' Looking Glass (Gen1) (id: 12)' of type 'large'.
+[INFO] 01/09/2026 23:02:38 - Created class instance for the connected device 'Looking Glass Portrait (id: 13)' of type 'portrait'.
+[INFO] 01/09/2026 23:25:03 - Removing service 'Looking Glass Bridge v2.6.3' ...
