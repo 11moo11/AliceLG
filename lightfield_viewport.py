@@ -316,6 +316,8 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	# (it is shown as soon as the user's current operator has finished)
 	pending_change = False
 	waiting_for_operators = []
+	viewport_signature = None
+	last_settings_check = 0
 	skip_views = 1
 	cleared_views = set()
 
@@ -532,6 +534,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# if the TIMER event for the lightfield rendering is called AND the automatic render mode is active
 		if event.type == 'TIMER' or event.type == 'Z':
 
+			# viewport shading & overlay changes (automatic live view only)
+			if int(self.addon_settings_window_manager.renderMode) == 0 and int(self.addon_settings_window_manager.lightfieldMode) == 0:
+				self.track_viewport_settings(context)
+
 			# a change is shown as soon as the user's operator has finished
 			operator_running = self.is_operator_running(context)
 			if self.pending_change and not operator_running:
@@ -611,6 +617,99 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# pass event through
 		return {'PASS_THROUGH'}
 
+	# Remember that there is something new to show and prepare the preview settings.
+	# The update itself is started in the modal() function as soon as the user's
+	# operator has finished.
+	def queue_update(self, scene):
+
+		self.pending_change = True
+
+		# if the "low resolution preview" is activated
+		if self.addon_settings_window_manager.lightfield_preview_mode == '1':
+
+			# activate them
+			self.preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-1])
+
+		# if the "skip views preview I" is activated
+		elif self.addon_settings_window_manager.lightfield_preview_mode == '2':
+
+			# skip every second view during rendering
+			self.skip_views = 2
+
+		# if the "skip views preview II" is activated
+		elif self.addon_settings_window_manager.lightfield_preview_mode == '3':
+
+			# skip every third view during rendering
+			self.skip_views = 3
+
+		# if the "skip views preview III" is activated
+		elif self.addon_settings_window_manager.lightfield_preview_mode == '5':
+
+			# skip five out of six views during rendering
+			self.skip_views = 6
+
+		else:
+
+			# set to the currently chosen quality
+			self.preset = int(scene.addon_settings.quiltPreset)
+			self.skip_views = 1
+
+
+	# a snapshot of all viewport shading & overlay settings that are shown in the lightfield
+	def viewport_settings_signature(self, context):
+
+		settings = context.scene.addon_settings
+
+		# if the shading & overlay settings are taken from a Blender viewport
+		if settings.viewportMode == 'BLENDER':
+
+			space = LookingGlassAddon.BlenderViewport
+			if space is None: return None
+
+			try:
+				signature = []
+				for datablock in (space.shading, space.overlay):
+					for attr in dir(datablock):
+						if attr.startswith("_") or attr in ("bl_rna", "rna_type"): continue
+						value = getattr(datablock, attr)
+
+						# only compare plain values (numbers, strings, colors, vectors)
+						if isinstance(value, (bool, int, float, str)):
+							signature.append((attr, value))
+						elif isinstance(value, (Color, Vector)) or (hasattr(value, "__len__") and hasattr(value, "__getitem__") and not hasattr(value, "bl_rna")):
+							try: signature.append((attr, tuple(value)))
+							except Exception: pass
+				return tuple(signature)
+			except Exception:
+				return None
+
+		# otherwise the add-on's own (custom) viewport settings are used
+		return tuple(str(getattr(settings, name, None)) for name in (
+			"viewportMode", "shadingMode", "viewport_show_xray", "viewport_xray_alpha", "viewport_use_dof",
+			"viewport_show_floor", "viewport_show_axes", "viewport_grid_scale", "viewport_show_extras",
+			"viewport_show_relationship_lines", "viewport_show_outline_selected", "viewport_show_bones",
+			"viewport_show_motion_paths", "viewport_show_origins", "viewport_show_origins_all",
+			"viewport_show_wireframes", "viewport_wireframe_threshold", "viewport_show_face_orientation"))
+
+	# detect changes of the viewport shading & overlay settings (they do not trigger depsgraph updates)
+	def track_viewport_settings(self, context):
+
+		# check only a few times per second
+		now = time.time()
+		if now - self.last_settings_check < 0.15: return
+		self.last_settings_check = now
+
+		signature = self.viewport_settings_signature(context)
+		if signature is None: return
+
+		# if the settings changed since the last check (and the lightfield was shown at least once)
+		if self.viewport_signature is not None and signature != self.viewport_signature:
+
+			LookingGlassAddonLogger.debug("Viewport shading / overlay settings changed.")
+			if not LookingGlassAddon.RenderInvoked: self.queue_update(context.scene)
+
+		self.viewport_signature = signature
+
 	# Check if the user is currently in the middle of another (modal) operator,
 	# e.g. grabbing or rotating an object. The change is only shown, when it is complete.
 	def is_operator_running(self, context):
@@ -650,39 +749,8 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			# if automatic live view is activated AND something in the scene has changed
 			if (int(self.addon_settings_window_manager.renderMode) == 0 and int(self.addon_settings_window_manager.lightfieldMode) == 0) and self.has_relevant_updates(depsgraph):
 
-				# remember that there is something new to show. The update itself is
-				# started in the modal() function as soon as the user's operator has finished
-				self.pending_change = True
-
-				# if the "low resolution preview" is activated
-				if self.addon_settings_window_manager.lightfield_preview_mode == '1':
-
-					# activate them
-					self.preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-1])
-
-				# if the "skip views preview I" is activated
-				elif self.addon_settings_window_manager.lightfield_preview_mode == '2':
-
-					# skip every second view during rendering
-					self.skip_views = 2
-
-				# if the "skip views preview II" is activated
-				elif self.addon_settings_window_manager.lightfield_preview_mode == '3':
-
-					# skip every third view during rendering
-					self.skip_views = 3
-
-				# if the "skip views preview III" is activated
-				elif self.addon_settings_window_manager.lightfield_preview_mode == '5':
-
-					# skip five out of six views during rendering
-					self.skip_views = 6
-
-				else:
-
-					# set to the currently chosen quality
-					self.preset = int(scene.addon_settings.quiltPreset)
-					self.skip_views = 1
+				# remember that there is something new to show
+				self.queue_update(scene)
 
 			# if quilt viewer is active AND an image is selected
 			elif int(self.addon_settings_window_manager.renderMode) == 1 and self.addon_settings_window_manager.quiltImage != None:
