@@ -441,6 +441,11 @@ def register():
 		# UI elements
 		# add-on preferences
 		bpy.utils.register_class(LOOKINGGLASS_PT_preferences)
+		# updater
+		from . import updater
+		bpy.utils.register_class(updater.LOOKINGGLASS_OT_check_update)
+		bpy.utils.register_class(updater.LOOKINGGLASS_OT_install_update)
+		bpy.app.timers.register(updater.auto_check, first_interval = 3.0)
 		# addon panels
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_general)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_camera)
@@ -616,6 +621,10 @@ def unregister():
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_lightfield"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_lightfield)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_overlays_shading"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_overlays_shading)
         # preferences
+		from . import updater
+		if bpy.app.timers.is_registered(updater.auto_check): bpy.app.timers.unregister(updater.auto_check)
+		bpy.utils.unregister_class(updater.LOOKINGGLASS_OT_check_update)
+		bpy.utils.unregister_class(updater.LOOKINGGLASS_OT_install_update)
 		bpy.utils.unregister_class(LOOKINGGLASS_PT_preferences)
 		# delete all variables
 		if hasattr(bpy.types.Scene, "addon_settings"): del bpy.types.Scene.addon_settings
