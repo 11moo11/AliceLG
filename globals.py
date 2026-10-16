@@ -194,6 +194,34 @@ class LookingGlassAddon:
 
 
 
+	# memory used by this Blender process in MB (for debugging memory problems)
+	@staticmethod
+	def process_memory_mb():
+		try:
+			if sys.platform == 'win32':
+				import ctypes
+				from ctypes import wintypes
+
+				class PROCESS_MEMORY_COUNTERS(ctypes.Structure):
+					_fields_ = [("cb", wintypes.DWORD), ("PageFaultCount", wintypes.DWORD),
+								("PeakWorkingSetSize", ctypes.c_size_t), ("WorkingSetSize", ctypes.c_size_t),
+								("QuotaPeakPagedPoolUsage", ctypes.c_size_t), ("QuotaPagedPoolUsage", ctypes.c_size_t),
+								("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t), ("QuotaNonPagedPoolUsage", ctypes.c_size_t),
+								("PagefileUsage", ctypes.c_size_t), ("PeakPagefileUsage", ctypes.c_size_t)]
+
+				counters = PROCESS_MEMORY_COUNTERS()
+				counters.cb = ctypes.sizeof(counters)
+				ctypes.windll.kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+				ctypes.windll.psapi.GetProcessMemoryInfo.argtypes = [wintypes.HANDLE, ctypes.POINTER(PROCESS_MEMORY_COUNTERS), wintypes.DWORD]
+				ctypes.windll.psapi.GetProcessMemoryInfo(ctypes.windll.kernel32.GetCurrentProcess(), ctypes.byref(counters), counters.cb)
+				return counters.WorkingSetSize / 1048576
+
+			with open('/proc/self/statm') as f:
+				return int(f.read().split()[1]) * os.sysconf('SC_PAGE_SIZE') / 1048576
+
+		except Exception:
+			return -1
+
 	# LOOKING GLASS QUILT PRESETS
 	# +++++++++++++++++++++++++++++++++++++++
 	# set up quilt settings
@@ -296,8 +324,9 @@ class LookingGlassAddon:
 		''' window_mode = 0: Lightfield Viewport, window_mode = 1: Quilt Viewer, window_mode = -1: demo quilt '''
 
 		# append the add-on's path to Blender's python PATH
-		sys.path.insert(0, LookingGlassAddon.path)
-		sys.path.insert(0, LookingGlassAddon.libpath)
+		# NOTE: Only if it is not already in there. Otherwise sys.path grows with every update.
+		if LookingGlassAddon.path not in sys.path: sys.path.insert(0, LookingGlassAddon.path)
+		if LookingGlassAddon.libpath not in sys.path: sys.path.insert(0, LookingGlassAddon.libpath)
 
 		# TODO: Would be better, if from .lib import pylightio could be called,
 		#		but for some reason that does not import all modules and throws
