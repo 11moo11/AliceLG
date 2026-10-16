@@ -916,10 +916,10 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 
 	# Lightfield Preview Resolution in Auto lightfield mode
 	lightfield_preview_mode: bpy.props.EnumProperty(
-										items = [('5', 'Preview Quality: Lowest', 'Skip five out of six views during interactions'),
-												 ('3', 'Preview Quality: Low', 'Skip two out of three views during interactions'),
-												 ('2', 'Preview Quality: Medium', 'Skip every second view during interactions'),
-												 ('1', 'Preview Quality: Best', 'Low-resolution preview during interactions (1024x1024 quilt, 32 views)'),
+										items = [('1', 'Preview Quality: Lowest', 'Low-resolution preview during interactions (1024x1024 quilt, 32 views)'),
+												 ('5', 'Preview Quality: Low', 'Skip five out of six views during interactions'),
+												 ('3', 'Preview Quality: Medium', 'Skip two out of three views during interactions'),
+												 ('2', 'Preview Quality: Best', 'Skip every second view during interactions'),
 												 ],
 										default='3',
 										name="Light Field Preview Mode",

@@ -311,6 +311,11 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	# DRAWING OPERATION VARIABLES
 	modal_redraw = True
 	depsgraph_update_time = 0
+
+	# a relevant scene change happened that has not been shown yet
+	# (it is shown as soon as the user's current operator has finished)
+	pending_change = False
+	waiting_for_operators = []
 	skip_views = 1
 	cleared_views = set()
 
@@ -527,13 +532,27 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# if the TIMER event for the lightfield rendering is called AND the automatic render mode is active
 		if event.type == 'TIMER' or event.type == 'Z':
 
+			# a change is shown as soon as the user's operator has finished
+			operator_running = self.is_operator_running(context)
+			if self.pending_change and not operator_running:
+
+				# update the lightfield with the (preview) settings
+				self.pending_change = False
+				self.modal_redraw = True
+
+			# the full-quality refresh waits until nothing is pending or in progress
+			idle_refresh_due = (not self.pending_change) and (not operator_running) and self.depsgraph_update_time > 0 and time.time() - self.depsgraph_update_time > LookingGlassAddon.low_resolution_preview_timout
+
 			# if something has changed OR the user requested a manual redrawing
-			if self.modal_redraw or (not self.modal_redraw and ((self.depsgraph_update_time > 0 and time.time() - self.depsgraph_update_time > LookingGlassAddon.low_resolution_preview_timout) or context.window_manager.addon_settings.viewport_manual_refresh == True)):
+			if self.modal_redraw or (not self.modal_redraw and (idle_refresh_due or context.window_manager.addon_settings.viewport_manual_refresh == True)):
 
 				# update the viewport settings
 				self.updateViewportSettings(context)
 
-				if (not self.modal_redraw and ((self.depsgraph_update_time > 0 and time.time() - self.depsgraph_update_time > LookingGlassAddon.low_resolution_preview_timout) or context.window_manager.addon_settings.viewport_manual_refresh == True)):
+				# will this be a full-quality refresh?
+				full_refresh = False
+
+				if (not self.modal_redraw and (idle_refresh_due or context.window_manager.addon_settings.viewport_manual_refresh == True)):
 
 					# reset time of last depsgraph update
 					self.depsgraph_update_time = 0
@@ -549,6 +568,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 					# set to redraw
 					self.modal_redraw = True
+					full_refresh = True
 
 					LookingGlassAddonLogger.debug("UPDATE PATH: full-quality refresh (idle timeout or manual refresh), preset %i, skip_views %i" % (self.preset, self.skip_views))
 
@@ -560,10 +580,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				render_start = time.time()
 				self.render_view(context)
 
-				# if a preview was rendered, restart the idle timer *after* the render:
+				# after a preview was rendered, start the idle timer *after* the render:
 				# otherwise a preview that takes longer than the idle timeout is
 				# immediately followed by a full-quality refresh, which cancels the preview speedup
-				if self.depsgraph_update_time > 0:
+				if not full_refresh:
 					self.depsgraph_update_time = time.time()
 
 				LookingGlassAddonLogger.debug("UPDATE TOTAL: render_view took %.3f ms" % ((time.time() - render_start) * 1000))
@@ -591,6 +611,36 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# pass event through
 		return {'PASS_THROUGH'}
 
+	# Check if the user is currently in the middle of another (modal) operator,
+	# e.g. grabbing or rotating an object. The change is only shown, when it is complete.
+	def is_operator_running(self, context):
+
+		# animation playback is a modal operator, but should keep updating the view
+		if context.screen and context.screen.is_animation_playing: return False
+
+		# list all running modal operators of the window, except our own
+		window = context.window
+		operators = [op.bl_idname for op in getattr(window, "modal_operators", []) if op.bl_idname != self.bl_idname and op.bl_idname != 'SCREEN_OT_animation_play']
+		if operators != self.waiting_for_operators:
+			self.waiting_for_operators = operators
+			if operators: LookingGlassAddonLogger.debug("Waiting for operator to finish: %s" % operators)
+		return len(operators) > 0
+
+	# Check if the depsgraph updates contain a change that is visible in the lightfield
+	@staticmethod
+	def has_relevant_updates(depsgraph):
+		for update in depsgraph.updates:
+
+			# Scene datablock updates are also triggered by changing settings (such as
+			# the add-on's own panel settings). They only matter if something was
+			# actually transformed, deformed or re-shaded.
+			if isinstance(update.id, bpy.types.Scene):
+				if update.is_updated_geometry or update.is_updated_transform or update.is_updated_shading: return True
+			else:
+				return True
+
+		return False
+
 	# Application handler that continously checks for changes of the depsgraph
 	def trackDepsgraphUpdates(self, scene, depsgraph):
 
@@ -598,14 +648,11 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		if not LookingGlassAddon.RenderInvoked:
 
 			# if automatic live view is activated AND something in the scene has changed
-			if (int(self.addon_settings_window_manager.renderMode) == 0 and int(self.addon_settings_window_manager.lightfieldMode) == 0) and len(depsgraph.updates.values()) > 0:
-				# print("DEPSGRAPH UPDATE: ", depsgraph.updates.values())
+			if (int(self.addon_settings_window_manager.renderMode) == 0 and int(self.addon_settings_window_manager.lightfieldMode) == 0) and self.has_relevant_updates(depsgraph):
 
-				# remember time of last depsgraph update
-				self.depsgraph_update_time = time.time()
-
-				# allow an update of the Looking Glass viewport
-				self.modal_redraw = True
+				# remember that there is something new to show. The update itself is
+				# started in the modal() function as soon as the user's operator has finished
+				self.pending_change = True
 
 				# if the "low resolution preview" is activated
 				if self.addon_settings_window_manager.lightfield_preview_mode == '1':
