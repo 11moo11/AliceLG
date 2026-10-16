@@ -312,6 +312,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	modal_redraw = True
 	depsgraph_update_time = 0
 	skip_views = 1
+	cleared_views = set()
 
 	# DEBUGING VARIABLES
 	start_multi_view = 0
@@ -592,25 +593,25 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				self.modal_redraw = True
 
 				# if the "low resolution preview" is activated
-				if self.addon_settings_window_manager.viewport_use_preview_mode and self.addon_settings_window_manager.lightfield_preview_mode == '1':
+				if self.addon_settings_window_manager.lightfield_preview_mode == '1':
 
 					# activate them
 					self.preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-1])
 
 				# if the "skip views preview I" is activated
-				elif self.addon_settings_window_manager.viewport_use_preview_mode and self.addon_settings_window_manager.lightfield_preview_mode == '2':
+				elif self.addon_settings_window_manager.lightfield_preview_mode == '2':
 
 					# skip every second view during rendering
 					self.skip_views = 2
 
 				# if the "skip views preview II" is activated
-				elif self.addon_settings_window_manager.viewport_use_preview_mode and self.addon_settings_window_manager.lightfield_preview_mode == '3':
+				elif self.addon_settings_window_manager.lightfield_preview_mode == '3':
 
 					# skip every third view during rendering
 					self.skip_views = 3
 
 				# if the "skip views preview III" is activated
-				elif self.addon_settings_window_manager.viewport_use_preview_mode and self.addon_settings_window_manager.lightfield_preview_mode == '5':
+				elif self.addon_settings_window_manager.lightfield_preview_mode == '5':
 
 					# skip five out of six views during rendering
 					self.skip_views = 6
@@ -810,6 +811,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 				# create a pylio LightfieldImage
 				self.lightfield_image = pylio.LightfieldImage.new(pylio.LookingGlassQuilt, id=self.preset, colormode='RGBA')
+				self.cleared_views = set()
 
 				# create a new set of LightfieldViews
 				self.lightfield_image.set_views([pylio.LightfieldView(np.empty((self.qs[self.preset]["view_height"], self.qs[self.preset]["view_width"], 4), dtype=np.uint8), pylio.LightfieldView.formats.numpyarray) for view in range(0, self.qs[self.preset]["total_views"])], pylio.LightfieldView.formats.numpyarray)
@@ -818,7 +820,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			LookingGlassAddonLogger.debug(" [#] View dimensions: %i x %i" % (self.qs[self.preset]["view_width"], self.qs[self.preset]["view_height"]))
 			LookingGlassAddonLogger.debug(" [#] LightfieldImage views: %i" % len(self.lightfield_image.get_view_data()))
 			LookingGlassAddonLogger.debug(" [#] Using quilt preset: %i (%s, %i x %i)" % (self.preset, self.qs[self.preset]['description'], self.lightfield_image.metadata['quilt_width'], self.lightfield_image.metadata['quilt_height']))
-			LookingGlassAddonLogger.debug(" [#] Preview mode: %s (selected: %s)" % (self.addon_settings_window_manager.viewport_use_preview_mode, self.addon_settings_window_manager.lightfield_preview_mode))
+			LookingGlassAddonLogger.debug(" [#] Preview mode: %s, skipping views: %i" % (self.addon_settings_window_manager.lightfield_preview_mode, self.skip_views))
 
 
 			# PREPARE VIEW & PROJECTION MATRIX
@@ -857,8 +859,30 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				# RENDER THE VIEWS
 				# ++++++++++++++++++++++++++++++++++++++++++++++++
 
+				# is a view-skipping preview active?
+				skipping = (self.addon_settings_window_manager.lightfield_preview_mode in ('2', '3', '5')) and self.skip_views > 1
+
 				# loop through all required views
 				for view in range(0, self.qs[self.preset]["total_views"]):
+
+					# if this view shall be skipped in the preview
+					# NOTE: We skip before binding the offscreen and setting up the view
+					#		camera, so skipped views cost (almost) nothing.
+					if skipping and view % self.skip_views:
+
+						# clear LightfieldView array's color data (so it appears black),
+						# but only once: it stays black until the view is rendered again
+						if view not in self.cleared_views:
+							self.lightfield_image.views[view]['view'].data[:] = 0
+							self.cleared_views.add(view)
+						continue
+
+					# this view is rendered now
+					self.cleared_views.discard(view)
+
+					# if the lightfield window is not active anymore, stop
+					if not (context or context.window_manager.addon_settings.ShowLightfieldWindow):
+						continue
 
 					with self.qs[self.preset]["viewOffscreen"][view].bind():
 
@@ -869,33 +893,19 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 						LookingGlassAddonLogger.debug(" [#] [%i] Setting up view camera took %.3f ms" % (view, (time.time() - start_test) * 1000))
 						start_test = time.time()
 
-						# if the "skip views preview" is activated AND this view shall be skipped
-						if (self.addon_settings_window_manager.viewport_use_preview_mode and (self.addon_settings_window_manager.lightfield_preview_mode in ('2', '3', '5'))) and view % self.skip_views:
+						# draw the viewport rendering to the offscreen for the current view
+						self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
+							# we use the "Scene" and the "View Layer" that is active in the Window
+							# the user currently works in
+							scene=context.scene,
+							view_layer=context.view_layer,
+							view3d=self._override.space_data,
+							region=self._override.region,
+							view_matrix=view_matrix,
+							projection_matrix=projection_matrix,
+							do_color_management = True)
 
-							# clear LightfieldView array's color data (so it appears black)
-							self.lightfield_image.views[view]['view'].data[:] = 0
-
-							LookingGlassAddonLogger.debug(" [#] [%i] Clearing skipped view's numpy array took %.3f ms" % (view, (time.time() - start_test) * 1000))
-
-						else:
-
-							# if the lightfield window is not active anymore, stop
-							if not (context or context.window_manager.addon_settings.ShowLightfieldWindow):
-								continue
-
-							# draw the viewport rendering to the offscreen for the current view
-							self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
-								# we use the "Scene" and the "View Layer" that is active in the Window
-								# the user currently works in
-								scene=context.scene,
-								view_layer=context.view_layer,
-								view3d=self._override.space_data,
-								region=self._override.region,
-								view_matrix=view_matrix,
-								projection_matrix=projection_matrix,
-								do_color_management = True)
-
-							LookingGlassAddonLogger.debug(" [#] [%i] Drawing view into offscreen took %.3f ms" % (view, (time.time() - start_test) * 1000))
+						LookingGlassAddonLogger.debug(" [#] [%i] Drawing view into offscreen took %.3f ms" % (view, (time.time() - start_test) * 1000))
 
 				# restore all viewport shading and overlay settings
 				self.restoreViewportSettings()
@@ -916,7 +926,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				for view in range(0, self.qs[self.preset]["total_views"]):
 
 					# if the "skip views preview" is activated AND this view shall be skipped
-					if (self.addon_settings_window_manager.viewport_use_preview_mode and (self.addon_settings_window_manager.lightfield_preview_mode in ('2', '3', '5'))) and view % self.skip_views:
+					if skipping and view % self.skip_views:
 
 						continue
 					else:
