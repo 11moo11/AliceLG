@@ -547,11 +547,26 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 					# dont skip any views
 					self.skip_views = 1
 
- 					# set to redraw
+					# set to redraw
 					self.modal_redraw = True
 
+					LookingGlassAddonLogger.debug("UPDATE PATH: full-quality refresh (idle timeout or manual refresh), preset %i, skip_views %i" % (self.preset, self.skip_views))
+
+				else:
+
+					LookingGlassAddonLogger.debug("UPDATE PATH: preview render (mode %s), preset %i, skip_views %i" % (self.addon_settings_window_manager.lightfield_preview_mode, self.preset, self.skip_views))
+
 				# render the views
+				render_start = time.time()
 				self.render_view(context)
+
+				# if a preview was rendered, restart the idle timer *after* the render:
+				# otherwise a preview that takes longer than the idle timeout is
+				# immediately followed by a full-quality refresh, which cancels the preview speedup
+				if self.depsgraph_update_time > 0:
+					self.depsgraph_update_time = time.time()
+
+				LookingGlassAddonLogger.debug("UPDATE TOTAL: render_view took %.3f ms" % ((time.time() - render_start) * 1000))
 
 				# Lightfield Viewport
 				if int(self.addon_settings_window_manager.renderMode) == 0 and self.lightfield_image:
