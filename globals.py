@@ -353,13 +353,7 @@ class LookingGlassAddon:
 					if invert is None: invert = False
 
 					# let the device display the image
-					if device.service:
-
-						# optionally wait for Looking Glass Bridge between updates (limits its memory use)
-						try: device.service.wait_for_show_reply = bpy.context.preferences.addons[__package__].preferences.bridge_wait_for_reply
-						except Exception: pass
-
-						device.display(lightfield_image, flip_views=flip_views, invert=invert)
+					if device.service: device.display(lightfield_image, flip_views=flip_views, invert=invert)
 
 				# QUILT VIEWER MODE
 				##################################################################

@@ -316,6 +316,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	# a relevant scene change happened that has not been shown yet
 	# (it is shown as soon as the user's current operator has finished)
 	pending_change = False
+	last_full_refresh_time = 0
 	waiting_for_operators = []
 	viewport_signature = None
 	last_settings_check = 0
@@ -543,7 +544,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				self.modal_redraw = True
 
 			# the full-quality refresh waits until nothing is pending or in progress
-			idle_refresh_due = (not self.pending_change) and (not operator_running) and self.depsgraph_update_time > 0 and time.time() - self.depsgraph_update_time > LookingGlassAddon.low_resolution_preview_timout
+			# NOTE: Full-quality refreshes send a large image to Looking Glass Bridge. They are therefore
+			#		only done after the user-defined idle time AND at most every 2 seconds.
+			now = time.time()
+			idle_refresh_due = (not self.pending_change) and (not operator_running) and self.depsgraph_update_time > 0 and now - self.depsgraph_update_time > self.addon_settings_window_manager.full_quality_delay and now - self.last_full_refresh_time > 2.0
 
 			# if something has changed OR the user requested a manual redrawing
 			if self.modal_redraw or (not self.modal_redraw and (idle_refresh_due or context.window_manager.addon_settings.viewport_manual_refresh == True)):
@@ -571,6 +575,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 					# set to redraw
 					self.modal_redraw = True
 					full_refresh = True
+					self.last_full_refresh_time = time.time()
 
 					LookingGlassAddonLogger.debug("UPDATE PATH: full-quality refresh (idle timeout or manual refresh), preset %i, skip_views %i" % (self.preset, self.skip_views))
 
