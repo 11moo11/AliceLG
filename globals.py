@@ -183,7 +183,13 @@ class LookingGlassAddon:
 				module_name, install_name, install_version, install_options = module
 
 				# unload the module
-				del sys.modules[module_name]
+				# NOTE: pyLightIO is pure python, so its submodules must be unloaded too.
+				#		Otherwise re-enabling the add-on in the same session (e.g., after
+				#		installing an update) fails with "module 'pylightio' has no
+				#		attribute 'lookingglass'".
+				if module_name == 'pylightio':
+					for name in [n for n in sys.modules if n.startswith('pylightio.')]: del sys.modules[name]
+				sys.modules.pop(module_name, None)
 				#del module_name
 
 
