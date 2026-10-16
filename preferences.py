@@ -194,6 +194,13 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									description="Additionally log outputs to std out for debugging",
 									update=LookingGlassAddon.update_logger_levels,
 									)
+
+	# automatic update check
+	check_updates_on_startup: bpy.props.BoolProperty(
+									default=True,
+									name="Check for updates on startup",
+									description="Check the GitHub repository for a newer version when Blender starts",
+									)
 	# need this here, since the actual logger level property is not initialized
 	# before the dependencies are installed. but we want to log all details
 	logger_level = 0
@@ -202,6 +209,11 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 	# draw function
 	def draw(self, context):
 		layout = self.layout
+
+		# updater
+		from .updater import draw_update_ui
+		layout.prop(self, "check_updates_on_startup")
+		draw_update_ui(layout)
 
 		# # render mode
 		# row_render_mode = layout.row()
