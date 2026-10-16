@@ -898,7 +898,7 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 	# PANEL: LIGHTFIELD WINDOW SETTINGS
 	# UI elements for user control
 	renderMode: bpy.props.EnumProperty(
-										items = [('0', 'Viewport', 'Viewport rendering of the current scene within the Looking Glass', 'VIEW3D', 0),
+										items = [('0', 'Scene', 'Cast the current scene to the Looking Glass', 'VIEW3D', 0),
 												 ('1', 'Quilt Viewer', 'Display a pre-rendered quilt image in the Looking Glass', 'RENDER_RESULT', 1)],
 										default='0',
 										name="Render Mode",
@@ -1936,6 +1936,7 @@ def draw_lightfield_window_options(layout, context):
 	"""Draws the lightfield window options inside the main Looking Glass panel."""
 
 	# TABS to swap between "live preview" and a "loaded quilt image"
+	layout.label(text="Select Cast Source")
 	row = layout.row()
 	row.prop(context.window_manager.addon_settings, "renderMode", expand=True)
 
@@ -1957,10 +1958,10 @@ def draw_lightfield_window_options(layout, context):
 		# (collapsible via layout.panel on Blender 4.1+, otherwise a plain box)
 		if hasattr(column, "panel"):
 			header, body = column.panel("LOOKINGGLASS_PT_viewport_settings", default_closed=False)
-			header.label(text="Light Field Viewport Settings")
+			header.label(text="Cast Settings")
 		else:
 			body = column.box()
-			body.label(text="Light Field Viewport Settings")
+			body.label(text="Cast Settings")
 		if body is not None:
 
 			# Lightfield rendering mode & refresh button
