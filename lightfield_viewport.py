@@ -1316,8 +1316,10 @@ class Block:
 			# Defines vertex shader inputs and uniforms that are now called constants
 			hologram_preview_shader_info.vertex_in(0, 'VEC2', "position")
 			hologram_preview_shader_info.vertex_in(1, 'VEC2', "uv")
-			hologram_preview_shader_info.push_constant('MAT4', "modelMatrix")
-			hologram_preview_shader_info.push_constant('MAT4', "viewProjectionMatrix")
+			# NOTE: The matrices are multiplied on the CPU and passed as one constant, because
+			#		Vulkan guarantees only 128 bytes of push constants. Two MAT4 plus the
+			#		constants below exceeded that (144+ bytes) and made the preview unreliable.
+			hologram_preview_shader_info.push_constant('MAT4', "modelViewProjectionMatrix")
 			
 			# Defines fragment shader inputs and uniforms that are now called constants
 			hologram_preview_shader_info.sampler(0, 'FLOAT_2D', "view_texture")
@@ -1341,7 +1343,7 @@ class Block:
 				void main()
 				{
 					texCoord = uv;
-					gl_Position = viewProjectionMatrix * modelMatrix * vec4(position, 0.0, 1.0);
+					gl_Position = modelViewProjectionMatrix * vec4(position, 0.0, 1.0);
 				}
 				'''
 			)
@@ -1693,8 +1695,11 @@ class Block:
 				# update shader uniforms
 				from struct import pack
 				self.shader.bind()
-				self.shader.uniform_float("modelMatrix", self.view_matrix)
-				self.shader.uniform_float("viewProjectionMatrix", self.projection_matrix)
+				if bpy.app.version < (3, 4, 0):
+					self.shader.uniform_float("modelMatrix", self.view_matrix)
+					self.shader.uniform_float("viewProjectionMatrix", self.projection_matrix)
+				else:
+					self.shader.uniform_float("modelViewProjectionMatrix", self.projection_matrix @ self.view_matrix)
 				#self.shader.uniform_float("aspect", self.aspect)
 				self.shader.uniform_vector_float(self.shader.uniform_from_name("dimensions"), pack("2f", self.width, self.height), 2)
 				#self.shader.uniform_float("border_width", self.border_width)
