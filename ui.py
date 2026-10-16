@@ -1471,36 +1471,33 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 		column = layout.column()
 
 		# Device selection
-		row_orientation = column.row(align = True)
-		column_1 = row_orientation.column(align=True)
-		row_orientationa = column_1.row(align = True)
-		row_orientationa.prop(context.window_manager.addon_settings, "activeDisplay", text="")
-		row_orientationa.operator("lookingglass.refresh_display_list", text="", icon='FILE_REFRESH')
-		row_orientation.separator()
+		row_device = column.row(align = True)
+		row_device.prop(context.window_manager.addon_settings, "activeDisplay", text="")
+		row_device.operator("lookingglass.refresh_display_list", text="", icon='FILE_REFRESH')
 
-		# Lightfield window button
-		column_2 = row_orientation.column(align=True)
-		row_orientationb = column_2.row(align = True)
-		row_orientationb.operator("lookingglass.lightfield_window", text="", icon='WINDOW', depress=context.window_manager.addon_settings.ShowLightfieldWindow)
+		# Lightfield window button (large, full width)
+		row_window = column.row(align = True)
+		row_window.scale_y = 1.6
+		row_window.operator("lookingglass.lightfield_window", text="Light Field Window", icon='WINDOW', depress=context.window_manager.addon_settings.ShowLightfieldWindow)
 
-		# Resolution selection of the quilt views
-		row_preset = column.row()
-		row_preset.prop(context.scene.addon_settings, "quiltPreset", text="")
-		#column.separator()
-
-		# if no Looking Glass was detected AND debug mode is not activated OR the active device is an emulated one
+		# if no Looking Glass was detected AND debug mode is not activated
 		if (not pylio.DeviceManager.count() and not LookingGlassAddon.debugging_use_dummy_device):
 
-			# deactivate quilt preset and lightfield window buttons
-			row_preset.enabled = False
-			row_orientationb.enabled = False
+			# deactivate the lightfield window button
+			row_window.enabled = False
 
 		# if the Looking Glass Bridge is not added or not ready
 		if (LookingGlassAddon.service is None or not LookingGlassAddon.service.is_ready()) and not LookingGlassAddon.debugging_use_dummy_device:
 
 			# deactivate the looking glass selection and lightfield window button
-			row_orientationa.enabled = False
-			row_orientationb.enabled = False
+			row_device.enabled = False
+			row_window.enabled = False
+
+		# if a Looking Glass is selected AND the lightfield window is shown,
+		# display the lightfield window options directly below the button
+		if hasattr(context.window_manager, "addon_settings") and int(context.window_manager.addon_settings.activeDisplay) != -1 and context.window_manager.addon_settings.ShowLightfieldWindow == True:
+			column.separator()
+			draw_lightfield_window_options(layout, context)
 
 
 
@@ -1939,80 +1936,50 @@ class LOOKINGGLASS_OT_refresh_lightfield(bpy.types.Operator):
 
 		return {'FINISHED'}
 
-class LOOKINGGLASS_PT_panel_lightfield(bpy.types.Panel):
-	bl_idname = "LOOKINGGLASS_PT_panel_lightfield" # unique identifier for buttons and menu items to reference.
-	bl_label = "Light Field Window" # display name in the interface.
-	bl_space_type = "VIEW_3D"
-	bl_region_type = "UI"
-	bl_category = "Looking Glass"
+def draw_lightfield_window_options(layout, context):
+	"""Draws the lightfield window options inside the main Looking Glass panel."""
+
+	# TABS to swap between "live preview" and a "loaded quilt image"
+	row = layout.row()
+	row.prop(context.window_manager.addon_settings, "renderMode", expand=True)
+
+	# define a column of UI elements
+	column = layout.column(align = True)
+	column.separator()
+
+	# If no LookingGlass is selected
+	if int(context.window_manager.addon_settings.activeDisplay) == -1:
+
+		# ... then disable all UI elements except for the drop down menu and the refresh button
+		column.enabled = False
+		row.enabled = False
+
+	# if the lightfield window is in viewport mode
+	if context.window_manager.addon_settings.renderMode == '0':
+
+		# Lightfield rendering mode & refresh button
+		row_orientation = column.row()
+		row_orientation.label(text="Light Field Viewport Modes:")
+		row_preset = column.row()
+		row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
+		row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
+
+		# Preview settings
+		row_output = column.row(align = True)
+		row_output.prop(context.window_manager.addon_settings, "lightfield_preview_mode", text="")
+		row_output.separator()
+		row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
 
 
-	# define own poll method to be able to hide / show the panel on demand
-	@classmethod
-	def poll(self, context):
+	# if the lightfield window is in quilt viewer mode
+	elif context.window_manager.addon_settings.renderMode == '1':
 
-		if not hasattr(context.window_manager, "addon_settings"):
-			return False
+		# display all settings for the quilt view mode
+		row = column.row(align = True)
+		row.label(text="Select a Quilt Image to Display:")
 
-		# if no Looking Glass is selected OR no lightfield window exists
-		if int(context.window_manager.addon_settings.activeDisplay) == -1 or context.window_manager.addon_settings.ShowLightfieldWindow == False:
-
-			# this panel is not needed, so return False:
-			# the panel will not be drawn
-			return False
-
-		else:
-
-			# this panel is needed, so return True:
-			# the panel will be drawn
-			return True
-
-
-	# draw the IntProperties for the tiles in the panel
-	def draw(self, context):
-		layout = self.layout
-
-		# TABS to swap between "live preview" and a "loaded quilt image"
-		row = layout.row()
-		row.prop(context.window_manager.addon_settings, "renderMode", expand=True)
-
-		# define a column of UI elements
-		column = layout.column(align = True)
-		column.separator()
-
-		# If no LookingGlass is selected
-		if int(context.window_manager.addon_settings.activeDisplay) == -1:
-
-			# ... then disable all UI elements except for the drop down menu and the refresh button
-			column.enabled = False
-			row.enabled = False
-
-		# if the lightfield window is in viewport mode
-		if context.window_manager.addon_settings.renderMode == '0':
-
-			# Lightfield rendering mode & refresh button
-			row_orientation = column.row()
-			row_orientation.label(text="Light Field Viewport Modes:")
-			row_preset = column.row()
-			row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
-			row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
-
-			# Preview settings
-			row_output = column.row(align = True)
-			row_output.prop(context.window_manager.addon_settings, "lightfield_preview_mode", text="")
-			row_output.separator()
-			row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
-
-
-		# if the lightfield window is in quilt viewer mode
-		elif context.window_manager.addon_settings.renderMode == '1':
-
-			# display all settings for the quilt view mode
-			row = column.row(align = True)
-			row.label(text="Select a Quilt Image to Display:")
-
-			row = column.row(align = True)
-			row.template_ID(context.window_manager.addon_settings, "quiltImage", open="image.open")
+		row = column.row(align = True)
+		row.template_ID(context.window_manager.addon_settings, "quiltImage", open="image.open")
 
 
 
@@ -2045,7 +2012,7 @@ class LOOKINGGLASS_PT_panel_overlays_shading(bpy.types.Panel):
 	bl_region_type = "UI"
 	bl_category = "Looking Glass"
 	bl_options = {'DEFAULT_CLOSED'}
-	bl_parent_id = "LOOKINGGLASS_PT_panel_lightfield"
+	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
 
 
 	# define own poll method to be able to hide / show the panel on demand
