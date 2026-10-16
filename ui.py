@@ -1483,6 +1483,11 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 	# Draw handler for the panel layout
 	def draw(self, context):
 		layout = self.layout
+
+		# camera settings (top of the panel)
+		draw_camera_settings(layout, context)
+		layout.separator()
+
 		column = layout.column()
 
 		# Device selection
@@ -1514,9 +1519,6 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 			column.separator()
 			draw_lightfield_window_options(layout, context)
 
-		# camera settings
-		layout.separator()
-		draw_camera_settings(layout, context)
 
 
 
