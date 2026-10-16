@@ -1501,40 +1501,6 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 
 
 
-# ------------- The Advanced Settings Panel ----------------
-class LOOKINGGLASS_PT_panel_advanced(bpy.types.Panel):
-	bl_idname = "LOOKINGGLASS_PT_panel_advanced" # unique identifier for buttons and menu items to reference.
-	bl_label = "Advanced" # display name in the interface.
-	bl_space_type = "VIEW_3D"
-	bl_region_type = "UI"
-	bl_category = "Looking Glass"
-	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
-	bl_options = {'DEFAULT_CLOSED'}
-
-
-	# define own poll method to be able to hide / show the panel on demand
-	@classmethod
-	def poll(self, context):
-
-		# the panel should always be drawn
-		return True
-
-	# draw the UI for the configuration options
-	def draw(self, context):
-		layout = self.layout
-
-		# Quilt Generation from Files
-		layout.label(text="Build Quilt from Files:")
-		
-		# Directory selection
-		row = layout.row(align=True)
-		row.prop(context.scene.addon_settings, "advanced_quilt_source_path", text="")
-
-		# Build button
-		row = layout.row(align=True)
-		row.operator("lookingglass.build_quilt_from_files", text="Build Quilt", icon='RENDER_STILL')
-
-
 # ------------- The Camera Settings Panel ----------------
 # an operator that adds a camera to the scene
 class LOOKINGGLASS_OT_add_camera(bpy.types.Operator):
@@ -1642,7 +1608,7 @@ class LOOKINGGLASS_PT_panel_camera(bpy.types.Panel):
 # the panel for the camera settings
 class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 	bl_idname = "LOOKINGGLASS_PT_panel_render" # unique identifier for buttons and menu items to reference.
-	bl_label = "Quilt Setup & Rendering" # display name in the interface.
+	bl_label = "Quilt Creation" # display name in the interface.
 	bl_space_type = "VIEW_3D"
 	bl_region_type = "UI"
 	bl_category = "Looking Glass"
@@ -1794,6 +1760,19 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 		row = column.row(align=True)
 		row.prop(context.scene.addon_settings, "preview_view_index", text="View")
 		row.operator("lookingglass.preview_camera", text="Preview", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
+
+		# Quilt Generation from Files (formerly the "Advanced" panel)
+		layout.separator()
+		column = layout.column(align=True)
+		column.label(text="Build Quilt from Files:")
+
+		# Directory selection
+		row = column.row(align=True)
+		row.prop(context.scene.addon_settings, "advanced_quilt_source_path", text="")
+
+		# Build button
+		row = column.row(align=True)
+		row.operator("lookingglass.build_quilt_from_files", text="Build Quilt", icon='RENDER_STILL')
 
 
 # an operator that positions the camera for a specific view
