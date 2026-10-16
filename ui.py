@@ -1474,7 +1474,7 @@ class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 
 class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 	bl_idname = "LOOKINGGLASS_PT_panel_general" # unique identifier for buttons and menu items to reference.
-	bl_label = "Looking Glass" # display name in the interface.
+	bl_label = "View Settings" # display name in the interface.
 	bl_space_type = "VIEW_3D"
 	bl_region_type = "UI"
 	bl_category = "Looking Glass"
@@ -1514,6 +1514,10 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 			column.separator()
 			draw_lightfield_window_options(layout, context)
 
+		# camera settings
+		layout.separator()
+		draw_camera_settings(layout, context)
+
 
 
 # ------------- The Camera Settings Panel ----------------
@@ -1549,75 +1553,59 @@ class LOOKINGGLASS_OT_add_camera(bpy.types.Operator):
 
 		return {'FINISHED'}
 
-# the panel for the camera settings
-class LOOKINGGLASS_PT_panel_camera(bpy.types.Panel):
-	bl_idname = "LOOKINGGLASS_PT_panel_camera" # unique identifier for buttons and menu items to reference.
-	bl_label = "Camera Setup" # display name in the interface.
-	bl_space_type = "VIEW_3D"
-	bl_region_type = "UI"
-	bl_category = "Looking Glass"
-	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
+# camera settings, drawn inline in the "View Settings" panel
+def draw_camera_settings(layout, context):
+	"""Draws the Looking Glass camera settings."""
 
 
-	# define own poll method to be able to hide / show the panel on demand
-	@classmethod
-	def poll(self, context):
+	# define a column of UI elements
+	column = layout.column(align = True)
 
-		# the panel should always be drawn
-		return True
+	# Camera selection
+	row_camera = column.row(align = True)
+	column_1 = row_camera.column(align=True)
+	row_camera_a = column_1.row(align = True)
+	row_camera_a.enabled = (not context.scene.addon_settings.toggleCameraSync)
+	row_camera_a.prop(context.scene.addon_settings, "lookingglassCamera", icon='VIEW_CAMERA', text="")
+	row_camera_a.operator("object.add_lookingglass_camera", text="", icon='ADD')
+	row_camera_a.separator()
 
-	# draw the IntProperties for the tiles in the panel
-	def draw(self, context):
-		layout = self.layout
+	# Camera options
+	column_2 = row_camera.column(align=True)
+	row_camera_b = column_2.row(align = True)
+	row_camera_b.prop(context.scene.addon_settings, "showFrustum", text="", icon='MESH_CUBE')
+	row_camera_b.prop(context.scene.addon_settings, "showFocalPlane", text="", icon='MESH_PLANE')
+	row_camera_b.prop(context.scene.addon_settings, "toggleCameraSync", text="", icon='LINKED')
 
-		# define a column of UI elements
-		column = layout.column(align = True)
+	# display the clipping settings
+	camera = context.scene.addon_settings.lookingglassCamera
+	if camera:
 
-		# Camera selection
-		row_camera = column.row(align = True)
-		column_1 = row_camera.column(align=True)
-		row_camera_a = column_1.row(align = True)
-		row_camera_a.enabled = (not context.scene.addon_settings.toggleCameraSync)
-		row_camera_a.prop(context.scene.addon_settings, "lookingglassCamera", icon='VIEW_CAMERA', text="")
-		row_camera_a.operator("object.add_lookingglass_camera", text="", icon='ADD')
-		row_camera_a.separator()
+		column.separator()
+		row_clip_start = column.row(align = True)
+		row_clip_start.prop(context.scene.addon_settings, "clip_start")
+		row_clip_start.prop(context.scene.addon_settings, "lockClippingPlanes", text="", icon='PINNED')
+		row_clip_end = column.row(align = True)
+		row_clip_end.prop(context.scene.addon_settings, "clip_end")
+		row_clip_end.prop(context.scene.addon_settings, "lockClippingPlanes", text="", icon='PINNED')
+		row_focal_plane = column.row(align = True)
+		row_focal_plane.prop(context.scene.addon_settings, "focalPlane")
+		row_focal_plane.prop(context.scene.addon_settings, "toggleFocalSync", text="", icon='LINKED')
 
-		# Camera options
-		column_2 = row_camera.column(align=True)
-		row_camera_b = column_2.row(align = True)
-		row_camera_b.prop(context.scene.addon_settings, "showFrustum", text="", icon='MESH_CUBE')
-		row_camera_b.prop(context.scene.addon_settings, "showFocalPlane", text="", icon='MESH_PLANE')
-		row_camera_b.prop(context.scene.addon_settings, "toggleCameraSync", text="", icon='LINKED')
+		# row_preset = column.row(align = True)
+		# row_preset.prop(context.scene.addon_settings, "clip_start")
+		# row_output = column.row(align = True)
+		# row_output.prop(context.scene.addon_settings, "clip_end")
+		# row_render_still = column.row(align = True)
+		# row_render_still.prop(context.scene.addon_settings, "focalPlane")
 
-		# display the clipping settings
-		camera = context.scene.addon_settings.lookingglassCamera
-		if camera:
+	# # if no camera is Selected
+	# if context.scene.addon_settings.lookingglassCamera == None:
 
-			column.separator()
-			row_clip_start = column.row(align = True)
-			row_clip_start.prop(context.scene.addon_settings, "clip_start")
-			row_clip_start.prop(context.scene.addon_settings, "lockClippingPlanes", text="", icon='PINNED')
-			row_clip_end = column.row(align = True)
-			row_clip_end.prop(context.scene.addon_settings, "clip_end")
-			row_clip_end.prop(context.scene.addon_settings, "lockClippingPlanes", text="", icon='PINNED')
-			row_focal_plane = column.row(align = True)
-			row_focal_plane.prop(context.scene.addon_settings, "focalPlane")
-			row_focal_plane.prop(context.scene.addon_settings, "toggleFocalSync", text="", icon='LINKED')
-
-			# row_preset = column.row(align = True)
-			# row_preset.prop(context.scene.addon_settings, "clip_start")
-			# row_output = column.row(align = True)
-			# row_output.prop(context.scene.addon_settings, "clip_end")
-			# row_render_still = column.row(align = True)
-			# row_render_still.prop(context.scene.addon_settings, "focalPlane")
-
-		# # if no camera is Selected
-		# if context.scene.addon_settings.lookingglassCamera == None:
-
-		# 	# disable clipping and focal plane modifieres
-		# 	row_clip_start.enabled = False
-		# 	row_clip_end.enabled = False
-		# 	row_focal_plane.enabled = False
+	# 	# disable clipping and focal plane modifieres
+	# 	row_clip_start.enabled = False
+	# 	row_clip_end.enabled = False
+	# 	row_focal_plane.enabled = False
 
 # ------------- The Render Settings Panel ----------------
 # the panel for the camera settings
@@ -1950,22 +1938,32 @@ def draw_lightfield_window_options(layout, context):
 	# if the lightfield window is in viewport mode
 	if context.window_manager.addon_settings.renderMode == '0':
 
-		# Lightfield rendering mode & refresh button
-		row_orientation = column.row()
-		row_orientation.label(text="Light Field Viewport Modes:")
-		row_preset = column.row()
-		row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
-		row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
+		# all viewport settings live in one collapsible section
+		# (collapsible via layout.panel on Blender 4.1+, otherwise a plain box)
+		if hasattr(column, "panel"):
+			header, body = column.panel("LOOKINGGLASS_PT_viewport_settings", default_closed=False)
+			header.label(text="Light Field Viewport Settings")
+		else:
+			body = column.box()
+			body.label(text="Light Field Viewport Settings")
+		if body is not None:
 
-		# Preview settings
-		row_output = column.row(align = True)
-		row_output.prop(context.window_manager.addon_settings, "lightfield_preview_mode", text="")
-		row_output.separator()
-		row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
+			# Lightfield rendering mode & refresh button
+			row_orientation = body.row()
+			row_orientation.label(text="Light Field Viewport Modes:")
+			row_preset = body.row()
+			row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
+			row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
 
-		# Shading & overlay settings directly below the viewport modes
-		column.separator()
-		draw_shading_overlays_settings(column, context)
+			# Preview settings
+			row_output = body.row(align = True)
+			row_output.prop(context.window_manager.addon_settings, "lightfield_preview_mode", text="")
+			row_output.separator()
+			row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
+
+			# Shading & overlay settings
+			body.separator()
+			draw_shading_overlays_settings(body, context)
 
 
 	# if the lightfield window is in quilt viewer mode
@@ -2002,20 +2000,9 @@ class LOOKINGGLASS_OT_blender_viewport_assign(bpy.types.Operator):
 
 		return {'FINISHED'}
 
-# Shading & overlay settings, drawn inline in the main panel
+# Shading & overlay settings, drawn inside the light field viewport settings
 def draw_shading_overlays_settings(layout, context):
-	"""Draws the (collapsible) shading & overlay settings of the lightfield viewport."""
-
-	# use a collapsible sub-panel inside the layout (Blender 4.1+), otherwise a plain box
-	if hasattr(layout, "panel"):
-		header, body = layout.panel("LOOKINGGLASS_PT_overlays_shading", default_closed=True)
-		header.label(text="Shading & Overlays Settings")
-		if body is None: return
-		layout = body
-	else:
-		layout = layout.box()
-		layout.label(text="Shading & Overlays Settings")
-
+	"""Draws the shading & overlay settings of the lightfield viewport."""
 
 	# define a column of UI elements
 	column = layout.column(align = True)

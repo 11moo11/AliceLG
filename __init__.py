@@ -450,7 +450,6 @@ def register():
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_general)
 		# NOTE: Sub-panels are drawn in registration order. The shading panel belongs
 		#		directly below the light field window options, i.e. above the camera panel.
-		bpy.utils.register_class(LOOKINGGLASS_PT_panel_camera)
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_render)
         # addon header buttons: 3D viewport
 		bpy.utils.register_class(LOOKINGGLASS_PT_panel_blocks_viewport_options)
@@ -614,7 +613,6 @@ def unregister():
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_blocks_imageeditor_options"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_blocks_imageeditor_options)
         # addon panels
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_general"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_general)
-		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_camera"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_camera)
 		if hasattr(bpy.types, "LOOKINGGLASS_PT_panel_render"): bpy.utils.unregister_class(LOOKINGGLASS_PT_panel_render)
         # preferences
 		from . import updater
