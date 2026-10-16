@@ -533,8 +533,9 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			if int(self.addon_settings_window_manager.renderMode) == 0 and int(self.addon_settings_window_manager.lightfieldMode) == 0:
 				self.track_viewport_settings(context)
 
-			# a change is shown as soon as the user's operator has finished
-			operator_running = self.is_operator_running(context)
+			# a change is shown right away, or (in Patient Mode) as soon as the user's operator has finished
+			# NOTE: Only in "Patient Mode". Otherwise the light field is updated while the operator is still running.
+			operator_running = self.is_operator_running(context) if self.addon_settings_window_manager.patient_mode else False
 			if self.pending_change and not operator_running:
 
 				# update the lightfield with the (preview) settings

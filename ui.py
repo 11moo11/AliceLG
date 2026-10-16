@@ -926,6 +926,13 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 										update=LookingGlassAddonUI.update_lightfield_window_settings,
 										)
 
+	# wait with light field updates until the current operator (e.g., grabbing an object) has finished
+	patient_mode: bpy.props.BoolProperty(
+										name="Patient Mode",
+										description="Wait with updating the light field until the current operator (e.g., moving an object) has finished. Faster and smoother in heavy scenes, but the light field does not update while you are dragging",
+										default = False,
+										)
+
 	# pointer property that can be used to load a pre-rendered quilt image
 	quiltImage: bpy.props.PointerProperty(
 										name="Quilt",
@@ -1947,6 +1954,9 @@ def draw_lightfield_window_options(layout, context):
 			row_preset = body.row()
 			row_preset.prop(context.window_manager.addon_settings, "lightfieldMode", text="")
 			row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
+
+			# Patient mode: only update once the user's operator has finished
+			body.prop(context.window_manager.addon_settings, "patient_mode", toggle=True, icon='TIME')
 
 			# Preview settings
 			row_output = body.row(align = True)
