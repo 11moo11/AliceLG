@@ -222,6 +222,27 @@ class LookingGlassAddon:
 		except Exception:
 			return -1
 
+	# a black (minimum resolution) light field that is shown when there is nothing else to show
+	_black_lightfield = None
+
+	@classmethod
+	def get_black_lightfield(cls):
+		if cls._black_lightfield is None:
+			try:
+				import numpy as np
+				import pylightio as pylio
+
+				# the last preset is the minimum resolution preset
+				preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-1])
+				quilt = pylio.LookingGlassQuilt.formats.get(preset)
+				image = pylio.LightfieldImage.new(pylio.LookingGlassQuilt, id=preset, colormode='RGBA')
+				image.set_views([pylio.LightfieldView(np.zeros((quilt["view_height"], quilt["view_width"], 4), dtype=np.uint8), pylio.LightfieldView.formats.numpyarray) for view in range(0, quilt["total_views"])], pylio.LightfieldView.formats.numpyarray)
+				cls._black_lightfield = image
+			except Exception as e:
+				LookingGlassAddonLogger.warning("Could not create the black light field: %s" % e)
+
+		return cls._black_lightfield
+
 	# apply the default cast settings of the add-on preferences to the current window manager
 	@staticmethod
 	def apply_default_settings(context = None):
@@ -389,8 +410,11 @@ class LookingGlassAddon:
 			# if the demo quilt was requested
 			elif lightfield_image is None:
 
-				# let the device display the demo quilt
-				if device.service: device.display(None)
+				# nothing to show: display a black screen
+				if device.service:
+					black = LookingGlassAddon.get_black_lightfield()
+					if black is not None: device.display(black, flip_views=False, invert=False)
+					else: device.display(None)
 
 			else:
 				LookingGlassAddonLogger.error("Could not update the lightfield window. No LightfieldImage was given.")
