@@ -927,6 +927,18 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 										update=LookingGlassAddonUI.update_lightfield_window_settings,
 										)
 
+	# how long to wait without changes before the full-quality light field is rendered and sent
+	full_quality_delay: bpy.props.FloatProperty(
+										name="Full-quality refresh",
+										description="Seconds without changes after which the full-quality light field is rendered and sent to Looking Glass Bridge. Longer values send fewer large images, which reduces the memory that Bridge uses",
+										default = 1.5,
+										min = 0.2,
+										max = 10.0,
+										step = 10,
+										precision = 1,
+										unit = 'TIME',
+										)
+
 	# wait with light field updates until the current operator (e.g., grabbing an object) has finished
 	patient_mode: bpy.props.BoolProperty(
 										name="Patient Mode",
@@ -1962,6 +1974,10 @@ def draw_lightfield_window_options(layout, context):
 			# Manual refresh: refresh button
 			else:
 				row_preset.operator("lookingglass.refresh_lightfield", text="", icon='FILE_REFRESH')
+
+			# time without changes after which the full-quality light field is shown (automatic mode only)
+			if int(context.window_manager.addon_settings.lightfieldMode) == 0:
+				body.prop(context.window_manager.addon_settings, "full_quality_delay", slider=True)
 
 			# Preview settings
 			row_output = body.row(align = True)
