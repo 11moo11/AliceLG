@@ -1447,20 +1447,26 @@ class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 		# if the bool property was set to True
 		if context.window_manager.addon_settings.ShowLightfieldWindow == True:
 
+			# remember the invoking context (window, area, region), because the forced
+			# redraw below can leave Blender without an active area / region
+			window, area, region = context.window, context.area, context.region
+
 			# assign the current viewport for the shading & overlay settings
-			# NOTE: This must happen before the forced redraw below, which can
-			#		change the context (no active 3D view afterwards).
 			bpy.ops.lookingglass.blender_viewport_assign('EXEC_DEFAULT')
 
 			# draw the new UI first: creating the lightfield window is slow and would
 			# otherwise block the panel from updating until it has finished
 			try:
-				for area in context.screen.areas: area.tag_redraw()
+				for a in context.screen.areas: a.tag_redraw()
 				bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 			except Exception: pass
 
-			# Invoke modal operator for the lightfield rendering
-			bpy.ops.render.viewport('INVOKE_DEFAULT')
+			# Invoke modal operator for the lightfield rendering in the original context
+			if hasattr(context, "temp_override"):
+				with context.temp_override(window=window, area=area, region=region):
+					bpy.ops.render.viewport('INVOKE_DEFAULT')
+			else:
+				bpy.ops.render.viewport('INVOKE_DEFAULT')
 
 		return {'FINISHED'}
 
