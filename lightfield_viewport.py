@@ -434,21 +434,15 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# get all quilt presets from pylio
 		self.qs = pylio.LookingGlassQuilt.formats.get()
 
-		# iterate through all presets
+		# create an empty list of offscreen objects for each preset
+		# NOTE: The GPUOffscreens are created on demand (see ensure_offscreens). Creating
+		#		them for ALL quilt presets would occupy several GB of GPU memory and
+		#		slow down Blender as long as the lightfield window is open.
 		for i, preset in self.qs.items():
-
-			# create a list of offscreen objects for this preset
 			self.qs[i]["viewOffscreen"] = []
 
-			# loop through all required views
-			#for view in range(int((self.qs[self.preset]["total_views"] + 1) / 3), self.qs[self.preset]["total_views"] - int((self.qs[self.preset]["total_views"] + 1) / 3)):
-			for view in range(0, self.qs[i]["total_views"]):
-
-				# create a GPUOffscreen for the views
-				self.qs[i]["viewOffscreen"].append(gpu.types.GPUOffScreen(int(self.qs[i]["view_width"]), int(self.qs[i]["view_height"])))
-
 		# log info
-		LookingGlassAddonLogger.info(" [#] Prepared GPUOffscreens for view rendering.")
+		LookingGlassAddonLogger.info(" [#] Prepared the list of GPUOffscreens (created on demand).")
 
 
 		# PREPARE THE OVERRIDE CONTEXT THAT CONTAINS THE RENDER SETTINGS
@@ -486,7 +480,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# HANDLERS FOR OPERATOR CONTROL
 		# ++++++++++++++++++++++++++++++
 		# Create timer event that runs every millisecond to check if the lightfield needs to be updated
-		self.timerEvent = context.window_manager.event_timer_add(0.01, window=context.window)
+		self.timerEvent = context.window_manager.event_timer_add(0.05, window=context.window)
 
 		# add the modal handler
 		context.window_manager.modal_handler_add(self)
@@ -710,6 +704,25 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 		self.viewport_signature = signature
 
+	# create the GPUOffscreens of a preset on demand and free those of unused presets
+	def ensure_offscreens(self, context, preset):
+
+		# the presets that are needed: the current one, the selected one and the low resolution preview one
+		keep = {preset, int(context.scene.addon_settings.quiltPreset), int(list(self.qs.keys())[-1])}
+
+		# free the offscreens of all other presets
+		for i in self.qs.keys():
+			if i not in keep and len(self.qs[i]["viewOffscreen"]):
+				for offscreen in self.qs[i]["viewOffscreen"]: offscreen.free()
+				self.qs[i]["viewOffscreen"].clear()
+				LookingGlassAddonLogger.debug("Freed GPUOffscreens of preset %i." % i)
+
+		# create the offscreens of the current preset, if they do not exist
+		if len(self.qs[preset]["viewOffscreen"]) != self.qs[preset]["total_views"]:
+			for offscreen in self.qs[preset]["viewOffscreen"]: offscreen.free()
+			self.qs[preset]["viewOffscreen"] = [gpu.types.GPUOffScreen(int(self.qs[preset]["view_width"]), int(self.qs[preset]["view_height"])) for view in range(0, self.qs[preset]["total_views"])]
+			LookingGlassAddonLogger.debug("Created %i GPUOffscreens for preset %i." % (self.qs[preset]["total_views"], preset))
+
 	# Check if the user is currently in the middle of another (modal) operator,
 	# e.g. grabbing or rotating an object. The change is only shown, when it is complete.
 	def is_operator_running(self, context):
@@ -911,6 +924,9 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			# ++++++++++++++++++++++++++++++++++++++++++++++++
 
 			self.start_multi_view = time.time()
+
+			# make sure that the GPUOffscreens of the preset exist
+			self.ensure_offscreens(context, self.preset)
 
 			# if the quilt and view settings changed
 			if self.last_preset != self.preset or self.lightfield_image == None:
