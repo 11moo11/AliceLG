@@ -935,12 +935,6 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 										)
 
 
-	viewport_use_preview_mode: bpy.props.BoolProperty(
-										name="Use Preview Mode",
-										description="If enabled, a simplified light field is rendered during scene changes (for higher render speed)",
-										default = True,
-										)
-
 	viewport_manual_refresh: bpy.props.BoolProperty(
 										name="Refresh Looking Glass",
 										description="Redraw the light field in the Looking Glass",
@@ -1957,8 +1951,6 @@ def draw_lightfield_window_options(layout, context):
 			# Preview settings
 			row_output = body.row(align = True)
 			row_output.prop(context.window_manager.addon_settings, "lightfield_preview_mode", text="")
-			row_output.separator()
-			row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
 
 			# Shading & overlay settings
 			body.separator()
