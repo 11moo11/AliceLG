@@ -244,6 +244,9 @@ class LookingGlassAddon:
 		# NOTE: Some code parts assume, that this is the last preset in the list.
 		pylio.LookingGlassQuilt.formats.add({'description': "Low-resolution Preview", 'quilt_width': 1024, 'quilt_height': 1024, 'view_width': 256, 'view_height': 128, 'columns': 4, 'rows': 8, 'total_views': 32, 'hidden': True})
 
+		# NOTE: This must stay the LAST preset: it is the one used by "Preview Quality: Minimum"
+		pylio.LookingGlassQuilt.formats.add({'description': "Minimum-resolution Preview", 'quilt_width': 512, 'quilt_height': 512, 'view_width': 128, 'view_height': 64, 'columns': 4, 'rows': 8, 'total_views': 32, 'hidden': True})
+
 
 	# GLOBAL LIGHTFIELD VIEWPORT DATA
 	# +++++++++++++++++++++++++++++++++++++++
@@ -350,7 +353,13 @@ class LookingGlassAddon:
 					if invert is None: invert = False
 
 					# let the device display the image
-					if device.service: device.display(lightfield_image, flip_views=flip_views, invert=invert)
+					if device.service:
+
+						# optionally wait for Looking Glass Bridge between updates (limits its memory use)
+						try: device.service.wait_for_show_reply = bpy.context.preferences.addons[__package__].preferences.bridge_wait_for_reply
+						except Exception: pass
+
+						device.display(lightfield_image, flip_views=flip_views, invert=invert)
 
 				# QUILT VIEWER MODE
 				##################################################################

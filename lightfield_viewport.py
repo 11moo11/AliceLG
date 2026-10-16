@@ -621,11 +621,17 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 		self.pending_change = True
 
-		# if the "low resolution preview" is activated
-		if self.addon_settings_window_manager.lightfield_preview_mode == '1':
+		# if the "minimum resolution preview" is activated
+		if self.addon_settings_window_manager.lightfield_preview_mode == '6':
 
-			# activate them
+			# the minimum resolution preset is the last preset
 			self.preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-1])
+
+		# if the "low resolution preview" is activated
+		elif self.addon_settings_window_manager.lightfield_preview_mode == '1':
+
+			# the low resolution preset is the second last preset
+			self.preset = int(list(pylio.LookingGlassQuilt.formats.get().keys())[-2])
 
 		# if the "skip views preview I" is activated
 		elif self.addon_settings_window_manager.lightfield_preview_mode == '2':
@@ -711,7 +717,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	def ensure_offscreens(self, context, preset):
 
 		# the presets that are needed: the current one, the selected one and the low resolution preview one
-		keep = {preset, int(context.scene.addon_settings.quiltPreset), int(list(self.qs.keys())[-1])}
+		keep = {preset, int(context.scene.addon_settings.quiltPreset), int(list(self.qs.keys())[-1]), int(list(self.qs.keys())[-2])}
 
 		# free the offscreens of all other presets
 		for i in self.qs.keys():
