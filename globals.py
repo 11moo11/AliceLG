@@ -222,6 +222,20 @@ class LookingGlassAddon:
 		except Exception:
 			return -1
 
+	# apply the default cast settings of the add-on preferences to the current window manager
+	@staticmethod
+	def apply_default_settings(context = None):
+		try:
+			context = context or bpy.context
+			prefs = context.preferences.addons[__package__].preferences
+			settings = context.window_manager.addon_settings
+			settings.lightfieldMode = prefs.default_refresh_mode
+			settings.lightfield_preview_mode = prefs.default_preview_quality
+			settings.full_quality_delay = prefs.default_full_quality_delay
+			settings.patient_mode = prefs.default_patient_mode
+		except Exception as e:
+			LookingGlassAddonLogger.debug("Could not apply the default cast settings: %s" % e)
+
 	# LOOKING GLASS QUILT PRESETS
 	# +++++++++++++++++++++++++++++++++++++++
 	# set up quilt settings

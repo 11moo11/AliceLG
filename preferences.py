@@ -202,6 +202,44 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									description="Send light fields as one named, replaced quilt in the cache of Looking Glass Bridge instead of as new images. This may reduce the memory that Bridge uses. If Bridge does not accept it, the add-on falls back to the normal way",
 									)
 
+	# default cast settings: they are used for all Blender files
+	default_refresh_mode: bpy.props.EnumProperty(
+									items = [('0', 'Automatic', 'Automatically refresh the light field when something changes'),
+											 ('1', 'Manual', 'Refresh the light field manually')],
+									default='0',
+									name="Refresh Mode",
+									description="Default refresh mode for casting a scene",
+									update=lambda self, context: LookingGlassAddon.apply_default_settings(context),
+									)
+	default_preview_quality: bpy.props.EnumProperty(
+									items = [('6', 'Minimum', 'Minimum-resolution preview during interactions (512x512 quilt, 32 views). Sends the least data to Looking Glass Bridge'),
+											 ('1', 'Lowest', 'Low-resolution preview during interactions (1024x1024 quilt, 32 views)'),
+											 ('5', 'Low', 'Skip five out of six views during interactions'),
+											 ('3', 'Medium', 'Skip two out of three views during interactions'),
+											 ('2', 'Best', 'Skip every second view during interactions')],
+									default='6',
+									name="Preview Quality",
+									description="Default quality of the preview while something is changing",
+									update=lambda self, context: LookingGlassAddon.apply_default_settings(context),
+									)
+	default_full_quality_delay: bpy.props.FloatProperty(
+									default=0.7,
+									min=0.2,
+									max=10.0,
+									step=10,
+									precision=1,
+									unit='TIME',
+									name="Full-quality refresh",
+									description="Default number of seconds without changes after which the full-quality light field is sent",
+									update=lambda self, context: LookingGlassAddon.apply_default_settings(context),
+									)
+	default_patient_mode: bpy.props.BoolProperty(
+									default=False,
+									name="Patient Mode",
+									description="Default for Patient Mode: wait with updating the light field until the current operator has finished",
+									update=lambda self, context: LookingGlassAddon.apply_default_settings(context),
+									)
+
 	# automatic update check
 	check_updates_on_startup: bpy.props.BoolProperty(
 									default=True,
@@ -222,6 +260,14 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		layout.prop(self, "check_updates_on_startup")
 		draw_update_ui(layout)
 		layout.prop(self, "bridge_cache_mode")
+
+		# default cast settings
+		box = layout.box()
+		box.label(text="Default Cast Settings (for all Blender files):")
+		box.prop(self, "default_refresh_mode")
+		box.prop(self, "default_preview_quality")
+		box.prop(self, "default_full_quality_delay")
+		box.prop(self, "default_patient_mode")
 
 		# # render mode
 		# row_render_mode = layout.row()
