@@ -319,6 +319,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	last_full_refresh_time = 0
 	waiting_for_operators = []
 	viewport_signature = None
+	hidden_objects = None
 	last_settings_check = 0
 	skip_views = 1
 	cleared_views = set()
@@ -675,29 +676,29 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			if space is None: return None
 
 			try:
-				signature = []
-				for datablock in (space.shading, space.overlay):
+				signature = {}
+				for name, datablock in (("shading", space.shading), ("overlay", space.overlay)):
 					for attr in dir(datablock):
 						if attr.startswith("_") or attr in ("bl_rna", "rna_type"): continue
 						value = getattr(datablock, attr)
 
 						# only compare plain values (numbers, strings, colors, vectors)
 						if isinstance(value, (bool, int, float, str)):
-							signature.append((attr, value))
+							signature[name + "." + attr] = value
 						elif isinstance(value, (Color, Vector)) or (hasattr(value, "__len__") and hasattr(value, "__getitem__") and not hasattr(value, "bl_rna")):
-							try: signature.append((attr, tuple(value)))
+							try: signature[name + "." + attr] = tuple(value)
 							except Exception: pass
-				return tuple(signature)
+				return signature
 			except Exception:
 				return None
 
 		# otherwise the add-on's own (custom) viewport settings are used
-		return tuple(str(getattr(settings, name, None)) for name in (
+		return {name: str(getattr(settings, name, None)) for name in (
 			"viewportMode", "shadingMode", "viewport_show_xray", "viewport_xray_alpha", "viewport_use_dof",
 			"viewport_show_floor", "viewport_show_axes", "viewport_grid_scale", "viewport_show_extras",
 			"viewport_show_relationship_lines", "viewport_show_outline_selected", "viewport_show_bones",
 			"viewport_show_motion_paths", "viewport_show_origins", "viewport_show_origins_all",
-			"viewport_show_wireframes", "viewport_wireframe_threshold", "viewport_show_face_orientation"))
+			"viewport_show_wireframes", "viewport_wireframe_threshold", "viewport_show_face_orientation")}
 
 	# detect changes of the viewport shading & overlay settings (they do not trigger depsgraph updates)
 	def track_viewport_settings(self, context):
@@ -708,15 +709,31 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		self.last_settings_check = now
 
 		signature = self.viewport_settings_signature(context)
-		if signature is None: return
+		if signature is not None:
 
-		# if the settings changed since the last check (and the lightfield was shown at least once)
-		if self.viewport_signature is not None and signature != self.viewport_signature:
+			# if the settings changed since the last check (and the lightfield was shown at least once)
+			if self.viewport_signature is not None and signature != self.viewport_signature:
 
-			LookingGlassAddonLogger.debug("Viewport shading / overlay settings changed.")
-			if not LookingGlassAddon.RenderInvoked: self.queue_update(context.scene)
+				changed = [key for key in signature if signature.get(key) != self.viewport_signature.get(key)]
+				LookingGlassAddonLogger.debug("Viewport shading / overlay settings changed: %s" % changed[:8])
+				if not LookingGlassAddon.RenderInvoked: self.queue_update(context.scene)
 
-		self.viewport_signature = signature
+			self.viewport_signature = signature
+
+		# objects that were hidden / shown (e.g., with H or the eye icon) do not always cause a visible depsgraph update
+		# NOTE: For very large scenes, this check is skipped to save time.
+		view_layer = context.view_layer
+		if view_layer and len(view_layer.objects) <= 3000:
+			hidden = self.visibility_signature(view_layer)
+			if self.hidden_objects is not None and hidden != self.hidden_objects:
+				LookingGlassAddonLogger.debug("Object visibility changed.")
+				if not LookingGlassAddon.RenderInvoked: self.queue_update(context.scene)
+			self.hidden_objects = hidden
+
+	# the set of the names of all objects that are currently not visible in the viewport
+	@staticmethod
+	def visibility_signature(view_layer):
+		return frozenset(obj.name for obj in view_layer.objects if not obj.visible_get(view_layer=view_layer))
 
 	# create the GPUOffscreens of a preset on demand and free those of unused presets
 	def ensure_offscreens(self, context, preset):
@@ -757,12 +774,17 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	def has_relevant_updates(depsgraph):
 		for update in depsgraph.updates:
 
+			# ignore datablocks of the user interface and tools: they are not shown in the lightfield
+			# (e.g., window and workspace changes, such as closing the preferences window)
+			if update.id.id_type in ('SCREEN', 'WORKSPACE', 'WINDOWMANAGER', 'BRUSH', 'PALETTE', 'PAINTCURVE', 'TEXT', 'LIBRARY'): continue
+
 			# Scene datablock updates are also triggered by changing settings (such as
 			# the add-on's own panel settings). They only matter if something was
 			# actually transformed, deformed or re-shaded.
 			if isinstance(update.id, bpy.types.Scene):
 				if update.is_updated_geometry or update.is_updated_transform or update.is_updated_shading: return True
 			else:
+				LookingGlassAddonLogger.debug("Scene change: %s '%s'" % (update.id.id_type, update.id.name))
 				return True
 
 		return False
