@@ -922,7 +922,7 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 												 ('3', 'Skipped-views Preview II', 'Skip every third view'),
 												 ('4', 'Restricted Viewcone Preview', 'Render only a restricted view cone'),
 												 ],
-										default='0',
+										default='3',
 										name="Light Field Preview Mode",
 										update=LookingGlassAddonUI.update_lightfield_window_settings,
 										)
@@ -1447,6 +1447,13 @@ class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 		# if the bool property was set to True
 		if context.window_manager.addon_settings.ShowLightfieldWindow == True:
 
+			# draw the new UI first: creating the lightfield window is slow and would
+			# otherwise block the panel from updating until it has finished
+			try:
+				for area in context.screen.areas: area.tag_redraw()
+				bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+			except Exception: pass
+
 			# assign the current viewport for the shading & overlay settings
 			bpy.ops.lookingglass.blender_viewport_assign('EXEC_DEFAULT')
 
@@ -1949,6 +1956,10 @@ def draw_lightfield_window_options(layout, context):
 		row_output.separator()
 		row_output.prop(context.window_manager.addon_settings, "viewport_use_preview_mode", text="", icon='IMAGE_ZDEPTH')
 
+		# Shading & overlay settings directly below the viewport modes
+		column.separator()
+		draw_shading_overlays_settings(column, context)
+
 
 	# if the lightfield window is in quilt viewer mode
 	elif context.window_manager.addon_settings.renderMode == '1':
@@ -1984,153 +1995,123 @@ class LOOKINGGLASS_OT_blender_viewport_assign(bpy.types.Operator):
 
 		return {'FINISHED'}
 
-# Panel for shading & overlay setting
-class LOOKINGGLASS_PT_panel_overlays_shading(bpy.types.Panel):
-	bl_label = "Shading & Overlays Settings" # display name in the interface.
-	bl_space_type = "VIEW_3D"
-	bl_region_type = "UI"
-	bl_category = "Looking Glass"
-	bl_options = {'DEFAULT_CLOSED'}
-	bl_parent_id = "LOOKINGGLASS_PT_panel_general"
+# Shading & overlay settings, drawn inline in the main panel
+def draw_shading_overlays_settings(layout, context):
+	"""Draws the (collapsible) shading & overlay settings of the lightfield viewport."""
+
+	# use a collapsible sub-panel inside the layout (Blender 4.1+), otherwise a plain box
+	if hasattr(layout, "panel"):
+		header, body = layout.panel("LOOKINGGLASS_PT_overlays_shading", default_closed=True)
+		header.label(text="Shading & Overlays Settings")
+		if body is None: return
+		layout = body
+	else:
+		layout = layout.box()
+		layout.label(text="Shading & Overlays Settings")
 
 
-	# define own poll method to be able to hide / show the panel on demand
-	@classmethod
-	def poll(self, context):
+	# define a column of UI elements
+	column = layout.column(align = True)
 
-		if not hasattr(context.window_manager, "addon_settings"):
-			return False
+	# if the automatic render mode is active
+	if int(context.window_manager.addon_settings.renderMode) == 0:
 
-		# if no Looking Glass is selected OR no lightfield window exists
-		if int(context.window_manager.addon_settings.activeDisplay) == -1 or context.window_manager.addon_settings.ShowLightfieldWindow == False:
+		# TABS to swap between "Custom Viewport" and a "Blender Viewport"
+		row = column.row(align = True)
+		row.prop(context.scene.addon_settings, "viewportMode", expand=True)
 
-			# this panel is not needed, so return False:
-			# the panel will not be drawn
-			return False
+		# if the current mode is "BLENDER"
+		if context.scene.addon_settings.viewportMode == "BLENDER":
 
-		else:
+			#column.separator()
 
-			# if the render mode is "Live View"
-			if int(context.window_manager.addon_settings.renderMode) == 0:
-
-				# this panel is  needed, so return True:
-				# the panel will be drawn
-				return True
-
-			# else, if the render mode is "Quilt view"
-			elif int(context.window_manager.addon_settings.renderMode) == 1:
-
-				# this panel is not needed, so return False:
-				# the panel will NOT be drawn
-				return False
-
-
-	# draw the IntProperties for the tiles in the panel
-	def draw(self, context):
-		layout = self.layout
-
-		# define a column of UI elements
-		column = layout.column(align = True)
-
-		# if the automatic render mode is active
-		if int(context.window_manager.addon_settings.renderMode) == 0:
-
-			# TABS to swap between "Custom Viewport" and a "Blender Viewport"
 			row = column.row(align = True)
-			row.prop(context.scene.addon_settings, "viewportMode", expand=True)
+			column = layout.column(align = True)
+			row = column.row(align = True)
+			row.label(text="Mirror Settings From:")
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "blender_workspace")
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "blender_view3d")
 
-			# if the current mode is "BLENDER"
-			if context.scene.addon_settings.viewportMode == "BLENDER":
+			column.separator()
 
-				#column.separator()
+			row = column.row(align = True)
+			row.operator("lookingglass.blender_viewport_assign")
 
-				row = column.row(align = True)
-				column = layout.column(align = True)
-				row = column.row(align = True)
-				row.label(text="Mirror Settings From:")
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "blender_workspace")
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "blender_view3d")
+			# if the chosen workspace has no 3D View
+			if context.scene.addon_settings.blender_view3d == "None":
 
-				column.separator()
+				# disable the manual selection options
+				row.enabled = False
 
-				row = column.row(align = True)
-				row.operator("lookingglass.blender_viewport_assign")
+		# if the current mode is "CUSTOM"
+		elif context.scene.addon_settings.viewportMode == "CUSTOM":
 
-				# if the chosen workspace has no 3D View
-				if context.scene.addon_settings.blender_view3d == "None":
+			column.separator()
 
-					# disable the manual selection options
-					row.enabled = False
+			row = column.row(align = True)
+			row.label(text="Shading")
+			#column.separator()
+			row.prop(context.scene.addon_settings, "shadingMode", expand=True)
+			column.separator()
+			row = column.row(align = True)
+			column_1 = row.column(align=True)
+			column_1.prop(context.scene.addon_settings, "viewport_show_xray")
+			column_2 = row.column(align=True)
+			column_2.prop(context.scene.addon_settings, "viewport_xray_alpha", slider=True)
 
-			# if the current mode is "CUSTOM"
-			elif context.scene.addon_settings.viewportMode == "CUSTOM":
+			# if x-ray is deactivated
+			if context.scene.addon_settings.viewport_show_xray == False:
+				# disable the slider
+				column_2.enabled = False
 
-				column.separator()
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "viewport_use_dof")
 
-				row = column.row(align = True)
-				row.label(text="Shading")
-				#column.separator()
-				row.prop(context.scene.addon_settings, "shadingMode", expand=True)
-				column.separator()
-				row = column.row(align = True)
-				column_1 = row.column(align=True)
-				column_1.prop(context.scene.addon_settings, "viewport_show_xray")
-				column_2 = row.column(align=True)
-				column_2.prop(context.scene.addon_settings, "viewport_xray_alpha", slider=True)
+			column.separator()
 
-				# if x-ray is deactivated
-				if context.scene.addon_settings.viewport_show_xray == False:
-					# disable the slider
-					column_2.enabled = False
+			row = column.row(align = True)
+			row.label(text="Guides")
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "viewport_show_floor")
+			row.prop(context.scene.addon_settings, "viewport_show_axes", toggle=1)
+			column.separator()
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "viewport_grid_scale")
 
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "viewport_use_dof")
+			column.separator()
 
-				column.separator()
+			row = column.row(align = True)
+			row.label(text="Objects")
+			row = column.row(align = True)
+			column_1 = row.column(align = True)
+			column_1.prop(context.scene.addon_settings, "viewport_show_extras")
+			column_1.prop(context.scene.addon_settings, "viewport_show_relationship_lines")
+			column_1.prop(context.scene.addon_settings, "viewport_show_outline_selected")
 
-				row = column.row(align = True)
-				row.label(text="Guides")
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "viewport_show_floor")
-				row.prop(context.scene.addon_settings, "viewport_show_axes", toggle=1)
-				column.separator()
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "viewport_grid_scale")
+			column_2 = row.column(align = True)
+			column_2.prop(context.scene.addon_settings, "viewport_show_bones")
+			column_2.prop(context.scene.addon_settings, "viewport_show_motion_paths")
+			column_2.prop(context.scene.addon_settings, "viewport_show_origins")
+			column_2.prop(context.scene.addon_settings, "viewport_show_origins_all")
 
-				column.separator()
+			column.separator()
 
-				row = column.row(align = True)
-				row.label(text="Objects")
-				row = column.row(align = True)
-				column_1 = row.column(align = True)
-				column_1.prop(context.scene.addon_settings, "viewport_show_extras")
-				column_1.prop(context.scene.addon_settings, "viewport_show_relationship_lines")
-				column_1.prop(context.scene.addon_settings, "viewport_show_outline_selected")
+			row = column.row(align = True)
+			row = row.label(text="Geometry")
+			row = column.row(align = True)
+			column_1 = row.column(align=True)
+			column_1.prop(context.scene.addon_settings, "viewport_show_wireframes")
+			column_2 = row.column(align=True)
+			column_2.prop(context.scene.addon_settings, "viewport_wireframe_threshold", slider=True)
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "viewport_show_face_orientation")
 
-				column_2 = row.column(align = True)
-				column_2.prop(context.scene.addon_settings, "viewport_show_bones")
-				column_2.prop(context.scene.addon_settings, "viewport_show_motion_paths")
-				column_2.prop(context.scene.addon_settings, "viewport_show_origins")
-				column_2.prop(context.scene.addon_settings, "viewport_show_origins_all")
-
-				column.separator()
-
-				row = column.row(align = True)
-				row = row.label(text="Geometry")
-				row = column.row(align = True)
-				column_1 = row.column(align=True)
-				column_1.prop(context.scene.addon_settings, "viewport_show_wireframes")
-				column_2 = row.column(align=True)
-				column_2.prop(context.scene.addon_settings, "viewport_wireframe_threshold", slider=True)
-				row = column.row(align = True)
-				row.prop(context.scene.addon_settings, "viewport_show_face_orientation")
-
-				# if no wireframes shall be displayed
-				if context.scene.addon_settings.viewport_show_wireframes == False:
-					# disable the slider
-					column_2.enabled = False
+			# if no wireframes shall be displayed
+			if context.scene.addon_settings.viewport_show_wireframes == False:
+				# disable the slider
+				column_2.enabled = False
 
 
 # ------------- Buttons & elements in region headers ----------------
