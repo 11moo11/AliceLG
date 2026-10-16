@@ -673,6 +673,12 @@ class LookingGlassAddonUI:
 			# update the lightfield displayed on the device
 			LookingGlassAddon.update_lightfield_window(int(context.window_manager.addon_settings.renderMode), LookingGlassAddon.quiltViewerLightfieldImage)
 
+		# if the scene is cast (again): redraw it, otherwise the display keeps showing the quilt image
+		elif context.window_manager.addon_settings.renderMode == '0' and context.window_manager.addon_settings.ShowLightfieldWindow:
+
+			# the modal operator of the lightfield viewport does the refresh
+			context.window_manager.addon_settings.viewport_manual_refresh = True
+
 
 	# update function for property updates concerning quilt image selection
 	def update_quilt_selection(self, context):
