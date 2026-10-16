@@ -900,6 +900,20 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				# assign the selected viewport
 				return self._override.updateViewportSettings(LookingGlassAddon.BlenderViewport)
 
+		# otherwise, the custom shading & overlay settings of the add-on are used
+		# NOTE: Without this, the custom settings were never applied to the light field rendering.
+		else:
+
+			# set the context
+			self._override.set_context(context)
+
+			# apply the custom settings to the viewport that is used for the rendering
+			# (they are restored after the rendering)
+			try:
+				return self._override.updateViewportSettings(None)
+			except Exception as e:
+				LookingGlassAddonLogger.warning("Could not apply the custom viewport settings: %s" % e)
+
 
 	# Restore the viewport settings
 	def restoreViewportSettings(self):
