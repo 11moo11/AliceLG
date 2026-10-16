@@ -258,6 +258,10 @@ class LookingGlassBridge(BaseServiceType):
                         self.__cache_mode_failures += 1
                         logger.warning(" [#] Looking Glass Bridge did not accept the cache mode update (%i/3). Falling back to the plain SHOW command." % self.__cache_mode_failures)
 
+                    # log, why the plain SHOW command is used
+                    if not self.use_cache_mode: logger.debug(" [#] Using the plain SHOW command (cache mode is not enabled).")
+                    elif self.__cache_mode_failures >= 3: logger.debug(" [#] Using the plain SHOW command (cache mode was switched off after 3 failed attempts).")
+
                     self.__send_message(self.__show_quilt(device.configuration['index'], bytes, settings), image_shape=image_shape)
                     logger.info(" [#] Done (total time: %.3f ms)." % ((time.time() - start_total) * 1000))
 
