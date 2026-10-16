@@ -271,6 +271,9 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 		# Camera settings
 		bpy.types.Camera.is_lightfield = bpy.props.BoolProperty(default=False, options=set(['HIDDEN']))
 
+		# default cast settings from the add-on preferences (valid for all Blender files)
+		LookingGlassAddon.apply_default_settings()
+
 		# ------------ INITIALIZATION ---------------
 		# check if lockfile exists and set status variable
 		LookingGlassAddon.has_lockfile = os.path.exists(bpy.path.abspath(LookingGlassAddon.tmp_path + os.path.basename(bpy.data.filepath) + ".lock"))

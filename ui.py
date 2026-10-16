@@ -909,7 +909,7 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 	lightfieldMode: bpy.props.EnumProperty(
 										items = [('0', 'Refresh Mode: Automatic', 'Automatically refresh the light field viewport'),
 												 ('1', 'Refresh Mode: Manual', 'Manually refresh the light field viewport')],
-										default='1',
+										default='0',
 										name="Light Field Viewport Modes",
 										update=LookingGlassAddonUI.update_lightfield_window_settings,
 										)
@@ -922,7 +922,7 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 												 ('3', 'Preview Quality: Medium', 'Skip two out of three views during interactions'),
 												 ('2', 'Preview Quality: Best', 'Skip every second view during interactions'),
 												 ],
-										default='3',
+										default='6',
 										name="Light Field Preview Mode",
 										update=LookingGlassAddonUI.update_lightfield_window_settings,
 										)
@@ -931,7 +931,7 @@ class LookingGlassAddonSettingsWM(bpy.types.PropertyGroup):
 	full_quality_delay: bpy.props.FloatProperty(
 										name="Full-quality refresh",
 										description="Seconds without changes after which the full-quality light field is rendered and sent to Looking Glass Bridge. Longer values send fewer large images, which reduces the memory that Bridge uses",
-										default = 1.5,
+										default = 0.7,
 										min = 0.2,
 										max = 10.0,
 										step = 10,
