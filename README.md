@@ -1,23 +1,30 @@
-# Alice/LG 2.3 - The Blender Add-on for Looking Glass Displays
+# Alice/LG - Blender Add-on for Looking Glass Displays (fork with a simplified interface)
 
-### Let [Alice/LG](https://github.com/regcs/AliceLG/releases) take your Blender artworks through the Looking Glass! This short guide is to get you started.
+This repository is an unofficial fork of [Alice/LG by Christian Stolze](https://github.com/regcs/AliceLG). Alice/LG lets you display Blender scenes and render quilts for Looking Glass light field displays. This fork keeps that functionality and changes how it is operated, with the aim of making the interaction simpler.
 
-## About the Add-on
-This add-on was created for the use of Blender with the Looking Glass holographic displays. I initially developed this add-on privately in my free time because I'm a fan of [Blender](https://www.blender.org/) as well as the amazing new holographic display technology created by the [Looking Glass Factory](https://lookingglassfactory.com/). The version 2.x of Alice/LG was developed in collaboration with the Looking Glass Factory.
+## Please read first: AI-generated code
 
-## Main Features
+All changes in this fork were made entirely with Claude, an AI model from Anthropic, following instructions from the fork's maintainer. The code has not been independently reviewed or audited. If you have ethical objections to AI-generated code, this fork is not for you. The [original add-on](https://github.com/regcs/AliceLG) is the alternative.
+
+## About Alice/LG
+Alice/LG was created by Christian Stolze for using Blender with Looking Glass holographic displays. Version 2.x was developed in collaboration with the [Looking Glass Factory](https://lookingglassfactory.com/). The original project, its releases and its documentation are at [github.com/regcs/AliceLG](https://github.com/regcs/AliceLG). Please report problems with this fork in this repository's issues, not to the original author.
+
+## What this fork changes
+- The panels are reorganized: camera settings and the display selection are in one _View Settings_ panel, and everything for rendering quilts is in a _Quilt Creation_ panel.
+- Showing your scene in the Looking Glass is done with a single _Cast to Looking Glass_ button.
+- The hologram updates automatically when the scene changes, objects are hidden or shown, or viewport shading / overlay settings change.
+- The preview while you edit is adjustable (_Preview Quality_, _Full-quality refresh_, _Patient Mode_), and the defaults can be set in the add-on preferences.
+- The add-on can check for and install updates from its preferences.
+
+## Features of Alice/LG
 - integration into the common Blender workflow
 - an optional view frustum representing the Looking Glass volume in the scene
-- **Cast to Looking Glass:** a live light field of your scene (or of a pre-rendered quilt image) in the Looking Glass, with automatic and manual refresh, adjustable preview quality and a "Patient Mode"
-- the cast view follows your changes: object edits, hiding / showing objects, and viewport shading & overlay changes
+- a light field viewport in the Looking Glass with automatic and manual refresh modes
 - render any camera view as single quilt image or quilt animation
 - decide if you want to keep the separate view files or just the final quilt
-- build a quilt from existing view image files
 - support for multiple scenes and view layers
 - camera & quilt settings are saved with your Blender file
-- support for all available Looking Glass displays (including the new Looking Glass Go)
-- built-in update check and update installation (only changed files are downloaded)
-- default cast settings in the add-on preferences, valid for all Blender files
+- support for the available Looking Glass displays (including the Looking Glass Go)
 - _Experimental feature:_ Detect incomplete render jobs (see below for details)
 
 ## System Requirements
@@ -29,7 +36,7 @@ This add-on was created for the use of Blender with the Looking Glass holographi
 
 1. [Download](https://lookingglassfactory.com/software) and install the Looking Glass Bridge (or HoloPlay Service) app on your PC or Mac.
 
-2. Download the [zip file of the latest release](https://github.com/regcs/AliceLG/releases/) of this add-on.
+2. Download the zip file of this repository (_Code → Download ZIP_ on [github.com/11moo11/AliceLG](https://github.com/11moo11/AliceLG)). The releases of the original add-on at [github.com/regcs/AliceLG](https://github.com/regcs/AliceLG/releases/) do not contain the changes of this fork.
 
 3. Install _Alice/LG_ in Blender:
    - Open Blender
@@ -77,7 +84,7 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
 
 - **Scene.** The live view of your scene, which acts like a normal Blender viewport in the Looking Glass - except that it is holographic.
 
-- **Quilt Viewer.** Load or select a rendered quilt image and display it as a hologram. So, this mode is basically here to enjoy the fruits of your work. Playing animations is not supported yet. If the image is unlinked, the Looking Glass shows a black screen. _NOTE: To display the quilt correctly, the correct quilt preset must be used._ Switching back to _Scene_ redraws your scene.
+- **Quilt Viewer.** Load or select a rendered quilt image and display it as a hologram. Playing animations is not supported yet. If the image is unlinked, the Looking Glass shows a black screen. _NOTE: To display the quilt correctly, the correct quilt preset must be used._ Switching back to _Scene_ redraws your scene.
 
 #### Cast Settings (Scene)
 
@@ -85,7 +92,7 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
    - _Automatic_ (default): The hologram is updated when something visible changes: object transforms and geometry, hiding or showing objects, and viewport shading & overlay settings (e.g., _Show Overlays_, shading mode, X-ray). Changes that do not show up in the hologram (such as changes to the add-on's own panel settings or window / workspace changes) do not trigger a redraw.
    - _Manual_: The hologram is only rendered if you click the refresh button.
 
-- **Patient Mode** (button next to the refresh mode, Automatic mode only). Off by default: the hologram updates while you are still moving or editing something. In _Patient Mode_ the update waits until your current operation has finished (e.g., you released the mouse after moving an object). This is smoother in heavy scenes. Animation playback always updates live.
+- **Patient Mode** (button next to the refresh mode, Automatic mode only). Off by default: the hologram updates while you are still moving or editing something. With _Patient Mode_ on, the update waits until your current operation has finished (e.g., you released the mouse after moving an object). This can help in heavy scenes. Animation playback always updates live.
 
 - **Full-quality refresh** (Automatic mode only). While you edit, a fast preview is shown. After this many seconds without changes (default: 0.7 s), the full-quality hologram is rendered and sent. Full-quality refreshes are also limited to one every 2 seconds.
 
@@ -106,7 +113,7 @@ In _Edit → Preferences → Add-ons → Alice/LG_ you find _Default Cast Settin
 
 - Rendering the views is done by Blender's 3D viewport renderer, so heavy scenes need time. The preview quality levels trade quality for speed.
 - Looking Glass Bridge may use more and more memory when it receives many large images. Blender's own memory use stays flat. Using _Preview Quality: Minimum_, a longer _Full-quality refresh_ time, or restarting Looking Glass Bridge from its tray icon during long sessions helps.
-- _Experimental:_ The add-on preference _Experimental: update Looking Glass Bridge via its quilt cache_ sends the hologram as one named, replaced quilt in the cache of Looking Glass Bridge. In our tests it did not stop Bridge's memory growth. It is off by default.
+- _Experimental:_ The add-on preference _Experimental: update Looking Glass Bridge via its quilt cache_ sends the hologram as one named, replaced quilt in the cache of Looking Glass Bridge. In testing on one setup it did not stop Bridge's memory growth. It is off by default.
 - For troubleshooting, set the _Logging Mode_ in the add-on preferences to _Debug messages_. The log then shows what triggered each update, how long rendering and sending took, and the memory used by Blender.
 
 ### Camera Setup & Quilt Creation
