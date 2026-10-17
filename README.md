@@ -8,12 +8,16 @@ This add-on was created for the use of Blender with the Looking Glass holographi
 ## Main Features
 - integration into the common Blender workflow
 - an optional view frustum representing the Looking Glass volume in the scene
-- lightfield viewport in the Looking Glass with automatic and manual refresh modes
+- **Cast to Looking Glass:** a live light field of your scene (or of a pre-rendered quilt image) in the Looking Glass, with automatic and manual refresh, adjustable preview quality and a "Patient Mode"
+- the cast view follows your changes: object edits, hiding / showing objects, and viewport shading & overlay changes
 - render any camera view as single quilt image or quilt animation
 - decide if you want to keep the separate view files or just the final quilt
+- build a quilt from existing view image files
 - support for multiple scenes and view layers
 - camera & quilt settings are saved with your Blender file
 - support for all available Looking Glass displays (including the new Looking Glass Go)
+- built-in update check and update installation (only changed files are downloaded)
+- default cast settings in the add-on preferences, valid for all Blender files
 - _Experimental feature:_ Detect incomplete render jobs (see below for details)
 
 ## System Requirements
@@ -36,52 +40,97 @@ This add-on was created for the use of Blender with the Looking Glass holographi
    - Click the "Install" button to install required Python modules to the add-on directory
    - Restart Blender
 
+### Updating
+
+Once the add-on is installed, you can update it from Blender:
+
+- Open _Edit → Preferences → Add-ons_ and expand the preferences of _Alice/LG_
+- The add-on checks GitHub for a newer version when Blender starts (this can be switched off with _Check for updates on startup_). You can also click _Check for Updates_ at any time.
+- If an update is available, click _Install Update_. Only the files that changed since your installed version are downloaded. The same applies to the Python files of the Looking Glass Bridge communication (pyLightIO) in the add-on's `lib` folder. Large binary dependencies are never touched.
+- When the update is installed, a red _Restart Blender_ button appears. Restart Blender to activate the update. (Right after an update, the button can also show as plain red text. Restart Blender manually then.)
+
+You can still update by installing the zip file of a new version as described above.
+
 ## How to Use
 
 The following provides some basic information which is going to help you to get started. But make sure, you also check out the [Getting Started Guide](https://docs.lookingglassfactory.com/artist-tools/blender) as well as the [very helpful tutorial](https://lookingglassfactory.com/tutorial/blender) on the Looking Glass Factory website!
 
 ### Add-on Controls
 
-After the installation you find a _Looking Glass_ tab in each Blender viewport. Depending on your current selections, the tab shows up to four control panels & subpanels:
+After the installation you find a _Looking Glass_ tab in each Blender 3D viewport. It contains two panels:
 
-- **Looking Glass.** Contains the Looking Glass display selection, a view resolution selection, and a button to turn on/off the lightfield window. Furthermore, it has two subpanels:
+- **View Settings.** From top to bottom:
 
-   - **Camera Setup.** Select one of the cameras in the scene to setup a view for the Looking Glass and the quilt rendering.
+   - **Camera settings.** Select the camera that defines the view for the Looking Glass (or create a new one with the "+" button), show or hide the view frustum and focal plane, synchronize the camera, and set the clipping planes and focal plane.
 
-   - **Quilt Setup & Rendering.** Controls for starting a quilt render.
+   - **Cast to Looking Glass.** The large button that starts and stops casting your scene to the Looking Glass. Below it you select the connected Looking Glass display (with a refresh button for the display list).
 
-- **Light field Window.** The light field / hologram is displayed on your Looking Glass display via the Looking Glass Bridge (or HoloPlay Service) app in a separate window. In this category you find options to switch between two different modes for the lightfield Window: _Viewport_ and _Quilt Viewer_. It has the following sub-panel:
+   - **Select Cast Source.** Appears while casting. Choose between _Scene_ (a live view of your Blender scene) and _Quilt Viewer_ (a pre-rendered quilt image).
 
-   - **Shading & Overlay Settings.** If the lightfield window is in _Viewport_ mode, it acts as your holographic Blender viewport. The settings for this (lightfield) viewport are defined here.
+   - **Cast Settings.** The settings of the live scene view (see below).
 
-### Lightfield Window & Viewport
+- **Quilt Creation.** Everything for rendering quilts: the device and quilt resolution, output options, the _Render Quilt_ and _Render Animation Quilt_ buttons, a render preview of a single view, and _Build Quilt from Files_ for assembling a quilt from existing view images.
 
-The lightfield window is the place where the hologram is rendered. It can be opened via a click on the button: _Looking Glass → Lightfield Window_, if you have a Looking Glass connected and Looking Glass Bridge (or HoloPlay Service) is running. The light field window can operate in two modes:
+### Cast to Looking Glass
 
-- **Viewport.** In viewport mode, it basically acts like a normal Blender viewport in the Looking Glass - except that it is holographic. You can choose between _Auto_ and _Manual_ refresh mode: In _Auto_ mode, the hologram is re-rendered everytime something in the scene changes, while in _Manual_ mode the hologram is only rendered if you click the refresh button. _NOTE: Due to some limitations of the rendering pipeline of Blender, this mode can be quite slow (< 5 fps). We are working on improving Blender with regard to this and, hopefully, future versions of Blender will increase the live view performance of Alice/LG._
+The light field / hologram is displayed on your Looking Glass display via the Looking Glass Bridge (or HoloPlay Service) app. Click _Cast to Looking Glass_ in the _View Settings_ panel if you have a Looking Glass connected and Looking Glass Bridge (or HoloPlay Service) is running. The cast source can be:
 
-- **Quilt Viewer.** In the quilt viewer mode, you can load or select a rendered quilt image and display it as a hologram in the Looking Glass. So, this mode is basically here to enjoy the fruits of your work. Playing animations is not supported yet. _NOTE: To display the quilt correctly, the correct quilt preset must be selected under _Looking Glass → Resolution_
+- **Scene.** The live view of your scene, which acts like a normal Blender viewport in the Looking Glass - except that it is holographic.
 
-### Camera Setup & Quilt Rendering
+- **Quilt Viewer.** Load or select a rendered quilt image and display it as a hologram. So, this mode is basically here to enjoy the fruits of your work. Playing animations is not supported yet. If the image is unlinked, the Looking Glass shows a black screen. _NOTE: To display the quilt correctly, the correct quilt preset must be used._ Switching back to _Scene_ redraws your scene.
+
+#### Cast Settings (Scene)
+
+- **Refresh Mode.**
+   - _Automatic_ (default): The hologram is updated when something visible changes: object transforms and geometry, hiding or showing objects, and viewport shading & overlay settings (e.g., _Show Overlays_, shading mode, X-ray). Changes that do not show up in the hologram (such as changes to the add-on's own panel settings or window / workspace changes) do not trigger a redraw.
+   - _Manual_: The hologram is only rendered if you click the refresh button.
+
+- **Patient Mode** (button next to the refresh mode, Automatic mode only). Off by default: the hologram updates while you are still moving or editing something. In _Patient Mode_ the update waits until your current operation has finished (e.g., you released the mouse after moving an object). This is smoother in heavy scenes. Animation playback always updates live.
+
+- **Full-quality refresh** (Automatic mode only). While you edit, a fast preview is shown. After this many seconds without changes (default: 0.7 s), the full-quality hologram is rendered and sent. Full-quality refreshes are also limited to one every 2 seconds.
+
+- **Preview Quality.** How the preview during changes is rendered:
+   - _Minimum_ (default): a very small 512×512 quilt. Sends the least data to Looking Glass Bridge.
+   - _Lowest_: a 1024×1024 quilt.
+   - _Low_: only one of six views is rendered.
+   - _Medium_: one of three views.
+   - _Best_: one of two views.
+
+- **Shading & overlays.** Choose _Viewport_ to mirror the shading and overlay settings of a Blender 3D viewport (select the workspace and 3D view and click _Assign Active Viewport_), or _Custom_ to define your own settings for the hologram.
+
+#### Default Cast Settings
+
+In _Edit → Preferences → Add-ons → Alice/LG_ you find _Default Cast Settings (for all Blender files)_: Refresh Mode, Preview Quality, Full-quality refresh and Patient Mode. These values are applied whenever a Blender file is loaded, so they hold for all your files. Changes you make in the _Cast Settings_ panel apply until the next file is loaded.
+
+#### Notes on performance and Looking Glass Bridge memory
+
+- Rendering the views is done by Blender's 3D viewport renderer, so heavy scenes need time. The preview quality levels trade quality for speed.
+- Looking Glass Bridge may use more and more memory when it receives many large images. Blender's own memory use stays flat. Using _Preview Quality: Minimum_, a longer _Full-quality refresh_ time, or restarting Looking Glass Bridge from its tray icon during long sessions helps.
+- _Experimental:_ The add-on preference _Experimental: update Looking Glass Bridge via its quilt cache_ sends the hologram as one named, replaced quilt in the cache of Looking Glass Bridge. In our tests it did not stop Bridge's memory growth. It is off by default.
+- For troubleshooting, set the _Logging Mode_ in the add-on preferences to _Debug messages_. The log then shows what triggered each update, how long rendering and sending took, and the memory used by Blender.
+
+### Camera Setup & Quilt Creation
 
 You can render still scenes and animation frames as complete quilt images. You can render for your currently connected device or for any other Looking Glass:
 
 **(1) Rendering for your currently connected device**
-- select your connected Looking Glass (if not already selected) and a quilt resolution under _Looking Glass → Resolution_
-- select an existing camera in _Looking Glass → Camera Setup → Camera_ or create a new camera by clicking "+" in the same panel
-- check the _Looking Glass → Quilt Setup & Rendering → Use Device Settings_ checkbox
+- select your connected Looking Glass (if not already selected) under _Looking Glass → View Settings_ and a quilt resolution under _Looking Glass → Quilt Creation → Quilt_
+- select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
+- check the _Looking Glass → Quilt Creation → Use Device Settings_ checkbox
 - locate the camera to the specific view you would like to render
-- adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Setup & Rendering__)
-- click on _Looking Glass → Quilt Setup & Rendering → Render Quilt_ or _Looking Glass → Quilt Setup & Rendering → Render Animation Quilt_ in the add-on controls.
+- adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Creation__)
+- click on _Looking Glass → Quilt Creation → Render Quilt_ or _Looking Glass → Quilt Creation → Render Animation Quilt_ in the add-on controls.
 
 **(2) Rendering for other Looking Glasses**
-- select an existing camera in _Looking Glass → Camera Setup → Camera_ or create a new camera by clicking "+" in the same panel
-- uncheck the _Looking Glass → Quilt Setup & Rendering → Use Device Settings_ checkbox, if it is checked
-- choose the Looking Glass you want to render for from the list _Looking Glass → Quilt Setup & Rendering → Device_
-- choose the quilt preset/resolution you want to render for from the list _Looking Glass → Quilt Setup & Rendering → Quilt
+- select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
+- uncheck the _Looking Glass → Quilt Creation → Use Device Settings_ checkbox, if it is checked
+- choose the Looking Glass you want to render for from the list _Looking Glass → Quilt Creation → Device_
+- choose the quilt preset/resolution you want to render for from the list _Looking Glass → Quilt Creation → Quilt
 - locate the camera to the specific view you would like to render
-- adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Setup & Rendering__)
-- click on _Looking Glass → Quilt Setup & Rendering → Render Quilt_ or (if you want to render animation frames) _Looking Glass → Quilt Setup & Rendering → Render Animation Quilt_ in the add-on controls.
+- adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Creation__)
+- click on _Looking Glass → Quilt Creation → Render Quilt_ or (if you want to render animation frames) _Looking Glass → Quilt Creation → Render Animation Quilt_ in the add-on controls.
+
+You can also assemble a quilt from existing view images with _Looking Glass → Quilt Creation → Build Quilt from Files_.
 
 The _Render Quilt_ option will render the different views separately. After the last view has been rendered, a quilt will be automatically assembled. For the _Render Animation Quilt_ option, the same will happen for each frame of the animation, which will result in one quilt per frame. After rendering, the created quilt image or animation frames have to be handled in the same way as normal renders. You can still render normal (non-holographic) images in Blender as you usually do.
 
