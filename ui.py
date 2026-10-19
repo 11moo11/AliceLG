@@ -899,8 +899,8 @@ class LookingGlassAddonUI:
 		offset = cameraDistance * tan(offsetAngle)
 		
 		# Update camera position
-		camera.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (view_matrix_inv @ original_matrix.copy()))
-		camera.data.shift_x = addon_settings.preview_original_shift + 0.5 * offset / cameraSize
+		camera.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ LookingGlassAddon.view_toe_in(camera.data, offsetAngle) @ (view_matrix_inv @ original_matrix.copy()))
+		camera.data.shift_x = addon_settings.preview_original_shift + LookingGlassAddon.view_shift(camera.data, offset, cameraSize)
 
 
 # Properties in the preferences pane for this addon - Global values
@@ -2033,10 +2033,10 @@ class LOOKINGGLASS_OT_preview_camera(bpy.types.Operator):
 		# translate the camera by the calculated offset in x-direction
 		# NOTE: the matrix multiplications first transform the camera location into camera coordinates,
 		#		then we apply the offset and transform back to world coordinates
-		camera_original.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (view_matrix_inv @ original_matrix.copy()))
+		camera_original.matrix_world = view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ LookingGlassAddon.view_toe_in(camera_original.data, offsetAngle) @ (view_matrix_inv @ original_matrix.copy()))
 
 		# modify the projection matrix, relative to the camera size
-		camera_original.data.shift_x = addon_settings.preview_original_shift + 0.5 * offset / cameraSize
+		camera_original.data.shift_x = addon_settings.preview_original_shift + LookingGlassAddon.view_shift(camera_original.data, offset, cameraSize)
 
 		# Mark preview as active
 		addon_settings.preview_active = True
