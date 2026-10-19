@@ -222,6 +222,54 @@ class LookingGlassAddon:
 		except Exception:
 			return -1
 
+	# move a file to the recycle bin / trash (so that it can be restored)
+	# returns True, if the file was moved
+	@staticmethod
+	def move_to_trash(path):
+		import subprocess, shutil
+		path = os.path.abspath(path)
+
+		try:
+			if sys.platform == 'win32':
+				import ctypes
+				from ctypes import wintypes
+
+				class SHFILEOPSTRUCTW(ctypes.Structure):
+					_fields_ = [("hwnd", wintypes.HWND), ("wFunc", wintypes.UINT), ("pFrom", wintypes.LPCWSTR), ("pTo", wintypes.LPCWSTR),
+								("fFlags", ctypes.c_ushort), ("fAnyOperationsAborted", wintypes.BOOL), ("hNameMappings", ctypes.c_void_p), ("lpszProgressTitle", wintypes.LPCWSTR)]
+
+				# FO_DELETE with FOF_ALLOWUNDO sends the file to the recycle bin (silent, no confirmation)
+				operation = SHFILEOPSTRUCTW()
+				operation.wFunc = 3
+				operation.pFrom = path + "\0"
+				operation.fFlags = 0x40 | 0x10 | 0x400 | 0x4
+				result = ctypes.windll.shell32.SHFileOperationW(ctypes.byref(operation))
+				return result == 0 and not operation.fAnyOperationsAborted
+
+			elif sys.platform == 'darwin':
+				subprocess.run(['osascript', '-e', 'tell application "Finder" to delete POSIX file "%s"' % path.replace('"', '\\"')], check = True, capture_output = True)
+				return True
+
+			else:
+				try:
+					subprocess.run(['gio', 'trash', path], check = True, capture_output = True)
+					return True
+				except Exception:
+					pass
+
+				# the trash folder of the freedesktop.org specification
+				trash = os.path.join(os.environ.get('XDG_DATA_HOME', os.path.expanduser('~/.local/share')), 'Trash', 'files')
+				os.makedirs(trash, exist_ok = True)
+				target = os.path.join(trash, os.path.basename(path))
+				if os.path.exists(target): target = os.path.join(trash, "%s_%i" % (os.path.basename(path), int(time.time())))
+				shutil.move(path, target)
+				return True
+
+		except Exception as e:
+			LookingGlassAddonLogger.warning("Could not move '%s' to the trash: %s" % (path, e))
+
+		return False
+
 	# render engines for which the material preview and rendered viewport shading cannot be cast
 	# NOTE: Casting these views is not supported and can crash Blender.
 	unsupported_cast_engines = ('CYCLES', 'BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
