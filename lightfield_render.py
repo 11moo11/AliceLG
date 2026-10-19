@@ -1562,6 +1562,26 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 	#		- this includes recovering all original user settings
 	def cancel(self, context):
 
+		# NOTE: Whatever goes wrong while cleaning up, the lockfile must be removed. Otherwise, the
+		#		add-on reports an incomplete render job although the render is finished.
+		try:
+			self._cancel(context)
+		except Exception as e:
+			import traceback
+			LookingGlassAddonLogger.error("Clean-up of the render job failed: %s" % e)
+			print("Alice/LG: Clean-up of the render job failed:\n" + traceback.format_exc(), flush = True)
+		finally:
+			try:
+				job = self.render_settings.job
+				if job.lockfile_path and os.path.exists(job.lockfile_path): os.remove(job.lockfile_path)
+			except Exception as e:
+				LookingGlassAddonLogger.error("Could not remove the lockfile: %s" % e)
+			LookingGlassAddon.has_lockfile = False
+			self.use_lockfile = False
+			LookingGlassAddon.RenderInvoked = False
+
+	def _cancel(self, context):
+
 		# REMOVE APP HANDLERS
 		# +++++++++++++++++++++++++
 		# if this call was not just invoked to discard an incomplete render job
