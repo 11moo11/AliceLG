@@ -211,7 +211,8 @@ class ContextOverride:
 				self.__override['space_data'].shading.type = 'SOLID'
 
 				# notify user
-				self.report({"WARNING"}, "Render engine (%s) not supported in lightfield previews. Switched to SOLID mode." % self.__context.engine)
+				# NOTE: This class is no operator, so it has no report() method
+				LookingGlassAddonLogger.warning("Render engine (%s) not supported in lightfield previews. Switched to SOLID mode." % self.__context.engine)
 
 		# always disable the hdri preview spheres
 		self.__override['space_data'].overlay.show_look_dev = False
@@ -422,6 +423,13 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# get the current settings of this scene
 		self.addon_settings_window_manager = context.window_manager.addon_settings
 		self.addon_settings_scene = context.scene.addon_settings
+
+		# protect Blender from crashing: the material preview and rendered shading of Cycles and Eevee cannot be cast
+		if LookingGlassAddon.cast_shading_unsupported(context):
+			LookingGlassAddonLogger.warning("Cast to Looking Glass was not started: Material Preview / Rendered shading is not supported with the render engine '%s'." % context.scene.render.engine)
+			self.report({'ERROR'}, "The selected viewport uses Material Preview or Rendered shading, which cannot be cast with this render engine. Change its shading to Solid or Wireframe.")
+			self.addon_settings_window_manager.ShowLightfieldWindow = False
+			return {'CANCELLED'}
 
 		# update the variable for the current Looking Glass device
 		if int(self.addon_settings_window_manager.activeDisplay) != -1: self.device = pylio.DeviceManager.get_active()
