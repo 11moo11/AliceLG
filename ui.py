@@ -123,6 +123,24 @@ class LookingGlassAddonUI:
 		# return the item list
 		return LookingGlassAddon.enum_string_cache_items(items)
 
+	# the quilt presets that belong to a device type: a matching word in the description of the preset
+	# NOTE: Devices that are not listed here (and custom presets without a match) are not restricted.
+	DEVICE_QUILT_FILTER = {
+		"go_p":      lambda d: d.startswith("Go,"),
+		"portrait":  lambda d: d.startswith("Portrait"),
+		"16_gen3_l": lambda d: d.startswith("16 Landscape"),
+		"16_gen3_p": lambda d: d.startswith("16 Portrait"),
+		"32_gen3_l": lambda d: d.startswith("32 Landscape"),
+		"32_gen3_p": lambda d: d.startswith("32 Portrait"),
+		"65_gen2":   lambda d: d.startswith("65,"),
+		"4k_gen2":   lambda d: d[:2] in ("2k", "4k", "8k"),
+		"8k_gen2":   lambda d: d[:2] in ("2k", "4k", "8k"),
+		"standard":  lambda d: d[:2] in ("2k", "4k", "8k"),
+		"large":     lambda d: d[:2] in ("2k", "4k", "8k"),
+		"pro":       lambda d: d[:2] in ("2k", "4k", "8k"),
+		"8k":        lambda d: d[:2] in ("2k", "4k", "8k"),
+	}
+
 	# This callback is required to be able to update the list of presets
 	def quilt_preset_list_callback(self, context):
 
@@ -140,6 +158,28 @@ class LookingGlassAddonUI:
 
 
 		# return the item list
+		return LookingGlassAddon.enum_string_cache_items(items)
+
+	# the quilt presets of the Quilt Creation panel: only those that fit to the device
+	def render_quilt_preset_list_callback(self, context):
+
+		items = []
+		try:
+
+			# the device that is used for rendering (see update_render_setting_without_preset)
+			device = None
+			if self.render_use_device == True and pylio.DeviceManager.get_active() is not None: device = pylio.DeviceManager.get_active()
+			else: device = pylio.DeviceManager.get_device(key='index', value=int(self.render_device_type))
+
+			fits = LookingGlassAddonUI.DEVICE_QUILT_FILTER.get(getattr(device, "type", None))
+			for idx, preset in pylio.LookingGlassQuilt.formats.get().items():
+				if not pylio.LookingGlassQuilt.formats.is_hidden(id=idx) and (fits is None or fits(preset['description'])):
+					items.append((str(idx), preset['description'], 'Sets the resolution of the rendered quilt.'))
+		except Exception:
+			items = []
+
+		# never return an empty list: fall back to all presets
+		if not items: return LookingGlassAddonUI.quilt_preset_list_callback(self, context)
 		return LookingGlassAddon.enum_string_cache_items(items)
 
 	# poll function for the Looking Glass camera selection
@@ -1132,7 +1172,7 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 
 	# Quilt presets
 	render_quilt_preset: bpy.props.EnumProperty(
-									items = LookingGlassAddonUI.quilt_preset_list_callback,
+									items = LookingGlassAddonUI.render_quilt_preset_list_callback,
 									name="Quilt Preset",
 									update = LookingGlassAddonUI.update_render_setting_without_preset,
 									)
