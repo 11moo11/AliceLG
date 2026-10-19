@@ -300,7 +300,6 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		from .updater import draw_update_ui
 		layout.prop(self, "check_updates_on_startup")
 		draw_update_ui(layout)
-		layout.prop(self, "bridge_cache_mode")
 
 		# default cast settings
 		box = layout.box()
@@ -340,3 +339,6 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		column_3 = row_logger.column()
 		column_3.prop(self, "console_output")
 		column_3.scale_x = 0.25
+
+		# experimental: next to the logging options
+		layout.prop(self, "bridge_cache_mode")
