@@ -1879,8 +1879,17 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 		else:
 
 			# render the quilt in blocking mode until it is finished
+			# NOTE: The progress is printed, because there is no user interface in this mode
+			job = self.render_settings.job
+			print("Alice/LG: Rendering started (%s, %i views per frame)." % ("quilt animation" if job.animation else "single quilt", job.total_views), flush = True)
+			last_percent = -1
 			while (self.modal(context, None) == {'PASS_THROUGH'}):
+				percent = int(self.render_settings.addon_settings.render_progress)
+				if percent != last_percent:
+					last_percent = percent
+					print("Alice/LG: Render progress %i %% (frame %s, view %s)" % (percent, getattr(job, 'frame', '?'), getattr(job, 'view', '?')), flush = True)
 				time.sleep(0.001)
+			print("Alice/LG: Rendering finished.", flush = True)
 
 			# finish operator
 			return {'FINISHED'}
