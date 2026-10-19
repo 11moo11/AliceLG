@@ -572,7 +572,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			idle_refresh_due = (not self.pending_change) and (not operator_running) and self.depsgraph_update_time > 0 and now - self.depsgraph_update_time > self.addon_settings_window_manager.full_quality_delay and now - self.last_full_refresh_time > 2.0
 
 			# if something has changed OR the user requested a manual redrawing
-			if self.modal_redraw or (not self.modal_redraw and (idle_refresh_due or context.window_manager.addon_settings.viewport_manual_refresh == True)):
+			# NOTE: Do not draw into the offscreens while Blender renders (e.g., a quilt render or F12): both use the GPU
+			#		and the nested binding of the offscreens fails ("Level of bind mismatch"). The refresh is done afterwards.
+			render_busy = LookingGlassAddon.RenderInvoked or bpy.app.is_job_running('RENDER')
+			if not render_busy and (self.modal_redraw or (not self.modal_redraw and (idle_refresh_due or context.window_manager.addon_settings.viewport_manual_refresh == True))):
 
 				# update the viewport settings
 				self.updateViewportSettings(context)
@@ -607,7 +610,17 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 				# render the views
 				render_start = time.time()
-				self.render_view(context)
+				try:
+					self.render_view(context)
+				except Exception as e:
+
+					# a failed refresh must not stop the casting: log it and try again with the next change
+					LookingGlassAddonLogger.error("Rendering the views failed: %s" % e)
+					try: self.restoreViewportSettings()
+					except Exception: pass
+					self.modal_redraw = False
+					self.pending_change = False
+					return {'RUNNING_MODAL'}
 
 				# after a preview was rendered, start the idle timer *after* the render:
 				# otherwise a preview that takes longer than the idle timeout is
