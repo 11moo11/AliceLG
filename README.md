@@ -141,6 +141,8 @@ You can render still scenes and animation frames as complete quilt images. You c
 
 You can also assemble a quilt from existing view images with _Looking Glass → Quilt Creation → Build Quilt from Files_.
 
+**Render Headlessly** (_Looking Glass → Quilt Creation → Render Headlessly_) saves the Blender file, closes Blender, and renders the quilt (or the frame range as a quilt animation) in a separate Blender process without a user interface, using the settings stored in the file, including its output path. On Windows the progress is shown in a console window; on other systems it is written to `logs/headless-render.log` in the add-on folder. The file has to be saved once before, and Blender is closed by this button. It uses the command line mechanism described under _Renderfarm Implementation_.
+
 The _Render Quilt_ option will render the different views separately. After the last view has been rendered, a quilt will be automatically assembled. For the _Render Animation Quilt_ option, the same will happen for each frame of the animation, which will result in one quilt per frame. After rendering, the created quilt image or animation frames have to be handled in the same way as normal renders. You can still render normal (non-holographic) images in Blender as you usually do.
 
 _NOTE: Option (2) can be used even if no Looking Glass is connected._

@@ -1776,6 +1776,10 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 				render_quilt.animation = True
 				render_quilt.use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
 
+			# Button to render in a separate background process (closes Blender)
+			row_render_headless = layout.row(align = True)
+			row_render_headless.operator("lookingglass.render_headless", icon='CONSOLE')
+
 
 		# if a lockfile was detected on start-up
 		else:
@@ -1842,6 +1846,73 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 		# Build button
 		row = column.row(align=True)
 		row.operator("lookingglass.build_quilt_from_files", text="Build Quilt", icon='RENDER_STILL')
+
+
+# an operator that renders the quilt in a separate background Blender process
+class LOOKINGGLASS_OT_render_headless(bpy.types.Operator):
+	bl_idname = "lookingglass.render_headless"
+	bl_label = "Render Headlessly"
+	bl_description = "Save the file, close Blender and render the quilt in a separate Blender process without a user interface. The output settings of this file are used"
+	bl_options = {'REGISTER', 'INTERNAL'}
+
+	animation: bpy.props.BoolProperty(
+								name = "Render Animation",
+								description = "Render the frame range as quilt animation instead of the current frame as a single quilt",
+								default = False,
+								)
+
+	@classmethod
+	def poll(cls, context):
+		return context.scene.addon_settings.lookingglassCamera is not None and not LookingGlassAddon.RenderInvoked
+
+	def invoke(self, context, event):
+
+		# the background process loads the file from disk
+		if not bpy.data.filepath:
+			self.report({'ERROR'}, "Save the Blender file first: the headless render loads it from disk.")
+			return {'CANCELLED'}
+
+		return context.window_manager.invoke_props_dialog(self, width = 480)
+
+	def draw(self, context):
+		layout = self.layout
+		layout.label(text = "Blender will save this file and close.")
+		layout.label(text = "The quilt is then rendered in a separate Blender process without a window.")
+		layout.separator()
+		layout.label(text = "File: " + os.path.basename(bpy.data.filepath))
+		layout.label(text = "Output: " + bpy.path.abspath(context.scene.render.filepath))
+		layout.prop(self, "animation")
+
+	def execute(self, context):
+		import subprocess
+		from .updater import RESTART_HELPER
+
+		# save the file, because the background process uses the settings stored in it
+		try:
+			bpy.ops.wm.save_mainfile()
+		except Exception as e:
+			self.report({'ERROR'}, "Could not save the file: %s" % e)
+			return {'CANCELLED'}
+
+		# the command that renders the quilt in the background (see "Renderfarm Implementation" in the README)
+		command = [bpy.app.binary_path, '-b', bpy.data.filepath, '--', '--alicelg-render-anim' if self.animation else '--alicelg-render']
+
+		# show the progress in a new console window (Windows) or write it to a log file
+		environment = os.environ.copy()
+		if sys.platform == 'win32': environment['LG_NEW_CONSOLE'] = '1'
+		else: environment['LG_LOGFILE'] = os.path.join(LookingGlassAddon.logpath, 'headless-render.log')
+
+		# start the render as soon as this Blender instance has quit
+		try:
+			flags = (subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP) if sys.platform == 'win32' else 0
+			subprocess.Popen([sys.executable, "-c", RESTART_HELPER, str(os.getpid())] + command, env = environment, creationflags = flags, close_fds = True)
+		except Exception as e:
+			self.report({'ERROR'}, "Could not start the headless render: %s" % e)
+			return {'CANCELLED'}
+
+		# close this instance
+		bpy.ops.wm.quit_blender()
+		return {'FINISHED'}
 
 
 # an operator that positions the camera for a specific view
