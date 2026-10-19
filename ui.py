@@ -264,21 +264,10 @@ class LookingGlassAddonUI:
 			# if the loaded file does not have a lockfile
 			if not LookingGlassAddon.has_lockfile:
 
-				# try to find the suitable default quilt preset
-				if device:
-					preset = pylio.LookingGlassQuilt.formats.find(device.default_quilt_width, device.default_quilt_height, device.default_quilt_rows, device.default_quilt_columns)
-
-				# then update the selected quilt preset from the device's default quilt
-				if device and preset:
-					if bpy.context.scene.addon_settings.render_quilt_preset != str(preset):
-						bpy.context.scene.addon_settings.render_quilt_preset = str(preset)
-
-				elif not device or not preset:
-
-					# fallback solution, if the default quilt is not found:
-					# We use the Looking Glass Go standard quilt (48 views)
-					if bpy.context.scene.addon_settings.render_quilt_preset != "5":
-						bpy.context.scene.addon_settings.render_quilt_preset = "5"
+				# the default quilt preset of the device (fallback: Looking Glass Portrait, 48 views)
+				preset = LookingGlassAddon.default_quilt_preset_id(device, use_preference = False)
+				if bpy.context.scene.addon_settings.render_quilt_preset != preset:
+					bpy.context.scene.addon_settings.render_quilt_preset = preset
 
 		return None
 

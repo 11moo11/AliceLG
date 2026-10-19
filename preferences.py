@@ -34,6 +34,39 @@ import logging
 LookingGlassAddonLogger = logging.getLogger('Alice/LG')
 
 # ------------- DEFINE ADDON PREFERENCES ----------------
+# the quilt presets that can be selected as default
+def default_quilt_preset_items(self, context):
+	import pylightio as pylio
+
+	items = []
+	formats = pylio.LookingGlassQuilt.formats
+
+	# Looking Glass Portrait (48 views) is the first entry, because it is the default
+	if 4 in formats.get(): items.append(('4', formats.get(4)['description'], 'Looking Glass Portrait quilt with 48 views'))
+
+	# use the default quilt of the connected device
+	items.append(('AUTO', 'Match connected Looking Glass', 'Use the default quilt of the connected Looking Glass (Portrait with 48 views, if none is connected)'))
+
+	# all other quilt presets that are not hidden
+	for idx, preset in formats.get().items():
+		if idx != 4 and not formats.is_hidden(id=idx):
+			items.append((str(idx), preset['description'], 'Quilt preset'))
+
+	return LookingGlassAddon.enum_string_cache_items(items)
+
+# apply the default quilt preset to the current scene
+def apply_default_quilt_preset(self, context):
+	try:
+		preset = LookingGlassAddon.default_quilt_preset_id(pylio_active_device())
+		context.scene.addon_settings.quiltPreset = preset
+		context.scene.addon_settings.render_quilt_preset = preset
+	except Exception as e:
+		LookingGlassAddonLogger.debug("Could not apply the default quilt preset: %s" % e)
+
+def pylio_active_device():
+	import pylightio as pylio
+	return pylio.DeviceManager.get_active()
+
 # an operator that installs the python dependencies
 class LOOKINGGLASS_OT_install_dependencies(bpy.types.Operator):
 	bl_idname = "lookingglass.install_dependencies"
@@ -202,6 +235,14 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									description="Send light fields as one named, replaced quilt in the cache of Looking Glass Bridge instead of as new images. This may reduce the memory that Bridge uses. If Bridge does not accept it, the add-on falls back to the normal way",
 									)
 
+	# default quilt preset: used when a Blender file is loaded
+	default_quilt_preset: bpy.props.EnumProperty(
+									items = default_quilt_preset_items,
+									name="Quilt",
+									description="Default quilt resolution for new files and rendering",
+									update=apply_default_quilt_preset,
+									)
+
 	# default cast settings: they are used for all Blender files
 	default_refresh_mode: bpy.props.EnumProperty(
 									items = [('0', 'Automatic', 'Automatically refresh the light field when something changes'),
@@ -268,6 +309,7 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		box.prop(self, "default_preview_quality")
 		box.prop(self, "default_full_quality_delay")
 		box.prop(self, "default_patient_mode")
+		box.prop(self, "default_quilt_preset")
 
 		# # render mode
 		# row_render_mode = layout.row()

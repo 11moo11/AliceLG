@@ -243,6 +243,31 @@ class LookingGlassAddon:
 
 		return cls._black_lightfield
 
+	# the quilt preset that is selected by default (as the string of the preset id)
+	# use_preference: True = the preset chosen in the add-on preferences has priority
+	#				  False = the default quilt of the given device has priority
+	@staticmethod
+	def default_quilt_preset_id(device = None, use_preference = True):
+		import pylightio as pylio
+		formats = pylio.LookingGlassQuilt.formats
+
+		# the preference ('AUTO' means: use the default quilt of the connected device)
+		preference = 'AUTO'
+		if use_preference:
+			try: preference = bpy.context.preferences.addons[__package__].preferences.default_quilt_preset
+			except Exception: preference = 'AUTO'
+			if preference != 'AUTO' and preference.isdigit() and int(preference) in formats.get(): return preference
+
+		# the default quilt of the device
+		if device:
+			try:
+				preset = formats.find(device.default_quilt_width, device.default_quilt_height, device.default_quilt_rows, device.default_quilt_columns)
+				if preset: return str(preset)
+			except Exception: pass
+
+		# fallback: Looking Glass Portrait (48 views)
+		return "4" if 4 in formats.get() else str(list(formats.get().keys())[0])
+
 	# apply the default cast settings of the add-on preferences to the current window manager
 	@staticmethod
 	def apply_default_settings(context = None):
