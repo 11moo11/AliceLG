@@ -70,13 +70,15 @@ After the installation you find a _Looking Glass_ tab in each Blender 3D viewpor
 
    - **Camera settings.** Select the camera that defines the view for the Looking Glass (or create a new one with the "+" button), show or hide the view frustum and focal plane, synchronize the camera, and set the clipping planes and focal plane.
 
+   - **Render Preview.** Move the camera to a single view of the quilt to check it: the _View_ slider is limited to the number of views of the selected quilt (e.g., 48 views for Portrait), and _Preview_ toggles the preview position. The preview is reset when a file is loaded.
+
    - **Cast to Looking Glass.** The large button that starts and stops casting your scene to the Looking Glass. Below it you select the connected Looking Glass display (with a refresh button for the display list).
 
    - **Select Cast Source.** Appears while casting. Choose between _Scene_ (a live view of your Blender scene) and _Quilt Viewer_ (a pre-rendered quilt image).
 
    - **Cast Settings.** The settings of the live scene view (see below).
 
-- **Quilt Creation.** Everything for rendering quilts: the device and quilt resolution, output options, the _Render Quilt_ and _Render Animation Quilt_ buttons, a render preview of a single view, and _Build Quilt from Files_ for assembling a quilt from existing view images.
+- **Quilt Creation.** Everything for rendering quilts: the device and quilt resolution, output options, the _Render Quilt_ and _Render Animation Quilt_ buttons, and _Build Quilt from Files_ for assembling a quilt from existing view images.
 
 ### Cast to Looking Glass
 
