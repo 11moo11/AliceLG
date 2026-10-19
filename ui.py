@@ -180,6 +180,20 @@ class LookingGlassAddonUI:
 		# return the item list
 		return LookingGlassAddon.enum_string_cache_items(items)
 
+	# short name of a quilt preset for the Quilt Creation panel: the device name is already shown in the
+	# "Device" dropdown, so only the number of views (and, if needed, the resolution) is shown
+	# NOTE: Examples: "Portrait, 48 Views" -> "48 views",  "4k Quilt, 45 Views" -> "4k, 45 views",
+	#		"Portrait (View Only), 24 Views (2x > 48)" -> "24 views (2x > 48), view only"
+	def quilt_preset_label(description, device_known = True):
+		import re
+		if not device_known: return description
+		match = re.search(r"(\d+)\s*views?(.*)$", description, re.IGNORECASE)
+		if not match: return description
+		label = "%s views%s" % (match.group(1), match.group(2).rstrip())
+		if re.match(r"^\d+k\b", description): label = description[:2] + ", " + label
+		if "view only" in description.lower(): label += ", view only"
+		return label
+
 	# the quilt presets of the Quilt Creation panel: only those that fit to the device
 	def render_quilt_preset_list_callback(self, context):
 
@@ -194,7 +208,7 @@ class LookingGlassAddonUI:
 			fits = LookingGlassAddonUI.DEVICE_QUILT_FILTER.get(getattr(device, "type", None))
 			for idx, preset in pylio.LookingGlassQuilt.formats.get().items():
 				if not pylio.LookingGlassQuilt.formats.is_hidden(id=idx) and (fits is None or fits(preset['description'])):
-					items.append((str(idx), preset['description'], 'Sets the resolution of the rendered quilt.'))
+					items.append((str(idx), LookingGlassAddonUI.quilt_preset_label(preset['description'], fits is not None), 'Sets the resolution of the rendered quilt.'))
 		except Exception:
 			items = []
 
