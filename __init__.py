@@ -274,6 +274,22 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 		# default cast settings from the add-on preferences (valid for all Blender files)
 		LookingGlassAddon.apply_default_settings()
 
+		# reset the render preview: bring a camera that was left in preview position back and start at view 0
+		try:
+			from mathutils import Matrix
+			for scene in bpy.data.scenes:
+				settings = scene.addon_settings
+				if settings.preview_active:
+					camera = settings.lookingglassCamera
+					if camera:
+						m = list(settings.preview_original_matrix)
+						camera.matrix_world = Matrix((m[0:4], m[4:8], m[8:12], m[12:16]))
+						camera.data.shift_x = settings.preview_original_shift
+					settings.preview_active = False
+				settings.preview_view_index = 0
+		except Exception as e:
+			LookingGlassAddonLogger.debug("Could not reset the render preview: %s" % e)
+
 		# ------------ INITIALIZATION ---------------
 		# check if lockfile exists and set status variable
 		LookingGlassAddon.has_lockfile = os.path.exists(bpy.path.abspath(LookingGlassAddon.tmp_path + os.path.basename(bpy.data.filepath) + ".lock"))

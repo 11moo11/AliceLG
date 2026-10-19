@@ -810,6 +810,23 @@ class LookingGlassAddonUI:
 			# reset the variables
 			LookingGlassAddon.quiltPixels = None
 
+	# the number of views of the selected quilt (the "Quilt" dropdown in Quilt Creation)
+	@staticmethod
+	def preview_total_views(addon_settings):
+		try:
+			return max(1, int(pylio.LookingGlassQuilt.formats.get(int(addon_settings.render_quilt_preset))['total_views']))
+		except Exception:
+			return 128
+
+	# the view index of the render preview is limited to the number of views of the selected quilt
+	@staticmethod
+	def get_preview_view_index(self):
+		return max(0, min(int(self.get("_preview_view_index", 0)), LookingGlassAddonUI.preview_total_views(self) - 1))
+
+	@staticmethod
+	def set_preview_view_index(self, value):
+		self["_preview_view_index"] = max(0, min(int(value), LookingGlassAddonUI.preview_total_views(self) - 1))
+
 	@staticmethod
 	def update_preview_view(self, context):
 		"""Update camera position when preview slider changes while preview is active"""
@@ -1337,7 +1354,10 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 										name = "View Index",
 										default = 0,
 										min = 0,
-										description = "Index of the view to preview (0 to total views - 1)",
+										max = 128,
+										description = "Index of the view to preview (0 to the number of views of the selected quilt - 1)",
+										get = LookingGlassAddonUI.get_preview_view_index,
+										set = LookingGlassAddonUI.set_preview_view_index,
 										update = LookingGlassAddonUI.update_preview_view,
 										)
 
@@ -1496,6 +1516,10 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 		draw_camera_settings(layout, context)
 		layout.separator()
 
+		# render preview: look through a single view of the quilt
+		draw_render_preview(layout, context)
+		layout.separator()
+
 		column = layout.column()
 
 		# Cast button (large, full width)
@@ -1562,6 +1586,16 @@ class LOOKINGGLASS_OT_add_camera(bpy.types.Operator):
 			context.scene.addon_settings.lookingglassCamera = camera
 
 		return {'FINISHED'}
+
+# render preview, drawn in the "View Settings" panel
+def draw_render_preview(layout, context):
+	"""Draws the render preview: a view slider (limited to the views of the selected quilt) and the preview button."""
+	column = layout.column(align=True)
+	column.label(text="Render Preview:")
+	row = column.row(align=True)
+	row.prop(context.scene.addon_settings, "preview_view_index", text="View")
+	row.operator("lookingglass.preview_camera", text="Preview", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
+
 
 # camera settings, drawn inline in the "View Settings" panel
 def draw_camera_settings(layout, context):
@@ -1764,14 +1798,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 
 			# deactivate the checkbox
 			row_use_device.enabled = False
-
-		# Render Preview Section
-		layout.separator()
-		column = layout.column(align=True)
-		column.label(text="Render Preview:")
-		row = column.row(align=True)
-		row.prop(context.scene.addon_settings, "preview_view_index", text="View")
-		row.operator("lookingglass.preview_camera", text="Preview", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
 
 		# Quilt Generation from Files (formerly the "Advanced" panel)
 		layout.separator()
