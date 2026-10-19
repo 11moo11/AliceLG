@@ -1695,9 +1695,9 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 		layout = self.layout
 
 		# Chose the settings from the device or use a preset?
+		# NOTE: Whether the settings are taken from the connected device ("render_use_device") is
+		#		decided automatically: it is on when a Looking Glass is connected, otherwise off.
 		row_general_options = layout.column(align = True)
-		row_use_device = row_general_options.row(align = True)
-		render_use_device = row_use_device.prop(context.scene.addon_settings, "render_use_device")
 
 		# Metadata handling
 		row_metadata = row_general_options.row(align = True)
@@ -1764,7 +1764,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 
 			# disable the UI
 			row_metadata.enabled = False
-			row_use_device.enabled = False
 			row_orientation.enabled = False
 			row_preset.enabled = False
 			row_output.enabled = False
@@ -1788,7 +1787,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 		# disable the render settings, if a rendering process is running
 		if LookingGlassAddon.RenderInvoked == True:
 			row_metadata.enabled = False
-			row_use_device.enabled = False
 			row_orientation.enabled = False
 			row_preset.enabled = False
 			row_output.enabled = False
@@ -1801,7 +1799,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 
 			# disable all elements
 			row_metadata.enabled = False
-			row_use_device.enabled = False
 			row_orientation.enabled = False
 			row_preset.enabled = False
 			row_output.enabled = False
@@ -1814,12 +1811,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 			# disable all elements
 			row_orientation.enabled = False
 			row_preset.enabled = False
-
-		# if no Looking Glass was detected AND debug mode is not activated
-		if not pylio.DeviceManager.count() and not LookingGlassAddon.debugging_use_dummy_device:
-
-			# deactivate the checkbox
-			row_use_device.enabled = False
 
 		# Quilt Generation from Files (formerly the "Advanced" panel)
 		layout.separator()

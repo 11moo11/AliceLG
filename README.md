@@ -125,14 +125,13 @@ You can render still scenes and animation frames as complete quilt images. You c
 **(1) Rendering for your currently connected device**
 - select your connected Looking Glass (if not already selected) under _Looking Glass → View Settings_ and a quilt resolution under _Looking Glass → Quilt Creation → Quilt_
 - select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
-- check the _Looking Glass → Quilt Creation → Use Device Settings_ checkbox
 - locate the camera to the specific view you would like to render
 - adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Creation__)
 - click on _Looking Glass → Quilt Creation → Render Quilt_ or _Looking Glass → Quilt Creation → Render Animation Quilt_ in the add-on controls.
 
 **(2) Rendering for other Looking Glasses**
 - select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
-- uncheck the _Looking Glass → Quilt Creation → Use Device Settings_ checkbox, if it is checked
+- the _Device_ and _Quilt_ lists are active when no Looking Glass is connected (with a connected Looking Glass, its settings are used)
 - choose the Looking Glass you want to render for from the list _Looking Glass → Quilt Creation → Device_
 - choose the quilt preset/resolution you want to render for from the list _Looking Glass → Quilt Creation → Quilt
 - locate the camera to the specific view you would like to render
