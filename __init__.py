@@ -308,9 +308,28 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 
 			# the default quilt preset: the one chosen in the add-on preferences, or the default
 			# quilt of the connected device (fallback: Looking Glass Portrait, 48 views)
-			preset = LookingGlassAddon.default_quilt_preset_id(device)
-			bpy.context.scene.addon_settings.quiltPreset = preset
-			bpy.context.scene.addon_settings.render_quilt_preset = preset
+			# NOTE: A headless render keeps the device and quilt that are stored in the file.
+			if not LookingGlassAddon.background:
+				preset = LookingGlassAddon.default_quilt_preset_id(device)
+				settings = bpy.context.scene.addon_settings
+				settings.quiltPreset = preset
+
+				try:
+
+					# the quilt list of the Quilt Creation panel only contains the quilts of the selected device,
+					# so first select a device the default quilt belongs to
+					description = pylio.LookingGlassQuilt.formats.get()[int(preset)]['description']
+					fits = LookingGlassAddonUI.DEVICE_QUILT_FILTER.get(getattr(pylio.DeviceManager.get_device(key='index', value=int(settings.render_device_type)), "type", None))
+					if fits is not None and not fits(description):
+						for emulated in pylio.DeviceManager.to_list(False, True):
+							if LookingGlassAddonUI.DEVICE_QUILT_FILTER.get(emulated.type, lambda d: False)(description):
+								settings.render_device_type = str(emulated.index)
+								break
+
+					settings.render_quilt_preset = preset
+
+				except Exception as e:
+					LookingGlassAddonLogger.debug("Could not apply the default quilt preset: %s" % e)
 
 		# check if Blender is run in background mode
 		if LookingGlassAddon.background:
