@@ -357,10 +357,10 @@ class RenderJob:
 			# translate the camera by the calculated offset in x-direction
 			# NOTE: the matrix multiplications first transform the camera location into camera coordinates,
 			#		then we apply the offset and transform back to world coordinates
-			self._camera_active.matrix_world = self._view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (self._view_matrix_inv @ self._camera_original.matrix_world.copy()))
+			self._camera_active.matrix_world = self._view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ LookingGlassAddon.view_toe_in(self._camera_active.data, offsetAngle) @ (self._view_matrix_inv @ self._camera_original.matrix_world.copy()))
 
 			# modify the projection matrix, relative to the camera size
-			self._camera_active.data.shift_x = self._camera_original.data.shift_x + 0.5 * offset / cameraSize
+			self._camera_active.data.shift_x = self._camera_original.data.shift_x + LookingGlassAddon.view_shift(self._camera_active.data, offset, cameraSize)
 
 
 
@@ -452,10 +452,10 @@ class RenderJob:
 					# translate the camera by the calculated offset in x-direction
 					# NOTE: the matrix multiplications first transform the camera location into camera coordinates,
 					#		then we apply the offset and transform back to world coordinates
-					self._camera_active.matrix_world = self._view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ (self._view_matrix_inv @ self._camera_original.matrix_world.copy()))
+					self._camera_active.matrix_world = self._view_matrix @ (Matrix.Translation((-offset, 0, 0)) @ LookingGlassAddon.view_toe_in(self._camera_active.data, offsetAngle) @ (self._view_matrix_inv @ self._camera_original.matrix_world.copy()))
 
 					# modify the projection matrix, relative to the camera size
-					self._camera_active.data.shift_x = self._camera_original.data.shift_x + 0.5 * offset / cameraSize
+					self._camera_active.data.shift_x = self._camera_original.data.shift_x + LookingGlassAddon.view_shift(self._camera_active.data, offset, cameraSize)
 
 				# if a marker camera was found
 				if marker_camera_found:

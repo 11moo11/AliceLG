@@ -224,6 +224,21 @@ class LookingGlassAddon:
 
 	# move a file to the recycle bin / trash (so that it can be restored)
 	# returns True, if the file was moved
+	# rotation that turns a camera, which was moved sideways for a view, back towards the focal plane
+	# NOTE: Panoramic cameras ignore the lens shift, which is used to converge the views of perspective and
+	#		orthographic cameras. For them, the camera is rotated (toe-in) instead.
+	@staticmethod
+	def view_toe_in(camera_data, offset_angle):
+		from mathutils import Matrix
+		if camera_data.type == 'PANO': return Matrix.Rotation(-offset_angle, 4, 'Y')
+		return Matrix.Identity(4)
+
+	# lens shift for the view, relative to the shift of the original camera (none for panoramic cameras)
+	@staticmethod
+	def view_shift(camera_data, offset, camera_size):
+		if camera_data.type == 'PANO': return 0.0
+		return 0.5 * offset / camera_size
+
 	@staticmethod
 	def move_to_trash(path):
 		import subprocess, shutil
