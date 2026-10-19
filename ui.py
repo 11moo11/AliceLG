@@ -1105,6 +1105,24 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 										update=LookingGlassAddonUI.update_render_setting_without_preset,
 										)
 
+	# what the Quilt Creation panel builds the quilt from
+	quilt_build_mode: bpy.props.EnumProperty(
+									items = [('RENDER', 'Render', 'Render the quilt from the Looking Glass camera'),
+											 ('FILES', 'Files', 'Build a quilt from existing view images')],
+									default='RENDER',
+									name="Build From",
+									)
+
+	# what the render button of the Quilt Creation panel does
+	render_source: bpy.props.EnumProperty(
+									items = [('QUILT', 'Render Quilt', 'Render a single quilt'),
+											 ('ANIMATION', 'Render Animation Quilt', 'Render the frame range as quilt animation'),
+											 ('HEADLESS', 'Render Quilt Headlessly', 'Save the file, close Blender and render a single quilt in a separate Blender process'),
+											 ('ANIMATION_HEADLESS', 'Render Animation Quilt Headlessly', 'Save the file, close Blender and render the frame range as quilt animation in a separate Blender process')],
+									default='QUILT',
+									name="Source",
+									)
+
 	# Orientation of the views
 	render_device_type: bpy.props.EnumProperty(
 										items = LookingGlassAddonUI.emulated_device_list_callback,
@@ -1555,7 +1573,7 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 
 		# render preview: look through a single view of the quilt
 		draw_render_preview(layout, context)
-		layout.separator()
+		layout.separator(type='LINE', factor=2.0)
 
 		column = layout.column()
 
@@ -1629,12 +1647,12 @@ class LOOKINGGLASS_OT_add_camera(bpy.types.Operator):
 
 # render preview, drawn in the "View Settings" panel
 def draw_render_preview(layout, context):
-	"""Draws the render preview: a view slider (limited to the views of the selected quilt) and the preview button."""
-	column = layout.column(align=True)
-	column.label(text="Render Preview:")
-	row = column.row(align=True)
-	row.prop(context.scene.addon_settings, "preview_view_index", text="View")
-	row.operator("lookingglass.preview_camera", text="Preview", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
+	"""Draws the render preview: the swivel button and a view slider (limited to the views of the selected quilt)."""
+	row = layout.row(align=True)
+	sub = row.row(align=True)
+	sub.scale_x = 2.0
+	sub.operator("lookingglass.preview_camera", text="Activate Swivel", icon='VIEW_CAMERA', depress=context.scene.addon_settings.preview_active)
+	row.prop(context.scene.addon_settings, "preview_view_index", text="View Image")
 
 
 # camera settings, drawn inline in the "View Settings" panel
@@ -1711,141 +1729,107 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 	# draw the UI for the configuration options
 	def draw(self, context):
 		layout = self.layout
+		settings = context.scene.addon_settings
 
-		# Chose the settings from the device or use a preset?
-		# NOTE: Whether the settings are taken from the connected device ("render_use_device") is
-		#		decided automatically: it is on when a Looking Glass is connected, otherwise off.
-		row_general_options = layout.column(align = True)
+		# what to build the quilt from
+		row_title = layout.row(align = True)
+		row_title.alignment = 'CENTER'
+		row_title.label(text="Build From:")
+		layout.row(align = True).prop(settings, "quilt_build_mode", expand=True)
 
-		# Metadata handling
-		row_metadata = row_general_options.row(align = True)
-		render_add_suffix = row_metadata.prop(context.scene.addon_settings, "render_add_suffix")
+		# quilt generation from files (formerly the "Advanced" panel)
+		if settings.quilt_build_mode == 'FILES':
+			layout.prop(settings, "advanced_quilt_source_path", text="Build Quilt from Files")
+			layout.separator(type='LINE', factor=2.0)
+			row = layout.row(align=True)
+			row.scale_y = 2.0
+			row.operator("lookingglass.build_quilt_from_files", text="Build", icon='RENDER_STILL')
 
-		# Render orientation
-		row_orientation = layout.row(align = True)
-		column_1 = row_orientation.row(align = True)
-		column_1.label(text="Device:")
-		column_1.scale_x = 0.3
-		column_2 = row_orientation.row(align = True)
-		column_2.prop(context.scene.addon_settings, "render_device_type", text="")
-		column_2.scale_x = 0.7
-
-		# Quilt preset
-		row_preset = layout.row(align = True)
-		column_1 = row_preset.row(align = True)
-		column_1.label(text="Quilt:")
-		column_1.scale_x = 0.3
-		column_2 = row_preset.row(align = True)
-		column_2.prop(context.scene.addon_settings, "render_quilt_preset", text="")
-		column_2.scale_x = 0.7
-
-		# Output file handling
-		row_output = layout.row(align = True)
-		column_1 = row_output.row(align = True)
-		column_1.label(text="Output:")
-		column_1.scale_x = 0.3
-		column_2 = row_output.row(align = True)
-		column_2.prop(context.scene.addon_settings, "render_output", text="")
-		column_2.scale_x = 0.7
-
-		# if no lockfile was detected on start-up OR the render job is running
-		if not LookingGlassAddon.has_lockfile or LookingGlassAddon.RenderInvoked:
-
-			# Buttons and progress bars
-			if LookingGlassAddon.RenderInvoked == True and LookingGlassAddon.RenderAnimation == False:
-				# Show the corresponding progress bar for the rendering process
-				row_render_still = layout.row(align = True)
-				row_render_still.prop(context.scene.addon_settings, "render_progress", text="", slider=True)
-				row_render_still.prop(context.scene.addon_settings, "render_stop", text="", icon='CANCEL')
-			else:
-				# Button to start rendering a single quilt using the current render settings
-				row_render_still = layout.row(align = True)
-				render_quilt = row_render_still.operator("render.quilt", text="Render Quilt", icon='RENDER_STILL')
-				render_quilt.animation = False
-				render_quilt.use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
-
-			if LookingGlassAddon.RenderInvoked == True and LookingGlassAddon.RenderAnimation == True:
-				# Show the corresponding progress bar for the rendering process
-				row_render_animation = layout.row(align = True)
-				row_render_animation.prop(context.scene.addon_settings, "render_progress", text="", slider=True)
-				row_render_animation.prop(context.scene.addon_settings, "render_stop", text="", icon='CANCEL')
-			else:
-				# Button to start rendering a animation quilt using the current render settings
-				row_render_animation = layout.row(align = True)
-				render_quilt = row_render_animation.operator("render.quilt", text="Render Animation Quilt", icon='RENDER_ANIMATION')
-				render_quilt.animation = True
-				render_quilt.use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
-
-			# Button to render in a separate background process (closes Blender)
-			row_render_headless = layout.row(align = True)
-			row_render_headless.operator("lookingglass.render_headless", icon='CONSOLE')
-
-
-		# if a lockfile was detected on start-up
 		else:
 
-			# disable the UI
-			row_metadata.enabled = False
-			row_orientation.enabled = False
-			row_preset.enabled = False
-			row_output.enabled = False
+			# NOTE: Whether the settings are taken from the connected device ("render_use_device") is
+			#		decided automatically: it is on when a Looking Glass is connected, otherwise off.
+			row_orientation = layout.row(align = True)
+			row_orientation.prop(settings, "render_device_type", text="Device")
+			row_preset = layout.row(align = True)
+			row_preset.prop(settings, "render_quilt_preset", text="Quilt")
+			row_output = layout.row(align = True)
+			row_output.prop(settings, "render_output", text="Output")
+			row_source = layout.row(align = True)
+			row_source.prop(settings, "render_source", text="Source")
+			layout.separator(type='LINE', factor=2.0)
 
-			# inform the user and provide options to continue or to discard
-			row_render_still = layout.row(align = True)
-			row_render_still.label(text = "Last render job incomplete:", icon="ERROR")
+			use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
 
-			row_render_animation = layout.row(align = False)
-			render_quilt = row_render_animation.operator("render.quilt", text="Continue", icon='RENDER_STILL')
-			render_quilt.use_lockfile = True
-			render_quilt.use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
-			render_quilt = row_render_animation.operator("render.quilt", text="Discard", icon='CANCEL')
-			render_quilt.use_lockfile = True
-			render_quilt.use_multiview = (context.preferences.addons[__package__].preferences.camera_mode == '1')
-			render_quilt.discard_lockfile = True
+			# if no lockfile was detected on start-up OR the render job is running
+			if not LookingGlassAddon.has_lockfile or LookingGlassAddon.RenderInvoked:
 
+				row_render = layout.row(align = True)
+				row_render.scale_y = 2.0
 
+				# while a quilt is rendered: show the progress bar and the stop button
+				if LookingGlassAddon.RenderInvoked == True:
+					row_render.prop(settings, "render_progress", text="", slider=True)
+					row_render.prop(settings, "render_stop", text="", icon='CANCEL')
 
+				# the button starts what the source dropdown says
+				elif settings.render_source in ('QUILT', 'ANIMATION'):
+					render_quilt = row_render.operator("render.quilt", text="Render", icon='CAMERA_DATA')
+					render_quilt.animation = (settings.render_source == 'ANIMATION')
+					render_quilt.use_multiview = use_multiview
+				else:
+					render_headless = row_render.operator("lookingglass.render_headless", text="Render", icon='CAMERA_DATA')
+					render_headless.animation = (settings.render_source == 'ANIMATION_HEADLESS')
 
-		# disable the render settings, if a rendering process is running
-		if LookingGlassAddon.RenderInvoked == True:
-			row_metadata.enabled = False
-			row_orientation.enabled = False
-			row_preset.enabled = False
-			row_output.enabled = False
+			# if a lockfile was detected on start-up
+			else:
 
-			if LookingGlassAddon.RenderAnimation == True: row_render_still.enabled = False
-			if LookingGlassAddon.RenderAnimation == False: row_render_animation.enabled = False
+				# disable the UI
+				row_orientation.enabled = False
+				row_preset.enabled = False
+				row_output.enabled = False
+				row_source.enabled = False
 
-		# if no camera is selected
-		if context.scene.addon_settings.lookingglassCamera == None:
+				# inform the user and provide options to continue or to discard
+				row_render = layout.row(align = True)
+				row_render.label(text = "Last render job incomplete:", icon="ERROR")
 
-			# disable all elements
-			row_metadata.enabled = False
-			row_orientation.enabled = False
-			row_preset.enabled = False
-			row_output.enabled = False
-			row_render_still.enabled = False
-			row_render_animation.enabled = False
+				row_continue = layout.row(align = False)
+				render_quilt = row_continue.operator("render.quilt", text="Continue", icon='RENDER_STILL')
+				render_quilt.use_lockfile = True
+				render_quilt.use_multiview = use_multiview
+				render_quilt = row_continue.operator("render.quilt", text="Discard", icon='CANCEL')
+				render_quilt.use_lockfile = True
+				render_quilt.use_multiview = use_multiview
+				render_quilt.discard_lockfile = True
 
-		# if the settings are to be taken from device selection
-		elif context.scene.addon_settings.render_use_device == True:
+			# disable the render settings, if a rendering process is running
+			if LookingGlassAddon.RenderInvoked == True:
+				row_orientation.enabled = False
+				row_preset.enabled = False
+				row_output.enabled = False
+				row_source.enabled = False
 
-			# disable all elements
-			row_orientation.enabled = False
-			row_preset.enabled = False
+			# if no camera is selected
+			if settings.lookingglassCamera == None:
 
-		# Quilt Generation from Files (formerly the "Advanced" panel)
-		layout.separator()
-		column = layout.column(align=True)
-		column.label(text="Build Quilt from Files:")
+				# disable all elements
+				row_orientation.enabled = False
+				row_preset.enabled = False
+				row_output.enabled = False
+				row_source.enabled = False
+				row_render.enabled = False
 
-		# Directory selection
-		row = column.row(align=True)
-		row.prop(context.scene.addon_settings, "advanced_quilt_source_path", text="")
+			# if the settings are to be taken from device selection
+			elif settings.render_use_device == True:
 
-		# Build button
-		row = column.row(align=True)
-		row.operator("lookingglass.build_quilt_from_files", text="Build Quilt", icon='RENDER_STILL')
+				# disable all elements
+				row_orientation.enabled = False
+				row_preset.enabled = False
+
+		# metadata handling
+		layout.separator(type='SPACE')
+		layout.prop(settings, "render_add_suffix", text="Add Metadata")
 
 
 # an operator that renders the quilt in a separate background Blender process
@@ -1922,7 +1906,7 @@ class LOOKINGGLASS_OT_render_headless(bpy.types.Operator):
 # an operator that positions the camera for a specific view
 class LOOKINGGLASS_OT_preview_camera(bpy.types.Operator):
 	bl_idname = "lookingglass.preview_camera"
-	bl_label = "Render Preview"
+	bl_label = "Activate Swivel"
 	bl_description = "Toggle camera preview for the selected view index"
 	bl_options = {'REGISTER', 'UNDO'}
 
