@@ -318,6 +318,14 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 			# if the current blender session has a file
 			if bpy.data.filepath != "":
 
+				# show the log messages of the add-on in the console (there is no user interface)
+				for handler in LookingGlassAddonLogger.handlers:
+					if type(handler) == logging.StreamHandler: handler.setLevel(logging.INFO)
+
+				if '--alicelg-render' in LookingGlassAddon.addon_arguments or '--alicelg-render-anim' in LookingGlassAddon.addon_arguments:
+					print("Alice/LG: Headless render of '%s'" % bpy.data.filepath, flush = True)
+					print("Alice/LG: Output: %s" % bpy.path.abspath(bpy.context.scene.render.filepath), flush = True)
+
 				# if the a quilt shall be rendered
 				if '--alicelg-render' in LookingGlassAddon.addon_arguments:
 					bpy.ops.render.quilt('EXEC_DEFAULT', use_multiview=True, blocking=True)

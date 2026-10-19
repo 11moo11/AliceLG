@@ -285,7 +285,23 @@ time.sleep(1.0)
 flags = 0
 output = None
 if os.name == 'nt':
-	if os.environ.get('LG_NEW_CONSOLE'): flags = subprocess.CREATE_NEW_CONSOLE
+	if os.environ.get('LG_NEW_CONSOLE'):
+		flags = subprocess.CREATE_NEW_CONSOLE
+
+		# the console runs a small python program that starts the command, shows its output and
+		# keeps the window open until the user closes it
+		runner = """
+import subprocess, sys
+command = sys.argv[1:]
+print('Alice/LG: starting the headless render ...')
+print('Command: ' + subprocess.list2cmdline(command))
+print()
+code = subprocess.call(command)
+print()
+print('Alice/LG: the render process finished (exit code %i).' % code)
+input('Press Enter to close this window.')
+"""
+		cmd = [sys.executable, '-c', runner] + cmd
 elif os.environ.get('LG_LOGFILE'):
 	output = open(os.environ['LG_LOGFILE'], 'ab')
 
