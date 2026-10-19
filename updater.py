@@ -280,7 +280,16 @@ for _ in range(240):
 	if not alive(): break
 	time.sleep(0.5)
 time.sleep(1.0)
-subprocess.Popen(cmd)
+
+# optional: show the process in a new console window (Windows) or write its output to a log file
+flags = 0
+output = None
+if os.name == 'nt':
+	if os.environ.get('LG_NEW_CONSOLE'): flags = subprocess.CREATE_NEW_CONSOLE
+elif os.environ.get('LG_LOGFILE'):
+	output = open(os.environ['LG_LOGFILE'], 'ab')
+
+subprocess.Popen(cmd, creationflags = flags, stdout = output, stderr = subprocess.STDOUT if output else None)
 '''
 
 

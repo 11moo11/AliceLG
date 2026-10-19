@@ -428,6 +428,7 @@ def register():
 		bpy.utils.register_class(LOOKINGGLASS_OT_blender_viewport_assign)
 		bpy.utils.register_class(LOOKINGGLASS_OT_add_camera)
 		bpy.utils.register_class(LOOKINGGLASS_OT_preview_camera)
+		bpy.utils.register_class(LOOKINGGLASS_OT_render_headless)
 
 		# Looking Glass quilt rendering
 		bpy.utils.register_class(LOOKINGGLASS_OT_render_quilt)
@@ -596,6 +597,7 @@ def unregister():
 
 		# Looking Glass quilt rendering
 		bpy.utils.unregister_class(LOOKINGGLASS_OT_render_quilt)
+		if hasattr(bpy.types, "LOOKINGGLASS_OT_render_headless"): bpy.utils.unregister_class(LOOKINGGLASS_OT_render_headless)
 		bpy.utils.unregister_class(LOOKINGGLASS_OT_build_quilt_from_files)
 
 		# remove the keymap
