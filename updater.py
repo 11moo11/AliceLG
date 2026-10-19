@@ -299,7 +299,17 @@ print()
 code = subprocess.call(command)
 print()
 print('Alice/LG: the render process finished (exit code %i).' % code)
-input('Press Enter to close this window.')
+print()
+import msvcrt
+print('Press Enter to open the scene in Blender, or ESC to close this window.')
+while True:
+	key = msvcrt.getwch()
+	if key == chr(27):
+		break
+	if key in (chr(13), chr(10)):
+		# command = [blender, '-b', file, '--', ...]: open the file with the user interface
+		subprocess.Popen([command[0], command[2]], creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP, close_fds = True)
+		break
 """
 		cmd = [sys.executable, '-c', runner] + cmd
 elif os.environ.get('LG_LOGFILE'):
