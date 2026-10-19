@@ -1397,6 +1397,25 @@ class LOOKINGGLASS_OT_refresh_display_list(bpy.types.Operator):
 		# log info
 		LookingGlassAddonLogger.info("Refreshing device information ...")
 
+		# if the connection to Looking Glass Bridge is not established (e.g., Bridge was started
+		# after Blender or the display was connected later), try to connect again
+		if LookingGlassAddon.service is None or not LookingGlassAddon.service.is_ready():
+			try:
+				LookingGlassAddonLogger.info(" [#] Trying to connect to Looking Glass Bridge ...")
+
+				if LookingGlassAddon.service is not None: pylio.ServiceManager.remove(LookingGlassAddon.service)
+				LookingGlassAddon.service = pylio.ServiceManager.add(pylio.lookingglass.services.LookingGlassBridge, client_name = LookingGlassAddon.name)
+
+				if type(LookingGlassAddon.service) == pylio.lookingglass.services.LookingGlassBridge:
+					pylio.DeviceManager.set_service(LookingGlassAddon.service)
+					pylio.DeviceManager.add_emulated()
+
+					if LookingGlassAddon.service.is_ready(): LookingGlassAddonLogger.info(" [#] Connected to Looking Glass Bridge version: %s" % LookingGlassAddon.service.get_version())
+					else: LookingGlassAddonLogger.info(" [#] Connection failed.")
+
+			except Exception as e:
+				LookingGlassAddonLogger.warning(" [#] Could not connect to Looking Glass Bridge: %s" % e)
+
 		# if a service for display communication was successfully added
 		if (not LookingGlassAddon.service is None):
 
@@ -1528,8 +1547,11 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 		row_window.operator("lookingglass.lightfield_window", text="Cast to Looking Glass", icon='WINDOW', depress=context.window_manager.addon_settings.ShowLightfieldWindow)
 
 		# Device selection
+		# NOTE: Only the dropdown is deactivated when Looking Glass Bridge is not available.
+		#		The refresh button stays active, because it is used to find the display again.
 		row_device = column.row(align = True)
-		row_device.prop(context.window_manager.addon_settings, "activeDisplay", text="")
+		row_device_list = row_device.row(align = True)
+		row_device_list.prop(context.window_manager.addon_settings, "activeDisplay", text="")
 		row_device.operator("lookingglass.refresh_display_list", text="", icon='FILE_REFRESH')
 
 		# if no Looking Glass was detected AND debug mode is not activated
@@ -1542,7 +1564,7 @@ class LOOKINGGLASS_PT_panel_general(bpy.types.Panel):
 		if (LookingGlassAddon.service is None or not LookingGlassAddon.service.is_ready()) and not LookingGlassAddon.debugging_use_dummy_device:
 
 			# deactivate the looking glass selection and lightfield window button
-			row_device.enabled = False
+			row_device_list.enabled = False
 			row_window.enabled = False
 
 		# if a Looking Glass is selected AND the lightfield window is shown,
