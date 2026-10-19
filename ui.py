@@ -104,14 +104,34 @@ class LookingGlassAddonUI:
 		# if at least one emulated Looking Glass exists
 		if pylio.DeviceManager.count(False, True) > 0:
 
-			# then for each display in the device list
-			for idx, device in enumerate(sorted(pylio.DeviceManager.to_list(False, True), key=lambda device_type: device_type.index, reverse=True)):
+			# the order and the names of the device types in the list
+			# NOTE: Device types that are not listed here are appended with their own name.
+			order = ["go_p", "portrait", "32_gen3_l", "32_gen3_p", "16_gen3_l", "16_gen3_p", "65_gen2", "8k_gen2", "4k_gen2", "standard", "large", "pro", "8k"]
+			names = {
+				"go_p": "Looking Glass Go",
+				"portrait": "Looking Glass Portrait",
+				"32_gen3_l": "(Gen3) \u2014 Looking Glass 32\" [Landscape]",
+				"32_gen3_p": "(Gen3) \u2014 Looking Glass 32\" [Portrait]",
+				"16_gen3_l": "(Gen3) \u2014 Looking Glass 16\" [Landscape]",
+				"16_gen3_p": "(Gen3) \u2014 Looking Glass 16\" [Portrait]",
+				"65_gen2": "(Gen2) \u2014 Looking Glass 65\"",
+				"8k_gen2": "(Gen2) \u2014 Looking Glass 32\"",
+				"4k_gen2": "(Gen2) \u2014 Looking Glass 16\"",
+				"standard": "(Gen1) \u2014 Looking Glass 8.9\"",
+				"large": "(Gen1) \u2014 Looking Glass 15.6\"",
+				"pro": "(Gen1) \u2014 Looking Glass Pro 15.6\"",
+				"8k": "(Gen1) \u2014 Looking Glass 8K",
+			}
+			sort_key = lambda device_type: (order.index(device_type.type) if device_type.type in order else len(order), -device_type.index)
 
-				# if this device is a real one OR the debug mode is active
+			# then for each emulated device type
+			for device in sorted(pylio.DeviceManager.to_list(False, True), key=sort_key):
+
+				# if this device is an emulated one
 				if device.emulated:
 
 					# add an entry in the item list
-					items.append((str(device.index), device.name, 'Use this Looking Glass type for light field rendering.'))
+					items.append((str(device.index), names.get(device.type, device.name), 'Use this Looking Glass type for light field rendering.'))
 
 		else:
 
