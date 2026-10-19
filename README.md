@@ -70,7 +70,7 @@ After the installation you find a _Looking Glass_ tab in each Blender 3D viewpor
 
    - **Camera settings.** Select the camera that defines the view for the Looking Glass (or create a new one with the "+" button), show or hide the view frustum and focal plane, synchronize the camera, and set the clipping planes and focal plane.
 
-   - **Render Preview.** Move the camera to a single view of the quilt to check it: the _View_ slider is limited to the number of views of the selected quilt (e.g., 48 views for Portrait), and _Preview_ toggles the preview position. The preview is reset when a file is loaded.
+   - **Activate Swivel.** Move the camera to a single view of the quilt to check it: the _View Image_ slider is limited to the number of views of the selected quilt (e.g., 48 views for Portrait), and _Activate Swivel_ toggles the preview position. The preview is reset when a file is loaded.
 
    - **Cast to Looking Glass.** The large button that starts and stops casting your scene to the Looking Glass. Below it you select the connected Looking Glass display (with a refresh button for the display list).
 
@@ -78,7 +78,7 @@ After the installation you find a _Looking Glass_ tab in each Blender 3D viewpor
 
    - **Cast Settings.** The settings of the live scene view (see below).
 
-- **Quilt Creation.** Everything for rendering quilts: the device and quilt resolution, output options, the _Render Quilt_ and _Render Animation Quilt_ buttons, and _Build Quilt from Files_ for assembling a quilt from existing view images.
+- **Quilt Creation.** Switch _Build From_ between _Render_ and _Files_. _Render_: choose the device, quilt resolution and output, then pick what the _Render_ button does under _Source_ (_Render Quilt_, _Render Animation Quilt_, or one of the two _Headlessly_ variants). _Files_: assemble a quilt from existing view images. _Add Metadata_ at the bottom applies to both.
 
 ### Cast to Looking Glass
 
@@ -128,7 +128,7 @@ You can render still scenes and animation frames as complete quilt images. You c
 - select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
 - locate the camera to the specific view you would like to render
 - adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Creation__)
-- click on _Looking Glass → Quilt Creation → Render Quilt_ or _Looking Glass → Quilt Creation → Render Animation Quilt_ in the add-on controls.
+- click on _Looking Glass → Quilt Creation_, choose _Render Quilt_ or _Render Animation Quilt_ under _Source_ and click _Render_ in the add-on controls.
 
 **(2) Rendering for other Looking Glasses**
 - select an existing camera in _Looking Glass → View Settings → Camera_ or create a new camera by clicking "+" in the same section
@@ -137,11 +137,11 @@ You can render still scenes and animation frames as complete quilt images. You c
 - choose the quilt preset/resolution you want to render for from the list _Looking Glass → Quilt Creation → Quilt
 - locate the camera to the specific view you would like to render
 - adjust the render and post-processing settings in the usual Blender panels (_NOTE: Image dimensions are overwritten by the add-on based on your connected Looking Glass or your manual settings under _Looking Glass → Quilt Creation__)
-- click on _Looking Glass → Quilt Creation → Render Quilt_ or (if you want to render animation frames) _Looking Glass → Quilt Creation → Render Animation Quilt_ in the add-on controls.
+- click on _Looking Glass → Quilt Creation_, choose _Render Quilt_ (or, for animation frames, _Render Animation Quilt_) under _Source_ and click _Render_ in the add-on controls.
 
-You can also assemble a quilt from existing view images with _Looking Glass → Quilt Creation → Build Quilt from Files_.
+You can also assemble a quilt from existing view images with _Looking Glass → Quilt Creation → Build From: Files_.
 
-**Render Headlessly** (_Looking Glass → Quilt Creation → Render Headlessly_) saves the Blender file, closes Blender, and renders the quilt (or the frame range as a quilt animation) in a separate Blender process without a user interface, using the settings stored in the file, including its output path. On Windows the progress is shown in a console window; when the render is done, Enter opens the scene in Blender and ESC closes the window. on other systems it is written to `logs/headless-render.log` in the add-on folder. It uses the _Camera Mode_ of the add-on preferences. In _Single Camera Mode_ (the default) the views are rendered one by one and the console shows a line per view with the elapsed time and an estimate of the remaining time; in _Multiview Camera Mode_ all views are rendered in one step without progress per view. The file has to be saved once before, and Blender is closed by this button. It uses the command line mechanism described under _Renderfarm Implementation_.
+**Render Headlessly** (_Looking Glass → Quilt Creation →_ _Source_ set to one of the _Headlessly_ options, then _Render_) saves the Blender file, closes Blender, and renders the quilt (or the frame range as a quilt animation) in a separate Blender process without a user interface, using the settings stored in the file, including its output path. On Windows the progress is shown in a console window; when the render is done, Enter opens the scene in Blender and ESC closes the window. on other systems it is written to `logs/headless-render.log` in the add-on folder. It uses the _Camera Mode_ of the add-on preferences. In _Single Camera Mode_ (the default) the views are rendered one by one and the console shows a line per view with the elapsed time and an estimate of the remaining time; in _Multiview Camera Mode_ all views are rendered in one step without progress per view. The file has to be saved once before, and Blender is closed by this button. It uses the command line mechanism described under _Renderfarm Implementation_.
 
 The _Render Quilt_ option will render the different views separately. After the last view has been rendered, a quilt will be automatically assembled. For the _Render Animation Quilt_ option, the same will happen for each frame of the animation, which will result in one quilt per frame. After rendering, the created quilt image or animation frames have to be handled in the same way as normal renders. You can still render normal (non-holographic) images in Blender as you usually do.
 
