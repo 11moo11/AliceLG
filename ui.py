@@ -1164,11 +1164,15 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 
 	# PANEL: RENDER SETTINGS
 	# Use the device to set device settings
+	# NOTE: The device and quilt for rendering are always the ones chosen in the Quilt Creation panel,
+	#		independent of the Looking Glass that is used for casting. This property is kept (always off),
+	#		because code and saved files still refer to it.
 	render_use_device: bpy.props.BoolProperty(
 										name="Use Device Settings",
-										description="If enabled, the render settings are taken from the selected device",
-										default = True,
-										update=LookingGlassAddonUI.update_render_setting_without_preset,
+										default = False,
+										get = lambda self: False,
+										set = lambda self, value: None,
+										options = {'HIDDEN'},
 										)
 
 	# Add a suffix with metadata to the file name
@@ -1563,8 +1567,11 @@ class LOOKINGGLASS_OT_refresh_display_list(bpy.types.Operator):
 					# get currently active device
 					device = pylio.DeviceManager.get_active()
 
-					# set the checkbox to True (because now we want to use the device settings)
-					context.scene.addon_settings.render_use_device = True
+					# preselect the same device type for rendering (it can be changed independently)
+					for emulated in pylio.DeviceManager.to_list(False, True):
+						if emulated.type == device.type:
+							if context.scene.addon_settings.render_device_type != str(emulated.index): context.scene.addon_settings.render_device_type = str(emulated.index)
+							break
 
 				# try to find the suitable default quilt preset
 				preset = pylio.LookingGlassQuilt.formats.find(device.default_quilt_width, device.default_quilt_height, device.default_quilt_rows, device.default_quilt_columns)
@@ -1894,12 +1901,6 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 				row_source.enabled = False
 				row_render.enabled = False
 
-			# if the settings are to be taken from device selection
-			elif settings.render_use_device == True:
-
-				# disable all elements
-				row_orientation.enabled = False
-				row_preset.enabled = False
 
 		# metadata handling
 		layout.separator(type='SPACE')
