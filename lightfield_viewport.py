@@ -427,7 +427,9 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 		# protect Blender from crashing: the material preview and rendered shading of Cycles and Eevee cannot be cast
 		if LookingGlassAddon.cast_shading_unsupported(context):
 			LookingGlassAddonLogger.warning("Cast to Looking Glass was not started: Material Preview / Rendered shading is not supported with the render engine '%s'." % context.scene.render.engine)
-			self.report({'ERROR'}, "The selected viewport uses Material Preview or Rendered shading, which cannot be cast with this render engine. Change its shading to Solid or Wireframe.")
+			# NOTE: A WARNING is shown as a message in Blender. An ERROR would be raised as a Python exception
+			#		in the operator that called this one (bpy.ops.render.viewport).
+			self.report({'WARNING'}, "The selected viewport uses Material Preview or Rendered shading, which cannot be cast with this render engine. Change its shading to Solid or Wireframe.")
 			self.addon_settings_window_manager.ShowLightfieldWindow = False
 			return {'CANCELLED'}
 
