@@ -106,6 +106,7 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
    - _Best_: one of two views.
 
 - **Shading & overlays.** Choose _Viewport_ to mirror the shading and overlay settings of a Blender 3D viewport (select the workspace and 3D view and click _Assign Active Viewport_), or _Custom_ to define your own settings for the hologram.
+   - Material Preview and Rendered shading cannot be cast when the render engine is Cycles or Eevee (it can crash Blender). In _Custom_, the Material Preview option is not offered for these engines. In _Viewport_, casting is turned off automatically if the mirrored 3D view uses Material Preview or Rendered shading with one of these engines; switch that view to Solid or Wireframe.
 
 #### Default Cast Settings
 

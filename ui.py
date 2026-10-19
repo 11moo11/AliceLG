@@ -810,6 +810,20 @@ class LookingGlassAddonUI:
 			# reset the variables
 			LookingGlassAddon.quiltPixels = None
 
+	# the shading modes of the custom viewport settings
+	# NOTE: The material preview is not available for the render engines that cannot be cast (Cycles, Eevee)
+	def shading_mode_items(self, context):
+		items = [('WIREFRAME', '', 'Use the OpenGL wireframe rendering mode', 'SHADING_WIRE', 0),
+				 ('SOLID', '', 'Use the OpenGL solid rendering mode', 'SHADING_SOLID', 1)]
+
+		try: engine = bpy.context.scene.render.engine
+		except Exception: engine = ''
+
+		if engine not in LookingGlassAddon.unsupported_cast_engines:
+			items.append(('MATERIAL', '', 'Use the current render engines material preview rendering mode', 'SHADING_RENDERED', 2))
+
+		return LookingGlassAddon.enum_string_cache_items(items)
+
 	# the number of views of the selected quilt (the "Quilt" dropdown in Quilt Creation)
 	@staticmethod
 	def preview_total_views(addon_settings):
@@ -1167,10 +1181,8 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 
 	# Shading
 	shadingMode: bpy.props.EnumProperty(
-										items = [('WIREFRAME', '', 'Use the OpenGL wireframe rendering mode', 'SHADING_WIRE', 0),
-												 ('SOLID', '', 'Use the OpenGL solid rendering mode', 'SHADING_SOLID', 1),
-												 ('MATERIAL', '', 'Use the current render engines material preview rendering mode', 'SHADING_RENDERED', 2)],
-										default='SOLID',
+										items = LookingGlassAddonUI.shading_mode_items,
+										default = 1,
 										name="Shading",
 										)
 
@@ -1490,6 +1502,12 @@ class LOOKINGGLASS_OT_lightfield_window(bpy.types.Operator):
 
 		# set the property to the correct value
 		context.window_manager.addon_settings.ShowLightfieldWindow = (not context.window_manager.addon_settings.ShowLightfieldWindow)
+
+		# protect Blender from crashing: the material preview and rendered shading of Cycles and Eevee cannot be cast
+		if context.window_manager.addon_settings.ShowLightfieldWindow == True and LookingGlassAddon.cast_shading_unsupported(context):
+			context.window_manager.addon_settings.ShowLightfieldWindow = False
+			self.report({'ERROR'}, "The selected viewport uses Material Preview or Rendered shading, which cannot be cast with this render engine. Change its shading to Solid or Wireframe.")
+			return {'CANCELLED'}
 
 		# if the bool property was set to True
 		if context.window_manager.addon_settings.ShowLightfieldWindow == True:
