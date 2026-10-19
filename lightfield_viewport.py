@@ -515,6 +515,17 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			elif int(self.addon_settings_window_manager.renderMode) == 1:
 				LookingGlassAddon.update_lightfield_window(int(self.addon_settings_window_manager.renderMode), LookingGlassAddon.quiltViewerLightfieldImage)
 
+		# protect Blender from crashing: the material preview and rendered shading of Cycles and Eevee cannot be cast,
+		# so the cast is turned off if the mirrored viewport uses them
+		if self.addon_settings_window_manager.ShowLightfieldWindow and LookingGlassAddon.cast_shading_unsupported(context):
+			LookingGlassAddonLogger.warning("Cast to Looking Glass was turned off: Material Preview / Rendered shading is not supported with the render engine '%s'." % context.scene.render.engine)
+			self.report({'WARNING'}, "Cast to Looking Glass was turned off: Material Preview and Rendered shading cannot be cast with this render engine.")
+			self.addon_settings_window_manager.ShowLightfieldWindow = False
+
+		# custom shading settings: the material preview is not available for these render engines
+		if context.scene.render.engine in LookingGlassAddon.unsupported_cast_engines and self.addon_settings_scene.shadingMode == 'MATERIAL':
+			self.addon_settings_scene.shadingMode = 'SOLID'
+
 		# cancel the operator, if the lightfield viewport was deactivated
 		if not self.addon_settings_window_manager.ShowLightfieldWindow:
 

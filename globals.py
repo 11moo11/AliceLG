@@ -222,6 +222,27 @@ class LookingGlassAddon:
 		except Exception:
 			return -1
 
+	# render engines for which the material preview and rendered viewport shading cannot be cast
+	# NOTE: Casting these views is not supported and can crash Blender.
+	unsupported_cast_engines = ('CYCLES', 'BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
+
+	# is the scene cast with a viewport shading that is not supported for the current render engine?
+	@staticmethod
+	def cast_shading_unsupported(context):
+		try:
+			if context.scene.render.engine not in LookingGlassAddon.unsupported_cast_engines: return False
+			if int(context.window_manager.addon_settings.renderMode) != 0: return False
+
+			# the shading of the mirrored Blender viewport ("Viewport")
+			if context.scene.addon_settings.viewportMode == 'BLENDER':
+				space = LookingGlassAddon.BlenderViewport
+				return space is not None and space.shading.type in ('MATERIAL', 'RENDERED')
+
+		except Exception:
+			pass
+
+		return False
+
 	# a black (minimum resolution) light field that is shown when there is nothing else to show
 	_black_lightfield = None
 
