@@ -1882,14 +1882,10 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 			# NOTE: The progress is printed, because there is no user interface in this mode
 			job = self.render_settings.job
 			print("Alice/LG: Rendering started (%s, %i views per frame)." % ("quilt animation" if job.animation else "single quilt", job.total_views), flush = True)
-			last_percent = -1
+			render_start = time.time()
 			while (self.modal(context, None) == {'PASS_THROUGH'}):
-				percent = int(self.render_settings.addon_settings.render_progress)
-				if percent != last_percent:
-					last_percent = percent
-					print("Alice/LG: Render progress %i %% (frame %s, view %s)" % (percent, getattr(job, 'frame', '?'), getattr(job, 'view', '?')), flush = True)
 				time.sleep(0.001)
-			print("Alice/LG: Rendering finished.", flush = True)
+			print("Alice/LG: Rendering finished (%.0f s)." % (time.time() - render_start), flush = True)
 
 			# finish operator
 			return {'FINISHED'}
@@ -1949,8 +1945,30 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 				if self.blocking:
 					job = self.render_settings.job
 					frame_info = (" of frame " + str(job.frame)) if job.animation else ""
-					if self.use_multiview: print("Alice/LG: Rendering all %i views%s in one multiview render ... (Blender prints its own progress below)" % (job.total_views, frame_info), flush = True)
-					else: print("Alice/LG: Rendering view %i/%i%s ..." % (job.view + 1, job.total_views, frame_info), flush = True)
+
+					if self.use_multiview:
+						print("Alice/LG: Rendering all %i views%s in one multiview render ... (Blender prints its own progress below; use the single camera mode to see each view)" % (job.total_views, frame_info), flush = True)
+
+					else:
+
+						# the views (of all frames) that are already finished, and the views in total
+						if job.animation:
+							done = (job.frame - job.scene.frame_start) * job.total_views + job.view
+							total = (job.scene.frame_end - job.scene.frame_start + 1) * job.total_views
+						else:
+							done = job.view
+							total = job.total_views
+
+						# estimate the remaining time from the time the finished views needed
+						if not hasattr(self, "_headless_start"): self._headless_start = time.time()
+						elapsed = time.time() - self._headless_start
+						eta = (elapsed / done * (total - done)) if done > 0 else None
+
+						def clock(seconds):
+							seconds = int(seconds)
+							return "%i:%02i:%02i" % (seconds // 3600, (seconds % 3600) // 60, seconds % 60) if seconds >= 3600 else "%02i:%02i" % (seconds // 60, seconds % 60)
+
+						print("Alice/LG: Rendering view %i/%i%s ... %i %% | elapsed %s | ETA %s" % (job.view + 1, job.total_views, frame_info, int(done / total * 100), clock(elapsed), clock(eta) if eta is not None else "calculating"), flush = True)
 
 				# start rendering
 				result = bpy.ops.render.render("INVOKE_DEFAULT", animation=False, write_still=True)

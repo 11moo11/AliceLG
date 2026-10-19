@@ -1897,6 +1897,10 @@ class LOOKINGGLASS_OT_render_headless(bpy.types.Operator):
 		# the command that renders the quilt in the background (see "Renderfarm Implementation" in the README)
 		command = [bpy.app.binary_path, '-b', bpy.data.filepath, '--', '--alicelg-render-anim' if self.animation else '--alicelg-render']
 
+		# use the camera mode of the add-on preferences: in the single camera mode, the views are rendered one by one,
+		# so the console can show the progress per view
+		if context.preferences.addons[__package__].preferences.camera_mode == '0': command.append('--alicelg-single-camera')
+
 		# show the progress in a new console window (Windows) or write it to a log file
 		environment = os.environ.copy()
 		if sys.platform == 'win32': environment['LG_NEW_CONSOLE'] = '1'

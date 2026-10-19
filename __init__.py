@@ -326,13 +326,17 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 					print("Alice/LG: Headless render of '%s'" % bpy.data.filepath, flush = True)
 					print("Alice/LG: Output: %s" % bpy.path.abspath(bpy.context.scene.render.filepath), flush = True)
 
+				# the multiview camera mode renders all views in one step (no progress per view), the
+				# single camera mode renders view by view
+				use_multiview = not ('--alicelg-single-camera' in LookingGlassAddon.addon_arguments)
+
 				# if the a quilt shall be rendered
 				if '--alicelg-render' in LookingGlassAddon.addon_arguments:
-					bpy.ops.render.quilt('EXEC_DEFAULT', use_multiview=True, blocking=True)
+					bpy.ops.render.quilt('EXEC_DEFAULT', use_multiview=use_multiview, blocking=True)
 
 				# if the a quilt shall be rendered
 				elif '--alicelg-render-anim' in LookingGlassAddon.addon_arguments:
-					bpy.ops.render.quilt('EXEC_DEFAULT', animation=True, use_multiview=True, blocking=True)
+					bpy.ops.render.quilt('EXEC_DEFAULT', animation=True, use_multiview=use_multiview, blocking=True)
 
 		else:
 
