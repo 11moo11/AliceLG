@@ -494,11 +494,24 @@ def register():
 		# log info
 		LookingGlassAddonLogger.info(" [#] Done.")
 
-		# log info
-		LookingGlassAddonLogger.info("Connecting to Looking Glass Bridge ...")
+		# without a user interface (e.g., headless render), there is nothing to display on a Looking Glass,
+		# so the connection to Looking Glass Bridge is skipped
+		if LookingGlassAddon.background:
 
-		# create a service using "Looking Glass Bridge" backend
-		LookingGlassAddon.service = pylio.ServiceManager.add(pylio.lookingglass.services.LookingGlassBridge, client_name = LookingGlassAddon.name)
+			# log info
+			LookingGlassAddonLogger.info("Skipping the connection to Looking Glass Bridge (no user interface).")
+
+			# the emulated devices are still needed for rendering quilts
+			LookingGlassAddon.service = None
+			pylio.DeviceManager.add_emulated()
+
+		else:
+
+			# log info
+			LookingGlassAddonLogger.info("Connecting to Looking Glass Bridge ...")
+
+			# create a service using "Looking Glass Bridge" backend
+			LookingGlassAddon.service = pylio.ServiceManager.add(pylio.lookingglass.services.LookingGlassBridge, client_name = LookingGlassAddon.name)
 
 		# if a service was added
 		if type(LookingGlassAddon.service) == pylio.lookingglass.services.LookingGlassBridge:
@@ -523,7 +536,7 @@ def register():
 			pylio.DeviceManager.add_emulated()
 
 		# if the service is ready OR dummy devices shall be added
-		if LookingGlassAddon.service.is_ready() or LookingGlassAddon.debugging_use_dummy_device:
+		if (LookingGlassAddon.service is not None and LookingGlassAddon.service.is_ready()) or LookingGlassAddon.debugging_use_dummy_device:
 
 			# refresh the list of connected devices using the active pylio service
 			pylio.DeviceManager.refresh()

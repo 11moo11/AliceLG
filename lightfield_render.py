@@ -1945,6 +1945,13 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 				# re-evaluates the scene for motion blur, which can crash Blender.
 				self.render_settings.job.scene.render.use_lock_interface = True
 
+				# show what is happening, if there is no user interface (headless render)
+				if self.blocking:
+					job = self.render_settings.job
+					frame_info = (" of frame " + str(job.frame)) if job.animation else ""
+					if self.use_multiview: print("Alice/LG: Rendering all %i views%s in one multiview render ... (Blender prints its own progress below)" % (job.total_views, frame_info), flush = True)
+					else: print("Alice/LG: Rendering view %i/%i%s ..." % (job.view + 1, job.total_views, frame_info), flush = True)
+
 				# start rendering
 				result = bpy.ops.render.render("INVOKE_DEFAULT", animation=False, write_still=True)
 				if result != {'CANCELLED'}:
