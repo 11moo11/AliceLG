@@ -1939,7 +1939,6 @@ class LOOKINGGLASS_OT_render_headless(bpy.types.Operator):
 		layout.separator()
 		layout.label(text = "File: " + os.path.basename(bpy.data.filepath))
 		layout.label(text = "Output: " + bpy.path.abspath(context.scene.render.filepath))
-		layout.prop(self, "animation")
 
 	def execute(self, context):
 		import subprocess
