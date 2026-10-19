@@ -600,15 +600,25 @@ class RenderJob:
 		# return the quilt image
 		return self._quilt_image
 
+	# delete a file: either permanently, or (trash = True) by moving it to the recycle bin / trash
+	# NOTE: If it cannot be moved to the trash, the file is kept.
+	def remove_file(self, filepath, trash = False):
+		if not trash:
+			os.remove(filepath)
+
+		elif not LookingGlassAddon.move_to_trash(filepath):
+			LookingGlassAddonLogger.warning("The file was kept, because it could not be moved to the trash: %s" % filepath)
+
 	# delete the files
-	def delete_files(self, frame=None):
+	# trash: move them to the recycle bin / trash instead of deleting them permanently
+	def delete_files(self, frame=None, trash=False):
 
 		# for all views of the given frame
 		for view in range(0, self.total_views):
 
 			# delete this file, if it exists
 			if os.path.isfile(self.view_filepath(view, frame)):
-				os.remove(self.view_filepath(view, frame))
+				self.remove_file(self.view_filepath(view, frame), trash)
 
 		# delete the quilt file, if the user initially specified no file name
 		# AND this is not an animation
@@ -619,7 +629,7 @@ class RenderJob:
 
 			# delete the quilt file, if it exists
 			if os.path.isfile(self.quilt_filepath(frame)):
-				os.remove(self.quilt_filepath(frame))
+				self.remove_file(self.quilt_filepath(frame), trash)
 
 		# clear the pixel data
 		self._view_images_pixels.clear()
@@ -1593,14 +1603,14 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 				# for all frames of the animation
 				for frame in range(self.render_settings.job.scene.frame_start, self.render_settings.job.scene.frame_end + self.render_settings.frame_step):
 
-					# delete views
-					self.render_settings.job.delete_files(frame)
+					# delete views (a discarded render job is moved to the recycle bin)
+					self.render_settings.job.delete_files(frame, trash = self.discard_lockfile)
 
 			# if it was a still image
 			elif not self.render_settings.job.animation:
 
-				#  delete its views
-				self.render_settings.job.delete_files()
+				#  delete its views (a discarded render job is moved to the recycle bin)
+				self.render_settings.job.delete_files(trash = self.discard_lockfile)
 
 
 
@@ -1886,6 +1896,11 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 			while (self.modal(context, None) == {'PASS_THROUGH'}):
 				time.sleep(0.001)
 			print("Alice/LG: Rendering finished (%.0f s)." % (time.time() - render_start), flush = True)
+
+			# make sure that a completed job is cleaned up, so that no lockfile remains. Otherwise, the
+			# add-on thinks that the render failed when the file is opened the next time.
+			if LookingGlassAddon.RenderInvoked and getattr(self, "cancel_sign", None) == "INFO":
+				self.cancel(context)
 
 			# finish operator
 			return {'FINISHED'}
