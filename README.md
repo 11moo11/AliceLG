@@ -107,7 +107,7 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
 
 #### Default Cast Settings
 
-In _Edit → Preferences → Add-ons → Alice/LG_ you find _Default Cast Settings (for all Blender files)_: Refresh Mode, Preview Quality, Full-quality refresh and Patient Mode. These values are applied whenever a Blender file is loaded, so they hold for all your files. Changes you make in the _Cast Settings_ panel apply until the next file is loaded.
+In _Edit → Preferences → Add-ons → Alice/LG_ you find _Default Cast Settings (for all Blender files)_: Refresh Mode, Preview Quality, Full-quality refresh, Patient Mode and Quilt (the default quilt resolution, Looking Glass Portrait with 48 views unless changed; _Match connected Looking Glass_ uses the default quilt of the connected display). These values are applied whenever a Blender file is loaded, so they hold for all your files. Changes you make in the _Cast Settings_ panel apply until the next file is loaded.
 
 #### Notes on performance and Looking Glass Bridge memory
 

@@ -290,20 +290,11 @@ def LookingGlassAddonInitHandler(dummy1, dummy2):
 			# get active device
 			device = pylio.DeviceManager.get_active()
 
-			# try to find the suitable default quilt preset
-			if device: preset = pylio.LookingGlassQuilt.formats.find(device.default_quilt_width, device.default_quilt_height, device.default_quilt_rows, device.default_quilt_columns)
-
-			# then update the selected quilt preset from the device's default quilt
-			if device and preset:
-				bpy.context.scene.addon_settings.quiltPreset = str(preset)
-				bpy.context.scene.addon_settings.render_quilt_preset = str(preset)
-
-			elif not (device and preset):
-
-				# fallback solution, if the default quilt is not found:
-				# We use the Looking Glass Go standard quilt (48 views)
-				bpy.context.scene.addon_settings.quiltPreset = "5"
-				bpy.context.scene.addon_settings.render_quilt_preset = "5"
+			# the default quilt preset: the one chosen in the add-on preferences, or the default
+			# quilt of the connected device (fallback: Looking Glass Portrait, 48 views)
+			preset = LookingGlassAddon.default_quilt_preset_id(device)
+			bpy.context.scene.addon_settings.quiltPreset = preset
+			bpy.context.scene.addon_settings.render_quilt_preset = preset
 
 		# check if Blender is run in background mode
 		if LookingGlassAddon.background:
