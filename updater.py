@@ -122,10 +122,10 @@ class LookingGlassAddonUpdater:
 			if cls.update_available:
 				cls.status = "Update available on '%s': %s (%s)" % (cls._branch, cls.latest_message, cls.latest_sha[:7])
 
-			# even if the commit is the same: are the pyLightIO sources (Bridge communication) outdated?
+			# even if the commit is the same: do some files differ from it (e.g., a mix of versions after switching the branch)?
 			elif cls._outdated_pylightio_files():
 				cls.update_available = True
-				cls.status = "Update available: the Looking Glass Bridge communication files are outdated (%s)." % cls.latest_sha[:7]
+				cls.status = "Update available: some installed files differ from the latest version (%s)." % cls.latest_sha[:7]
 			else:
 				cls.status = "Alice/LG is up to date on '%s' (%s)." % (cls._branch, cls.latest_sha[:7])
 			LookingGlassAddonLogger.info("Update check: " + cls.status)
@@ -156,14 +156,14 @@ class LookingGlassAddonUpdater:
 
 	@classmethod
 	def _outdated_pylightio_files(cls):
-		"""List the pyLightIO source files that differ from the latest commit (compares git blob hashes)."""
+		"""List the files (except the protected ones) that differ from the latest commit (compares git blob hashes). This also repairs a mix of files from different versions, e.g., after switching the branch."""
 		outdated = []
 		tree = cls._get("%s/git/trees/%s?recursive=1" % (API_URL, cls.latest_sha))
 		for item in tree.get("tree", []):
 			path = item["path"]
 			if item["type"] != "blob": continue
 			target = cls._safe_target(path)
-			if not target or not (path.startswith(UPDATED_LIB_PREFIX) and path.endswith(".py")): continue
+			if not target: continue
 
 			# git blob hash of the local file
 			try:
@@ -178,14 +178,14 @@ class LookingGlassAddonUpdater:
 
 	@classmethod
 	def _sync_pylightio(cls):
-		"""Download all pyLightIO source files that differ from the latest commit."""
+		"""Download all files that differ from the latest commit."""
 		count = 0
 		for path, target in cls._outdated_pylightio_files():
 			data = cls._get("%s/%s/%s" % (RAW_URL, cls.latest_sha, urllib.parse.quote(path)), binary = True)
 			os.makedirs(os.path.dirname(target), exist_ok = True)
 			with open(target, "wb") as f: f.write(data)
 			count += 1
-			LookingGlassAddonLogger.info("Updated pyLightIO source file: %s" % path)
+			LookingGlassAddonLogger.info("Updated file: %s" % path)
 
 		return count
 
@@ -233,9 +233,9 @@ class LookingGlassAddonUpdater:
 						with open(target, "wb") as f: f.write(z.read(name))
 						count += 1
 
-			# make sure that the pyLightIO sources are up to date (previous updates did not touch them)
+			# make sure that all files match the latest commit
 			try: count += cls._sync_pylightio()
-			except Exception as e: LookingGlassAddonLogger.warning("Could not check the pyLightIO sources: %s" % e)
+			except Exception as e: LookingGlassAddonLogger.warning("Could not check the installed files: %s" % e)
 
 			with open(STATE_FILE, "w") as f: f.write(cls.latest_sha)
 			cls.update_available = False
