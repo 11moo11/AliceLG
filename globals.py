@@ -350,6 +350,11 @@ subprocess.call(['shutdown', '/s', '/f', '/t', '0'])
 				space = LookingGlassAddon.BlenderViewport
 				return space is not None and space.shading.type in ('MATERIAL', 'RENDERED')
 
+			# NOTE: Experimental Eevee cast. A scene without a World is not drawn: a crash in the sphere probe code of
+			#		Eevee (SphereProbeModule::ensure_atlas) was reported for such a scene, and Eevee has issues without a world color.
+			if context.scene.render.engine in LookingGlassAddon.eevee_engines and context.scene.world is None:
+				return context.scene.addon_settings.shadingMode == 'MATERIAL'
+
 		except Exception:
 			pass
 
