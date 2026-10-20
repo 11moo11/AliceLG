@@ -94,6 +94,8 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
    - _Automatic_ (default): The hologram is updated when something visible changes: object transforms and geometry, hiding or showing objects, and viewport shading & overlay settings (e.g., _Show Overlays_, shading mode, X-ray). Changes that do not show up in the hologram (such as changes to the add-on's own panel settings or window / workspace changes) do not trigger a redraw.
    - _Manual_: The hologram is only rendered if you click the refresh button.
 
+- **Composition Guides** (_Custom_ viewport settings only). Draws Center, Diagonals, Thirds, Golden Ratio and Golden Triangle A / B guides over every view, so that they appear in the plane of the Looking Glass display. The _Opacity_ slider sets how visible they are. They are only shown in the cast, not in rendered quilts.
+
 - **Patient Mode** (button next to the refresh mode, Automatic mode only). Off by default: the hologram updates while you are still moving or editing something. With _Patient Mode_ on, the update waits until your current operation has finished (e.g., you released the mouse after moving an object). This can help in heavy scenes. Animation playback always updates live.
 
 - **Full-quality refresh** (Automatic mode only). While you edit, a fast preview is shown. After this many seconds without changes (default: 0.7 s), the full-quality hologram is rendered and sent. Full-quality refreshes are also limited to one every 2 seconds.
