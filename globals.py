@@ -326,18 +326,34 @@ subprocess.call(['shutdown', '/s', '/f', '/t', '0'])
 	# render engines for which the material preview and rendered viewport shading cannot be cast
 	# NOTE: Casting these views is not supported and can crash Blender.
 	unsupported_cast_engines = ('CYCLES', 'BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
+	eevee_engines = ('BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
+
+	# the engines that are currently blocked
+	# NOTE: Eevee is only allowed with the experimental option in the add-on preferences.
+	@staticmethod
+	def blocked_cast_engines():
+		try:
+			if bpy.context.preferences.addons[__package__].preferences.experimental_eevee_cast: return ('CYCLES',)
+		except Exception:
+			pass
+		return LookingGlassAddon.unsupported_cast_engines
 
 	# is the scene cast with a viewport shading that is not supported for the current render engine?
 	@staticmethod
 	def cast_shading_unsupported(context):
 		try:
-			if context.scene.render.engine not in LookingGlassAddon.unsupported_cast_engines: return False
+			if context.scene.render.engine not in LookingGlassAddon.blocked_cast_engines(): return False
 			if int(context.window_manager.addon_settings.renderMode) != 0: return False
 
 			# the shading of the mirrored Blender viewport ("Viewport")
 			if context.scene.addon_settings.viewportMode == 'BLENDER':
 				space = LookingGlassAddon.BlenderViewport
 				return space is not None and space.shading.type in ('MATERIAL', 'RENDERED')
+
+			# NOTE: Experimental Eevee cast. A scene without a World is not drawn: a crash in the sphere probe code of
+			#		Eevee (SphereProbeModule::ensure_atlas) was reported for such a scene, and Eevee has issues without a world color.
+			if context.scene.render.engine in LookingGlassAddon.eevee_engines and context.scene.world is None:
+				return context.scene.addon_settings.shadingMode in ('MATERIAL', 'RENDERED')
 
 		except Exception:
 			pass
