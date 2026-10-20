@@ -533,7 +533,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			self.addon_settings_window_manager.ShowLightfieldWindow = False
 
 		# custom shading settings: the material preview is not available for these render engines
-		if context.scene.render.engine in LookingGlassAddon.blocked_cast_engines() and self.addon_settings_scene.shadingMode == 'MATERIAL':
+		if context.scene.render.engine in LookingGlassAddon.blocked_cast_engines() and self.addon_settings_scene.shadingMode in ('MATERIAL', 'RENDERED'):
 			self.addon_settings_scene.shadingMode = 'SOLID'
 
 		# cancel the operator, if the lightfield viewport was deactivated

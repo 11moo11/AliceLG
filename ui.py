@@ -894,7 +894,8 @@ class LookingGlassAddonUI:
 		except Exception: engine = ''
 
 		if engine not in LookingGlassAddon.blocked_cast_engines():
-			items.append(('MATERIAL', '', 'Use the current render engines material preview rendering mode', 'SHADING_RENDERED', 2))
+			items.append(('MATERIAL', '', 'Use the current render engines material preview rendering mode', 'SHADING_TEXTURE', 2))
+			items.append(('RENDERED', '', 'Use the current render engines rendered mode', 'SHADING_RENDERED', 3))
 
 		return LookingGlassAddon.enum_string_cache_items(items)
 
@@ -2274,6 +2275,10 @@ def draw_shading_overlays_settings(layout, context):
 			row.label(text="Shading")
 			#column.separator()
 			row.prop(context.scene.addon_settings, "shadingMode", expand=True)
+
+			# hint: Eevee has to be allowed in the add-on preferences
+			if context.scene.render.engine in LookingGlassAddon.blocked_cast_engines() and context.scene.render.engine in LookingGlassAddon.eevee_engines:
+				column.label(text="Material Preview / Rendered: enable the Eevee option in the add-on preferences", icon='INFO')
 			column.separator()
 			row = column.row(align = True)
 			column_1 = row.column(align=True)
