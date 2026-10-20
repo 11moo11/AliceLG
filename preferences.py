@@ -237,9 +237,9 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 
 	# experimental: cast Material Preview / Rendered shading with Eevee
 	experimental_eevee_cast: bpy.props.BoolProperty(
-									default=False,
-									name="Experimental: cast Eevee Material Preview / Rendered",
-									description="Allow Material Preview and Rendered shading with Eevee in the cast to the Looking Glass. This is blocked by default, because it can crash Blender. Save your work first",
+									default=True,
+									name="Allow Eevee Material Preview / Rendered in the cast",
+									description="Allow Material Preview and Rendered shading with Eevee in the cast to the Looking Glass. If this causes crashes on your system, switch it off to block these modes",
 									)
 
 	# number of draws per view with Eevee, because Eevee refines its image over several redraws

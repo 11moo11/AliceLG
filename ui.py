@@ -2278,7 +2278,7 @@ def draw_shading_overlays_settings(layout, context):
 
 			# hint: Eevee has to be allowed in the add-on preferences
 			if context.scene.render.engine in LookingGlassAddon.blocked_cast_engines() and context.scene.render.engine in LookingGlassAddon.eevee_engines:
-				column.label(text="Material Preview / Rendered: enable the Eevee option in the add-on preferences", icon='INFO')
+				column.label(text="Material Preview / Rendered with Eevee is switched off in the add-on preferences", icon='INFO')
 			column.separator()
 			row = column.row(align = True)
 			column_1 = row.column(align=True)
