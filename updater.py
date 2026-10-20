@@ -58,10 +58,18 @@ class LookingGlassAddonUpdater:
 	updating = False
 	latest_sha = None		# newest commit on GitHub
 	latest_message = ""
+	_branch = GITHUB_BRANCH	# the branch of the running check (the worker thread must not touch bpy)
 	update_available = False
 	restart_needed = False		# an update was installed successfully
 	status = "Not checked yet."
+	branches = []			# branches of the GitHub repository (fetched on the update check)
 	_lock = threading.Lock()
+
+	@staticmethod
+	def branch():
+		"""The branch to update from: the choice in the add-on preferences (default: master)."""
+		try: return bpy.context.preferences.addons[__package__].preferences.update_branch_name or GITHUB_BRANCH
+		except Exception: return GITHUB_BRANCH
 
 	@staticmethod
 	def installed_sha():
@@ -95,25 +103,31 @@ class LookingGlassAddonUpdater:
 			if cls.checking or cls.updating: return
 			cls.checking = True
 			cls.status = "Checking for updates ..."
+			cls._branch = cls.branch()
 		threading.Thread(target = cls._check_worker, daemon = True).start()
 
 	@classmethod
 	def _check_worker(cls):
 		try:
-			info = cls._get("%s/commits/%s" % (API_URL, GITHUB_BRANCH))
+
+			# the list of branches for the dropdown in the preferences (not essential)
+			try: cls.branches = [b["name"] for b in cls._get("%s/branches?per_page=100" % API_URL)]
+			except Exception as e: LookingGlassAddonLogger.debug("Could not read the branches: %s" % e)
+
+			info = cls._get("%s/commits/%s" % (API_URL, urllib.parse.quote(cls._branch, safe = "")))
 			cls.latest_sha = info["sha"]
 			cls.latest_message = info["commit"]["message"].split("\n")[0]
 			installed = cls.installed_sha()
 			cls.update_available = installed != cls.latest_sha
 			if cls.update_available:
-				cls.status = "Update available: %s (%s)" % (cls.latest_message, cls.latest_sha[:7])
+				cls.status = "Update available on '%s': %s (%s)" % (cls._branch, cls.latest_message, cls.latest_sha[:7])
 
 			# even if the commit is the same: are the pyLightIO sources (Bridge communication) outdated?
 			elif cls._outdated_pylightio_files():
 				cls.update_available = True
 				cls.status = "Update available: the Looking Glass Bridge communication files are outdated (%s)." % cls.latest_sha[:7]
 			else:
-				cls.status = "Alice/LG is up to date (%s)." % cls.latest_sha[:7]
+				cls.status = "Alice/LG is up to date on '%s' (%s)." % (cls._branch, cls.latest_sha[:7])
 			LookingGlassAddonLogger.info("Update check: " + cls.status)
 		except Exception as e:
 			cls.status = "Update check failed: %s" % e
@@ -376,6 +390,35 @@ def draw_update_ui(layout):
 		sub = row.row()
 		sub.enabled = u.update_available and not (u.checking or u.updating)
 		sub.operator("lookingglass.install_update", icon = 'IMPORT')
+
+
+def branch_items(self, context):
+	"""Items of the branch dropdown in the preferences: the known branches and the selected one."""
+	names = list(LookingGlassAddonUpdater.branches) or [GITHUB_BRANCH]
+	saved = self.update_branch_name or GITHUB_BRANCH
+	if saved not in names: names.append(saved)
+	return LookingGlassAddon.enum_string_cache_items([(name, name, "Update Alice/LG from the branch '%s' of the GitHub repository" % name) for name in names])
+
+
+def branch_get(self):
+	names = [item[0] for item in branch_items(self, None)]
+	saved = self.update_branch_name or GITHUB_BRANCH
+	return names.index(saved) if saved in names else 0
+
+
+def branch_set(self, value):
+	names = [item[0] for item in branch_items(self, None)]
+	if 0 <= value < len(names): self.update_branch_name = names[value]
+
+
+def branch_changed(self, context):
+	"""A different branch was chosen: forget the state of the old one and check the new one."""
+	u = LookingGlassAddonUpdater
+	u.latest_sha = None
+	u.update_available = False
+	u.restart_needed = False
+	u.status = "Branch changed."
+	u.check()
 
 
 def auto_check():
