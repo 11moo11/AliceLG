@@ -222,7 +222,7 @@ class ContextOverride:
 
 		# SHADING ATTRIBUTES
 		# define some exceptions that must not be taken into
-		attributeExceptions = ["__doc__", "__module__", "__slots__", "bl_rna", "rna_type", "color_type", "studio_light", "type"]
+		attributeExceptions = ["__doc__", "__module__", "__slots__", "bl_rna", "rna_type", "color_type", "studio_light"]
 
 		# use the "space data" of the selected viewport
 		attributeList = dir(self.__override['space_data'].shading)
