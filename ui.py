@@ -1175,6 +1175,13 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 										options = {'HIDDEN'},
 										)
 
+	# shut the computer down when a rendering is finished (e.g., for overnight renders)
+	shutdown_after_render: bpy.props.BoolProperty(
+										name="Shut off Computer after Render",
+										description="If enabled, the computer is shut down 60 seconds after a quilt render is completed (not after a cancelled or failed render). The shutdown can be aborted with 'shutdown /a' (Windows) or 'shutdown -c' (Linux). Programs with unsaved changes are closed without asking",
+										default = False,
+										)
+
 	# Add a suffix with metadata to the file name
 	render_add_suffix: bpy.props.BoolProperty(
 										name="Add Metadata",
@@ -1904,7 +1911,9 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 
 		# metadata handling
 		layout.separator(type='SPACE')
-		layout.prop(settings, "render_add_suffix", text="Add Metadata")
+		row_options = layout.row(align = True)
+		row_options.prop(settings, "render_add_suffix", text="Add Metadata")
+		row_options.prop(settings, "shutdown_after_render", text="Shut off Computer after Render", icon='QUIT', toggle=True)
 
 
 # an operator that renders the quilt in a separate background Blender process
