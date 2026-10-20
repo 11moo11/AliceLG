@@ -246,13 +246,32 @@ class LookingGlassAddon:
 		import subprocess
 		try:
 			if sys.platform == 'win32':
-				subprocess.Popen(['shutdown', '/s', '/f', '/t', str(delay), '/c', 'Alice/LG: the render is finished. Run "shutdown /a" to abort.'])
+
+				# a console window counts down and shuts the computer down by itself. Pressing a key aborts it.
+				# NOTE: The built-in countdown dialog of Windows is not used, because it can wait for the user.
+				countdown = '''
+import sys, time, subprocess, msvcrt
+end = time.time() + int(sys.argv[1])
+print('Alice/LG: the render is finished.')
+while time.time() < end:
+	if msvcrt.kbhit():
+		msvcrt.getwch()
+		print()
+		print('Shutdown aborted.')
+		time.sleep(3)
+		sys.exit()
+	print('\\rThe computer shuts down in %2i seconds. Press any key to cancel.  ' % (end - time.time()), end = '', flush = True)
+	time.sleep(0.2)
+print()
+subprocess.call(['shutdown', '/s', '/f', '/t', '0'])
+'''
+				subprocess.Popen([sys.executable, '-c', countdown, str(delay)], creationflags = subprocess.CREATE_NEW_CONSOLE, close_fds = True)
 			elif sys.platform == 'darwin':
 				subprocess.Popen(['osascript', '-e', 'tell application "System Events" to shut down'])
 			else:
 				subprocess.Popen(['shutdown', '-h', '+%i' % max(1, delay // 60)])
 			LookingGlassAddonLogger.info("The computer is shut down in %i seconds." % delay)
-			print("Alice/LG: The render is finished. The computer shuts down in %i seconds (abort: %s)." % (delay, 'shutdown /a' if sys.platform == 'win32' else 'shutdown -c'), flush = True)
+			print("Alice/LG: The render is finished. The computer shuts down in %i seconds (abort: %s)." % (delay, 'press any key in the countdown window' if sys.platform == 'win32' else 'shutdown -c'), flush = True)
 			return True
 		except Exception as e:
 			LookingGlassAddonLogger.warning("Could not shut down the computer: %s" % e)

@@ -1178,7 +1178,7 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 	# shut the computer down when a rendering is finished (e.g., for overnight renders)
 	shutdown_after_render: bpy.props.BoolProperty(
 										name="Shut off Computer after Render",
-										description="If enabled, the computer is shut down 60 seconds after a quilt render is completed (not after a cancelled or failed render). The shutdown can be aborted with 'shutdown /a' (Windows) or 'shutdown -c' (Linux). Programs with unsaved changes are closed without asking",
+										description="If enabled, the computer is shut down 60 seconds after a quilt render is completed (not after a cancelled or failed render). A countdown window is shown; the shutdown can be aborted by pressing a key in it (Windows) or with 'shutdown -c' (Linux). Programs with unsaved changes are closed without asking",
 										default = False,
 										)
 
