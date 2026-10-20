@@ -108,7 +108,7 @@ The light field / hologram is displayed on your Looking Glass display via the Lo
    - _Best_: one of two views.
 
 - **Shading & overlays.** Choose _Viewport_ to mirror the shading and overlay settings of a Blender 3D viewport (select the workspace and 3D view and click _Assign Active Viewport_), or _Custom_ to define your own settings for the hologram.
-   - Material Preview and Rendered shading cannot be cast with Cycles (it can crash Blender). With Eevee they can: Eevee is drawn with one shared offscreen for all views, and each view is drawn several times (_Eevee draws per view_ in the add-on preferences), because Eevee refines its image over several redraws. A scene needs a World for this. If Eevee causes crashes on your system, the _Allow Eevee Material Preview / Rendered in the cast_ preference switches it off. In _Custom_, the Material Preview and Rendered options are not offered for Cycles; in _Viewport_, casting is turned off automatically if the mirrored 3D view uses Material Preview or Rendered shading with Cycles (or with Eevee, if that preference is off); switch that view to Solid or Wireframe.
+   - Material Preview and Rendered shading cannot be cast with Cycles (it can crash Blender). With Eevee they can: Eevee is drawn with one shared offscreen for all views, and each view is drawn several times (_Eevee draws per view_ in the add-on preferences), because Eevee refines its image over several redraws. A scene needs a World for this. In _Custom_, the Material Preview and Rendered options are not offered for Cycles; in _Viewport_, casting is turned off automatically if the mirrored 3D view uses Material Preview or Rendered shading with Cycles; switch that view to Solid or Wireframe.
 
 #### Default Cast Settings
 
@@ -118,7 +118,6 @@ In _Edit → Preferences → Add-ons → Alice/LG_ you find _Default Cast Settin
 
 - Rendering the views is done by Blender's 3D viewport renderer, so heavy scenes need time. The preview quality levels trade quality for speed.
 - Looking Glass Bridge may use more and more memory when it receives many large images. Blender's own memory use stays flat. Using _Preview Quality: Minimum_, a longer _Full-quality refresh_ time, or restarting Looking Glass Bridge from its tray icon during long sessions helps.
-- _Experimental:_ The add-on preference _Experimental: update Looking Glass Bridge via its quilt cache_ sends the hologram as one named, replaced quilt in the cache of Looking Glass Bridge. In testing on one setup it did not stop Bridge's memory growth. It is off by default.
 - For troubleshooting, set the _Logging Mode_ in the add-on preferences to _Debug messages_. The log then shows what triggered each update, how long rendering and sending took, and the memory used by Blender.
 
 ### Camera Setup & Quilt Creation

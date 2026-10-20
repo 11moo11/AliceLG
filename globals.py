@@ -325,18 +325,13 @@ subprocess.call(['shutdown', '/s', '/f', '/t', '0'])
 
 	# render engines for which the material preview and rendered viewport shading cannot be cast
 	# NOTE: Casting these views is not supported and can crash Blender.
-	unsupported_cast_engines = ('CYCLES', 'BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
 	eevee_engines = ('BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT')
 
-	# the engines that are currently blocked
-	# NOTE: Eevee is only allowed with the experimental option in the add-on preferences.
+	# the engines for which Material Preview / Rendered cannot be cast
+	# NOTE: Eevee is drawn with a shared offscreen (see the lightfield viewport). Cycles cannot be cast.
 	@staticmethod
 	def blocked_cast_engines():
-		try:
-			if bpy.context.preferences.addons[__package__].preferences.experimental_eevee_cast: return ('CYCLES',)
-		except Exception:
-			pass
-		return LookingGlassAddon.unsupported_cast_engines
+		return ('CYCLES',)
 
 	# is the scene cast with a viewport shading that is not supported for the current render engine?
 	@staticmethod
@@ -552,10 +547,6 @@ subprocess.call(['shutdown', '/s', '/f', '/t', '0'])
 
 					# let the device display the image
 					if device.service:
-
-						# experimental: update Looking Glass Bridge via its quilt cache
-						try: device.service.use_cache_mode = bpy.context.preferences.addons[__package__].preferences.bridge_cache_mode
-						except Exception: pass
 
 						device.display(lightfield_image, flip_views=flip_views, invert=invert)
 
