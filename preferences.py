@@ -281,6 +281,17 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									update=lambda self, context: LookingGlassAddon.apply_default_settings(context),
 									)
 
+	# the GitHub branch used by the updater
+	update_branch_name: bpy.props.StringProperty(default="master", options={'HIDDEN'})
+	update_branch: bpy.props.EnumProperty(
+									name="Branch",
+									description="The GitHub branch that Alice/LG is updated from. Other branches may contain unfinished changes",
+									items=lambda self, context: __import__(__package__ + ".updater", fromlist=["branch_items"]).branch_items(self, context),
+									get=lambda self: __import__(__package__ + ".updater", fromlist=["branch_get"]).branch_get(self),
+									set=lambda self, value: __import__(__package__ + ".updater", fromlist=["branch_set"]).branch_set(self, value),
+									update=lambda self, context: __import__(__package__ + ".updater", fromlist=["branch_changed"]).branch_changed(self, context),
+									)
+
 	# automatic update check
 	check_updates_on_startup: bpy.props.BoolProperty(
 									default=True,
@@ -299,6 +310,7 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 		# updater
 		from .updater import draw_update_ui
 		layout.prop(self, "check_updates_on_startup")
+		layout.prop(self, "update_branch")
 		draw_update_ui(layout)
 
 		# default cast settings

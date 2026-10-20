@@ -52,7 +52,7 @@ Alice/LG was created by Christian Stolze for using Blender with Looking Glass ho
 Once the add-on is installed, you can update it from Blender:
 
 - Open _Edit → Preferences → Add-ons_ and expand the preferences of _Alice/LG_
-- The add-on checks GitHub for a newer version when Blender starts (this can be switched off with _Check for updates on startup_). You can also click _Check for Updates_ at any time.
+- The add-on checks GitHub for a newer version when Blender starts (this can be switched off with _Check for updates on startup_). You can also click _Check for Updates_ at any time. The _Branch_ dropdown in the preferences selects the GitHub branch the updates come from (default: `master`; the list of branches is read when the update check runs). Other branches can contain unfinished changes.
 - If an update is available, click _Install Update_. Only the files that changed since your installed version are downloaded. The same applies to the Python files of the Looking Glass Bridge communication (pyLightIO) in the add-on's `lib` folder. Large binary dependencies are never touched.
 - When the update is installed, a red _Restart Blender_ button appears. Restart Blender to activate the update. (Right after an update, the button can also show as plain red text. Restart Blender manually then.)
 
