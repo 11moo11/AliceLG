@@ -324,6 +324,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	last_settings_check = 0
 	skip_views = 1
 	cleared_views = set()
+	shared_offscreen = False
 
 	# DEBUGING VARIABLES
 	start_multi_view = 0
@@ -830,6 +831,18 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 	def visibility_signature(view_layer):
 		return frozenset(obj.name for obj in view_layer.objects if not obj.visible_get(view_layer=view_layer))
 
+	# Eevee draws the views with ONE shared GPUOffscreen
+	# NOTE: Every GPUOffScreen keeps its own GPUViewport (Blender: gpu_py_offscreen.cc), and with it its own Eevee instance
+	#		including the sphere probe atlas (4096 x 4096 pixels per layer, RGBA16F, 5 mip levels, about 180 MB). With one
+	#		GPUOffscreen per view (48 to 108 views), the GPU memory runs out, Blender then fails to create the atlas texture
+	#		and crashes in Eevee (SphereProbeModule::ensure_atlas). One shared offscreen needs a single Eevee instance, and its
+	#		probes and shaders stay valid from view to view. Each view is therefore copied right after it was drawn.
+	def shared_offscreen_needed(self, context):
+		try:
+			return context.scene.render.engine in LookingGlassAddon.eevee_engines and self._override.space_data.shading.type in ('MATERIAL', 'RENDERED')
+		except Exception:
+			return False
+
 	# create the GPUOffscreens of a preset on demand and free those of unused presets
 	def ensure_offscreens(self, context, preset):
 
@@ -843,11 +856,20 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				self.qs[i]["viewOffscreen"].clear()
 				LookingGlassAddonLogger.debug("Freed GPUOffscreens of preset %i." % i)
 
+		# one offscreen for all views (Eevee) or one per view
+		self.shared_offscreen = self.shared_offscreen_needed(context)
+		expected = 1 if self.shared_offscreen else self.qs[preset]["total_views"]
+
 		# create the offscreens of the current preset, if they do not exist
-		if len(self.qs[preset]["viewOffscreen"]) != self.qs[preset]["total_views"]:
+		if len(self.qs[preset]["viewOffscreen"]) != expected:
 			for offscreen in self.qs[preset]["viewOffscreen"]: offscreen.free()
-			self.qs[preset]["viewOffscreen"] = [gpu.types.GPUOffScreen(int(self.qs[preset]["view_width"]), int(self.qs[preset]["view_height"])) for view in range(0, self.qs[preset]["total_views"])]
-			LookingGlassAddonLogger.debug("Created %i GPUOffscreens for preset %i." % (self.qs[preset]["total_views"], preset))
+			self.qs[preset]["viewOffscreen"] = [gpu.types.GPUOffScreen(int(self.qs[preset]["view_width"]), int(self.qs[preset]["view_height"])) for view in range(0, expected)]
+			LookingGlassAddonLogger.debug("Created %i GPUOffscreens for preset %i." % (expected, preset))
+
+	# the GPUOffscreen of a view
+	def view_offscreen(self, preset, view):
+		offscreens = self.qs[preset]["viewOffscreen"]
+		return offscreens[0] if len(offscreens) == 1 else offscreens[view]
 
 	# Check if the user is currently in the middle of another (modal) operator,
 	# e.g. grabbing or rotating an object. The change is only shown, when it is complete.
@@ -1192,7 +1214,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 					if not (context or context.window_manager.addon_settings.ShowLightfieldWindow):
 						continue
 
-					with self.qs[self.preset]["viewOffscreen"][view].bind():
+					with self.view_offscreen(self.preset, view).bind():
 
 						start_test = time.time()
 						# calculate the offset-projection of the current view
@@ -1203,7 +1225,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 						# the previous draws of the Eevee refinement
 						for _ in range(extra_draws):
-							self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
+							self.view_offscreen(self.preset, view).draw_view3d(
 								scene=context.scene,
 								view_layer=context.view_layer,
 								view3d=self._override.space_data,
@@ -1213,7 +1235,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 								do_color_management = True)
 
 						# draw the viewport rendering to the offscreen for the current view
-						self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
+						self.view_offscreen(self.preset, view).draw_view3d(
 							# we use the "Scene" and the "View Layer" that is active in the Window
 							# the user currently works in
 							scene=context.scene,
@@ -1245,6 +1267,10 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 						LookingGlassAddonLogger.debug(" [#] [%i] Drawing view into offscreen took %.3f ms" % (view, (time.time() - start_test) * 1000))
 
+					# with the shared offscreen, the view must be copied before the next view is drawn
+					if self.shared_offscreen:
+						self.from_texture_to_numpy_array(self.view_offscreen(self.preset, view), self.lightfield_image.views[view]['view'].data[:])
+
 				# restore all viewport shading and overlay settings
 				self.restoreViewportSettings()
 
@@ -1272,7 +1298,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 						start_test = time.time()
 
 						# copy texture into LightfieldView array
-						self.from_texture_to_numpy_array(self.qs[self.preset]["viewOffscreen"][view], self.lightfield_image.views[view]['view'].data[:])
+						if not self.shared_offscreen: self.from_texture_to_numpy_array(self.view_offscreen(self.preset, view), self.lightfield_image.views[view]['view'].data[:])
 
 						LookingGlassAddonLogger.debug(" [#] [%i] Copying texture to numpy array took %.3f ms" % (view, (time.time() - start_test) * 1000))
 
