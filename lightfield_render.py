@@ -1542,6 +1542,7 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 
 	# define cancel standard messages
 	cancel_sign = "INFO"
+	render_completed = False
 	cancel_message = "Quilt rendering was cancelled."
 
 
@@ -1579,6 +1580,13 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 			LookingGlassAddon.has_lockfile = False
 			self.use_lockfile = False
 			LookingGlassAddon.RenderInvoked = False
+
+		# shut the computer down, if this was requested and the render was completed
+		try:
+			if getattr(self, "render_completed", False) and not self.discard_lockfile and self.render_settings.addon_settings.shutdown_after_render:
+				LookingGlassAddon.shutdown_computer()
+		except Exception as e:
+			LookingGlassAddonLogger.warning("Could not shut down the computer: %s" % e)
 
 	def _cancel(self, context):
 
@@ -2113,6 +2121,7 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 						# notify user
 						self.cancel_sign = "INFO"
 						self.cancel_message = "Complete quilt rendered."
+						self.render_completed = True
 
 						# stop the operator
 						self.render_settings.addon_settings.render_stop = True
@@ -2172,6 +2181,7 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 							# notify user
 							self.cancel_sign = "INFO"
 							self.cancel_message = "Complete animation quilt rendered."
+							self.render_completed = True
 
 				# log debug info
 				LookingGlassAddonLogger.debug("Render job completed.")

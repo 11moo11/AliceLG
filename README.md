@@ -78,7 +78,7 @@ After the installation you find a _Looking Glass_ tab in each Blender 3D viewpor
 
    - **Cast Settings.** The settings of the live scene view (see below).
 
-- **Quilt Creation.** Switch _Build From_ between _Render_ and _Files_. _Render_: choose the device, quilt resolution and output, then pick what the _Render_ button does under _Source_ (_Render Quilt_, _Render Animation Quilt_, or one of the two _Headlessly_ variants). _Files_: assemble a quilt from existing view images. _Add Metadata_ at the bottom applies to both.
+- **Quilt Creation.** Switch _Build From_ between _Render_ and _Files_. _Render_: choose the device, quilt resolution and output, then pick what the _Render_ button does under _Source_ (_Render Quilt_, _Render Animation Quilt_, or one of the two _Headlessly_ variants). _Files_: assemble a quilt from existing view images. _Add Metadata_ at the bottom applies to both. Next to it, _Shut off Computer after Render_ shuts the computer down 60 seconds after a quilt render has completed (not after a cancelled or failed one), e.g., for overnight renders; it also works for headless renders. Programs with unsaved changes are closed without asking. The shutdown can be aborted within the 60 seconds with `shutdown /a` (Windows) or `shutdown -c` (Linux).
 
 ### Cast to Looking Glass
 

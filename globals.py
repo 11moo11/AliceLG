@@ -239,6 +239,25 @@ class LookingGlassAddon:
 		if camera_data.type == 'PANO': return 0.0
 		return 0.5 * offset / camera_size
 
+	# shut the computer down after a short delay, so that the user can still abort it
+	# NOTE: Programs with unsaved changes are closed without asking (otherwise they could block the shutdown).
+	@staticmethod
+	def shutdown_computer(delay = 60):
+		import subprocess
+		try:
+			if sys.platform == 'win32':
+				subprocess.Popen(['shutdown', '/s', '/f', '/t', str(delay), '/c', 'Alice/LG: the render is finished. Run "shutdown /a" to abort.'])
+			elif sys.platform == 'darwin':
+				subprocess.Popen(['osascript', '-e', 'tell application "System Events" to shut down'])
+			else:
+				subprocess.Popen(['shutdown', '-h', '+%i' % max(1, delay // 60)])
+			LookingGlassAddonLogger.info("The computer is shut down in %i seconds." % delay)
+			print("Alice/LG: The render is finished. The computer shuts down in %i seconds (abort: %s)." % (delay, 'shutdown /a' if sys.platform == 'win32' else 'shutdown -c'), flush = True)
+			return True
+		except Exception as e:
+			LookingGlassAddonLogger.warning("Could not shut down the computer: %s" % e)
+			return False
+
 	@staticmethod
 	def move_to_trash(path):
 		import subprocess, shutil
