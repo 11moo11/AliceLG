@@ -1327,6 +1327,15 @@ class LookingGlassAddonSettingsScene(bpy.types.PropertyGroup):
 										default = (True, True, False),
 										)
 
+	# COMPOSITION GUIDES (drawn over every view)
+	viewport_guide_center: bpy.props.BoolProperty(name="Center", description="Show the center lines in the Looking Glass", default = False)
+	viewport_guide_diagonal: bpy.props.BoolProperty(name="Diagonals", description="Show the diagonals in the Looking Glass", default = False)
+	viewport_guide_thirds: bpy.props.BoolProperty(name="Thirds", description="Show the rule of thirds in the Looking Glass", default = False)
+	viewport_guide_golden: bpy.props.BoolProperty(name="Golden Ratio", description="Show the golden ratio lines in the Looking Glass", default = False)
+	viewport_guide_golden_triangle_a: bpy.props.BoolProperty(name="Golden Triangle A", description="Show the golden triangles (diagonal from the lower left) in the Looking Glass", default = False)
+	viewport_guide_golden_triangle_b: bpy.props.BoolProperty(name="Golden Triangle B", description="Show the golden triangles (diagonal from the upper left) in the Looking Glass", default = False)
+	viewport_guide_opacity: bpy.props.FloatProperty(name="Opacity", description="Opacity of the composition guides", default = 0.6, min = 0.05, max = 1.0, precision = 2, subtype = 'FACTOR')
+
 	viewport_grid_scale: bpy.props.FloatProperty(
 										name = "Grid Scale",
 										default = 1,
@@ -2290,6 +2299,16 @@ def draw_shading_overlays_settings(layout, context):
 			column.separator()
 			row = column.row(align = True)
 			row.prop(context.scene.addon_settings, "viewport_grid_scale")
+
+			column.separator()
+
+			row = column.row(align = True)
+			row.label(text="Composition Guides")
+			grid = column.grid_flow(row_major=True, columns=2, even_columns=True, even_rows=False, align=True)
+			for name in ("center", "diagonal", "thirds", "golden", "golden_triangle_a", "golden_triangle_b"):
+				grid.prop(context.scene.addon_settings, "viewport_guide_" + name)
+			row = column.row(align = True)
+			row.prop(context.scene.addon_settings, "viewport_guide_opacity", slider=True)
 
 			column.separator()
 

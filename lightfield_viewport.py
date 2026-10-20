@@ -732,7 +732,60 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			"viewport_show_floor", "viewport_show_axes", "viewport_grid_scale", "viewport_show_extras",
 			"viewport_show_relationship_lines", "viewport_show_outline_selected", "viewport_show_bones",
 			"viewport_show_motion_paths", "viewport_show_origins", "viewport_show_origins_all",
-			"viewport_show_wireframes", "viewport_wireframe_threshold", "viewport_show_face_orientation")}
+			"viewport_show_wireframes", "viewport_wireframe_threshold", "viewport_show_face_orientation",
+				"viewport_guide_center", "viewport_guide_diagonal", "viewport_guide_thirds", "viewport_guide_golden",
+				"viewport_guide_golden_triangle_a", "viewport_guide_golden_triangle_b", "viewport_guide_opacity")}
+
+	# the composition guides (custom viewport settings) as line batch for one view of the light field
+	# NOTE: The guides are drawn into every view, so they appear in the plane of the Looking Glass display.
+	#		The lines are defined in normalized view coordinates (0 to 1).
+	def composition_guide_batch(self):
+
+		settings = self.addon_settings_scene
+		if settings.viewportMode != 'CUSTOM': return None
+
+		# aspect ratio of the display (needed for the right angles of the triangles)
+		aspect = self.device.aspect if self.device else 1.0
+		lines = []
+
+		def line(x0, y0, x1, y1): lines.extend([(x0, y0), (x1, y1)])
+
+		if settings.viewport_guide_center:
+			line(0.5, 0, 0.5, 1)
+			line(0, 0.5, 1, 0.5)
+
+		if settings.viewport_guide_diagonal:
+			line(0, 0, 1, 1)
+			line(0, 1, 1, 0)
+
+		if settings.viewport_guide_thirds:
+			for p in (1 / 3, 2 / 3):
+				line(p, 0, p, 1)
+				line(0, p, 1, p)
+
+		if settings.viewport_guide_golden:
+			for p in (0.381966, 0.618034):
+				line(p, 0, p, 1)
+				line(0, p, 1, p)
+
+		# golden triangles: a diagonal and the perpendiculars from the two other corners
+		t0 = 1 / (aspect * aspect + 1)
+		t1 = 1 - t0
+		if settings.viewport_guide_golden_triangle_a:
+			line(0, 0, 1, 1)
+			line(0, 1, t0, t0)
+			line(1, 0, t1, t1)
+
+		if settings.viewport_guide_golden_triangle_b:
+			line(1, 0, 0, 1)
+			line(1, 1, 1 - t0, t0)
+			line(0, 0, 1 - t1, t1)
+
+		if not lines: return None
+
+		shader = gpu.shader.from_builtin('POLYLINE_UNIFORM_COLOR')
+		batch = batch_for_shader(shader, 'LINES', {"pos": [(x * 2 - 1, y * 2 - 1, 0.0) for x, y in lines]})
+		return shader, batch
 
 	# detect changes of the viewport shading & overlay settings (they do not trigger depsgraph updates)
 	def track_viewport_settings(self, context):
@@ -1094,6 +1147,12 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				# is a view-skipping preview active?
 				skipping = (self.addon_settings_window_manager.lightfield_preview_mode in ('2', '3', '5')) and self.skip_views > 1
 
+				# the composition guides of the custom viewport settings
+				try: guides = self.composition_guide_batch()
+				except Exception as e:
+					LookingGlassAddonLogger.debug("Could not prepare the composition guides: %s" % e)
+					guides = None
+
 				# loop through all required views
 				for view in range(0, self.qs[self.preset]["total_views"]):
 
@@ -1136,6 +1195,25 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 							view_matrix=view_matrix,
 							projection_matrix=projection_matrix,
 							do_color_management = True)
+
+						# draw the composition guides over the view
+						if guides is not None:
+							try:
+								shader, batch = guides
+								with gpu.matrix.push_pop():
+									gpu.matrix.load_matrix(Matrix.Identity(4))
+									gpu.matrix.load_projection_matrix(Matrix.Identity(4))
+									gpu.state.blend_set('ALPHA')
+									gpu.state.depth_test_set('NONE')
+									shader.bind()
+									shader.uniform_float("viewportSize", (self.qs[self.preset]["view_width"], self.qs[self.preset]["view_height"]))
+									shader.uniform_float("lineWidth", max(1.0, self.qs[self.preset]["view_height"] / 300))
+									shader.uniform_float("color", (1.0, 1.0, 1.0, float(self.addon_settings_scene.viewport_guide_opacity)))
+									batch.draw(shader)
+									gpu.state.blend_set('NONE')
+							except Exception as e:
+								LookingGlassAddonLogger.debug("Could not draw the composition guides: %s" % e)
+								guides = None
 
 						LookingGlassAddonLogger.debug(" [#] [%i] Drawing view into offscreen took %.3f ms" % (view, (time.time() - start_test) * 1000))
 
