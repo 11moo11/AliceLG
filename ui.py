@@ -1911,9 +1911,9 @@ class LOOKINGGLASS_PT_panel_render(bpy.types.Panel):
 
 		# metadata handling
 		layout.separator(type='SPACE')
-		row_options = layout.row(align = True)
-		row_options.prop(settings, "render_add_suffix", text="Add Metadata")
-		row_options.prop(settings, "shutdown_after_render", text="Shut off Computer after Render", icon='QUIT', toggle=True)
+		column_options = layout.column(align = True)
+		column_options.prop(settings, "render_add_suffix", text="Add Metadata")
+		column_options.prop(settings, "shutdown_after_render", text="Shut off Computer after Render")
 
 
 # an operator that renders the quilt in a separate background Blender process
