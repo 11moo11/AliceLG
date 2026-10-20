@@ -235,6 +235,22 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 									description="Send light fields as one named, replaced quilt in the cache of Looking Glass Bridge instead of as new images. This may reduce the memory that Bridge uses. If Bridge does not accept it, the add-on falls back to the normal way",
 									)
 
+	# experimental: cast Material Preview / Rendered shading with Eevee
+	experimental_eevee_cast: bpy.props.BoolProperty(
+									default=False,
+									name="Experimental: cast Eevee Material Preview / Rendered",
+									description="Allow Material Preview and Rendered shading with Eevee in the cast to the Looking Glass. This is blocked by default, because it can crash Blender. Save your work first",
+									)
+
+	# number of draws per view with Eevee, because Eevee refines its image over several redraws
+	eevee_cast_samples: bpy.props.IntProperty(
+									default=4,
+									min=1,
+									max=32,
+									name="Eevee draws per view",
+									description="Eevee refines its viewport image over several redraws. Every view is drawn this many times before it is read back. More draws give a cleaner image, but make the update slower",
+									)
+
 	# default quilt preset: used when a Blender file is loaded
 	default_quilt_preset: bpy.props.EnumProperty(
 									items = default_quilt_preset_items,
@@ -354,3 +370,5 @@ class LOOKINGGLASS_PT_preferences(AddonPreferences):
 
 		# experimental: next to the logging options
 		layout.prop(self, "bridge_cache_mode")
+		layout.prop(self, "experimental_eevee_cast")
+		if self.experimental_eevee_cast: layout.prop(self, "eevee_cast_samples")

@@ -893,7 +893,7 @@ class LookingGlassAddonUI:
 		try: engine = bpy.context.scene.render.engine
 		except Exception: engine = ''
 
-		if engine not in LookingGlassAddon.unsupported_cast_engines:
+		if engine not in LookingGlassAddon.blocked_cast_engines():
 			items.append(('MATERIAL', '', 'Use the current render engines material preview rendering mode', 'SHADING_RENDERED', 2))
 
 		return LookingGlassAddon.enum_string_cache_items(items)

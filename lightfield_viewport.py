@@ -533,7 +533,7 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 			self.addon_settings_window_manager.ShowLightfieldWindow = False
 
 		# custom shading settings: the material preview is not available for these render engines
-		if context.scene.render.engine in LookingGlassAddon.unsupported_cast_engines and self.addon_settings_scene.shadingMode == 'MATERIAL':
+		if context.scene.render.engine in LookingGlassAddon.blocked_cast_engines() and self.addon_settings_scene.shadingMode == 'MATERIAL':
 			self.addon_settings_scene.shadingMode = 'SOLID'
 
 		# cancel the operator, if the lightfield viewport was deactivated
@@ -612,10 +612,18 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				render_start = time.time()
 				try:
 					self.render_view(context)
+					self.failed_renders = 0
 				except Exception as e:
 
 					# a failed refresh must not stop the casting: log it and try again with the next change
 					LookingGlassAddonLogger.error("Rendering the views failed: %s" % e)
+					self.failed_renders = getattr(self, "failed_renders", 0) + 1
+
+					# after repeated failures, turn the cast off (e.g., an engine that cannot be drawn offscreen)
+					if self.failed_renders >= 3:
+						self.failed_renders = 0
+						LookingGlassAddonLogger.warning("Cast to Looking Glass was turned off after repeated failures.")
+						self.addon_settings_window_manager.ShowLightfieldWindow = False
 					try: self.restoreViewportSettings()
 					except Exception: pass
 					self.modal_redraw = False
@@ -1147,6 +1155,15 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 				# is a view-skipping preview active?
 				skipping = (self.addon_settings_window_manager.lightfield_preview_mode in ('2', '3', '5')) and self.skip_views > 1
 
+				# Eevee refines its viewport image over several redraws, so each view is drawn more than once
+				extra_draws = 0
+				try:
+					if context.scene.render.engine in LookingGlassAddon.eevee_engines and self._override.space_data.shading.type in ('MATERIAL', 'RENDERED'):
+						extra_draws = max(0, int(context.preferences.addons[__package__].preferences.eevee_cast_samples) - 1)
+						LookingGlassAddonLogger.debug("Eevee cast: %s shading, %i draws per view" % (self._override.space_data.shading.type, extra_draws + 1))
+				except Exception as e:
+					LookingGlassAddonLogger.debug("Could not read the Eevee cast settings: %s" % e)
+
 				# the composition guides of the custom viewport settings
 				try: guides = self.composition_guide_batch()
 				except Exception as e:
@@ -1183,6 +1200,17 @@ class LOOKINGGLASS_OT_render_viewport(bpy.types.Operator):
 
 						LookingGlassAddonLogger.debug(" [#] [%i] Setting up view camera took %.3f ms" % (view, (time.time() - start_test) * 1000))
 						start_test = time.time()
+
+						# the previous draws of the Eevee refinement
+						for _ in range(extra_draws):
+							self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
+								scene=context.scene,
+								view_layer=context.view_layer,
+								view3d=self._override.space_data,
+								region=self._override.region,
+								view_matrix=view_matrix,
+								projection_matrix=projection_matrix,
+								do_color_management = True)
 
 						# draw the viewport rendering to the offscreen for the current view
 						self.qs[self.preset]["viewOffscreen"][view].draw_view3d(
