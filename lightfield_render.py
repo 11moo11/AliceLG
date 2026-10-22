@@ -502,7 +502,16 @@ class RenderJob:
 			# if the file does not exist
 			else:
 
-				LookingGlassAddonLogger.debug(" [#] Could not find file for view %i: %s" % (view, self.view_filepath(view)))
+				# a large view file may still be written to the disk: wait a few seconds
+				for _ in range(25):
+					time.sleep(0.2)
+					if os.path.exists(self.view_filepath(view)): break
+
+				if os.path.exists(self.view_filepath(view)):
+					return self.assemble_quilt()
+
+				LookingGlassAddonLogger.warning("Could not assemble the quilt: the file for view %i of %i is missing: %s" % (view, self.total_views, self.view_filepath(view)))
+				print("Alice/LG: Could not assemble the quilt: the file for view %i of %i is missing: %s" % (view, self.total_views, self.view_filepath(view)), flush = True)
 				LookingGlassAddonLogger.debug(" [#] Cancel render job continuation.")
 
 				# cancel the operator
@@ -2055,17 +2064,28 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 					start = time.time()
 
 					# assemble the quilt from the view data
-					if not self.render_settings.job.assemble_quilt():
+					quilt_error = None
+					try: quilt = self.render_settings.job.assemble_quilt()
+					except Exception as e:
+						import traceback
+						quilt = None
+						quilt_error = str(e)
+						LookingGlassAddonLogger.error("Assembling the quilt failed: %s" % e)
+						print("Alice/LG: Assembling the quilt failed:\n" + traceback.format_exc(), flush = True)
+
+					# NOTE: Without a quilt image, the job is only a failure if a quilt was requested ("Only View Files" has none).
+					if not quilt and (quilt_error is not None or self.render_settings.addon_settings.render_output != '2'):
 
 						# cancel the operator
 						self.render_settings.addon_settings.render_stop = True
 
-						# force the operator to keep the view Files
-						self.file_force_keep = True
+						# force the job to keep the view files
+						self.render_settings.job.file_force_keep = True
 
 						# notify user
 						self.cancel_sign = "ERROR"
-						self.cancel_message = "Render job can not be continued. Missing view file(s) of the previously failed render job."
+						if quilt_error is not None: self.cancel_message = "The quilt could not be assembled (%s). The view files were kept." % quilt_error
+						else: self.cancel_message = "The quilt could not be assembled: view file(s) are missing. The existing view files were kept."
 
 
 					# QUILT DISPLAY AS RENDER RESULT
