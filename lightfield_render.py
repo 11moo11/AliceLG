@@ -630,11 +630,12 @@ class RenderJob:
 				self.remove_file(self.view_filepath(view, frame), trash)
 
 		# delete the quilt file, if the user initially specified no file name
-		# AND this is not an animation
+		# AND this is not an animation AND the quilt is shown in Blender
 		# NOTE: This is done, because this is Blenders behavior for normal renders
-		#		if no filename is specifed
+		#		if no filename is specifed. A headless render has no window that shows the
+		#		render result, so its quilt is always kept.
 		file_dirname, file_basename = os.path.split(self.outputpath)
-		if not file_basename and not self.animation:
+		if not file_basename and not self.animation and not self.blocking:
 
 			# delete the quilt file, if it exists
 			if os.path.isfile(self.quilt_filepath(frame)):
