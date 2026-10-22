@@ -1641,14 +1641,14 @@ class LOOKINGGLASS_OT_render_quilt(bpy.types.Operator):
 				# for all frames of the animation
 				for frame in range(self.render_settings.job.scene.frame_start, self.render_settings.job.scene.frame_end + self.render_settings.frame_step):
 
-					# delete views (a discarded render job is moved to the recycle bin)
-					self.render_settings.job.delete_files(frame, trash = self.discard_lockfile)
+					# delete views (moved to the recycle bin)
+					self.render_settings.job.delete_files(frame, trash = True)
 
 			# if it was a still image
 			elif not self.render_settings.job.animation:
 
-				#  delete its views (a discarded render job is moved to the recycle bin)
-				self.render_settings.job.delete_files(trash = self.discard_lockfile)
+				#  delete its views (moved to the recycle bin)
+				self.render_settings.job.delete_files(trash = True)
 
 
 
